@@ -1,14 +1,13 @@
 /**
  * Language version mappings for Piston API execution
- * Single source of truth for all language versions
  */
 export const languageVersions = {
   javascript: "18.15.0",
-  typescript: "5.0.3",
-  python: "3.10.0",
-  java: "15.0.2",
-  csharp: "6.12.0",
-  php: "8.2.3",
+  // typescript: "5.0.3",
+  // python: "3.10.0",
+  // java: "15.0.2",
+  // csharp: "6.12.0",
+  // php: "8.2.3",
 } as const;
 
 export type Language = keyof typeof languageVersions;
