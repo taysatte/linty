@@ -12,6 +12,7 @@
     "prisma:studio": "pnpm dlx dotenv-cli -e .env.development -- prisma studio",
     "prisma:db:push": "pnpm dlx dotenv-cli -e .env.development -- prisma db push",
     "prisma:seed": "pnpm dlx dotenv-cli -e .env.development -- tsx prisma/seed.ts",
+    "prisma:seed:prod": "pnpm dlx dotenv-cli -e .env.production -- tsx prisma/seed.ts",
     "prisma:generate:prod": "pnpm dlx dotenv-cli -e .env.production -- prisma generate",
     "prisma:migrate:prod": "pnpm dlx dotenv-cli -e .env.production -- prisma migrate deploy",
     "prisma:db:push:prod": "pnpm dlx dotenv-cli -e .env.production -- prisma db push",
