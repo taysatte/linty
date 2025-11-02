@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { Inter, Fira_Code } from "next/font/google";
+import { Geist, Fira_Code } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
@@ -31,10 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
+      <body className={`${geist.variable} ${firaCode.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
