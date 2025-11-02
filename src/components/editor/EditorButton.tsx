@@ -40,7 +40,7 @@ export const EditorButton = ({
         className
       )}
     >
-      <Icon className="size-4 stroke-3 text-primary/80" />
+      <Icon className="size-4 stroke-3 text-primary/90" />
       {label}
     </Button>
   );
