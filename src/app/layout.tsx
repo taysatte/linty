@@ -14,7 +14,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Buggle",
+  title: "linty.io",
   description: "The daily coding challenge.",
 };
 

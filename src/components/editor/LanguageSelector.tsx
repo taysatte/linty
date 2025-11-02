@@ -22,7 +22,7 @@ export const LanguageSelector = ({
     // Explicit type guard: only setLanguage if value is a supported Language
     if (Object.keys(languageVersions).includes(value)) {
       setLanguage(value as Language);
-      localStorage.setItem("buggle-selected-language", value);
+      localStorage.setItem("linty-selected-language", value);
     }
   };
 

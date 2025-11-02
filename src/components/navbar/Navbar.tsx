@@ -11,11 +11,11 @@ export default function Navbar() {
     <nav className="px-2 md:px-4 md:pt-2 flex flex-row items-center h-[64px] w-full">
       <div className="flex-1 flex justify-start h-full">
         <Image
-          src="/svgs/buggle-bug-logo.svg"
+          src="/svgs/linty-logo.svg"
           fetchPriority="high"
           priority
           loading="eager"
-          alt="Buggle Bug Logo"
+          alt="Linty Logo"
           width={0}
           height={0}
           className="w-[32px] md:w-[38px] h-auto"
@@ -45,7 +45,7 @@ export default function Navbar() {
         </div>
         <Avatar className="sm:ml-2 w-8 h-8 md:w-10 md:h-10">
           <AvatarImage src="https://avatar.iran.liara.run/public" />
-          <AvatarFallback>BG</AvatarFallback>
+          <AvatarFallback>LY</AvatarFallback>
         </Avatar>
       </div>
     </nav>
