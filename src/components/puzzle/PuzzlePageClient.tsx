@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { RunCodeProps } from "@/app/types";
+import PuzzleDescClient from "@/components/puzzle/PuzzleDescClient";
 
-interface PuzzlePageClientProps {
+export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
     dailyPuzzleId: number;
@@ -39,7 +40,6 @@ interface PuzzlePageClientProps {
 }
 
 const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
-  const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
   const [isOutputOpen, setIsOutputOpen] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -95,13 +95,11 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
             <ResizablePanel defaultSize={60}>
               <ResizablePanelGroup direction="vertical">
                 <ResizablePanel defaultSize={70} className="pl-0 p-2">
-                  <Card className="shadow-lg h-full w-full pt-4 pb-4">
-                    <CodeEditor
-                      onRunCode={handleRunCode}
-                      isLoading={isLoading}
-                      initialCode={puzzle.starterCode}
-                    />
-                  </Card>
+                  <CodeEditor
+                    onRunCode={handleRunCode}
+                    isLoading={isLoading}
+                    initialCode={puzzle.starterCode}
+                  />
                 </ResizablePanel>
                 <ResizableHandle />
                 <ResizablePanel
@@ -110,43 +108,17 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   defaultSize={30}
                   className="pl-0 p-2"
                 >
-                  <Card className="shadow-lg h-full w-full p-4">
-                    <Output
-                      output={output}
-                      isLoading={isLoading}
-                      testsPassed={testsPassed}
-                    />
-                  </Card>
+                  <Output
+                    output={output}
+                    isLoading={isLoading}
+                    testsPassed={testsPassed}
+                  />
                 </ResizablePanel>
               </ResizablePanelGroup>
             </ResizablePanel>
             <ResizableHandle />
             <ResizablePanel defaultSize={40} className="pr-0 p-2">
-              <Card className="shadow-lg h-full w-full p-4">
-                <div className="space-y-4">
-                  <div>
-                    <h2 className="text-xl font-bold">{puzzle.title}</h2>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {puzzle.difficulty && (
-                        <span className="capitalize">{puzzle.difficulty}</span>
-                      )}
-                    </p>
-                  </div>
-                  <div className="text-sm text-muted-foreground whitespace-pre-wrap">
-                    {puzzle.description}
-                  </div>
-                  {puzzle.hints && (
-                    <details className="text-sm">
-                      <summary className="cursor-pointer font-semibold">
-                        Hints
-                      </summary>
-                      <div className="mt-2 text-muted-foreground whitespace-pre-wrap">
-                        {puzzle.hints}
-                      </div>
-                    </details>
-                  )}
-                </div>
-              </Card>
+              <PuzzleDescClient puzzle={puzzle} />
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>
@@ -154,35 +126,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         {/* Mobile Layout - Visible on mobile only */}
         <div className="md:hidden flex flex-col h-full gap-2">
           {/* Puzzle Description - Collapsible */}
-          <Collapsible open={isPuzzleOpen} onOpenChange={setIsPuzzleOpen}>
-            <Card className="shadow-lg p-0">
-              <CollapsibleTrigger className="w-full p-3 flex items-center justify-between transition-all duration-100 hover:bg-primary/5">
-                <p className="text-lg font-bold text-primary">{puzzle.title}</p>
-                {isPuzzleOpen ? (
-                  <ChevronUp className="text-primary/60 h-4 w-4" />
-                ) : (
-                  <ChevronDown className="text-primary/60 h-4 w-4" />
-                )}
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <div className="px-3 pb-3">
-                  <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                    {puzzle.description}
-                  </p>
-                  {puzzle.hints && (
-                    <details className="mt-2 text-sm">
-                      <summary className="cursor-pointer font-semibold">
-                        Hints
-                      </summary>
-                      <div className="mt-2 text-muted-foreground whitespace-pre-wrap">
-                        {puzzle.hints}
-                      </div>
-                    </details>
-                  )}
-                </div>
-              </CollapsibleContent>
-            </Card>
-          </Collapsible>
+          <PuzzleDescClient puzzle={puzzle} />
 
           {/* Code Editor */}
           <Card className="shadow-lg flex-1 py-4 overflow-hidden">
