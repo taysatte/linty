@@ -5,7 +5,7 @@
 
 ---
 
-### 🪲 linty.io - The Daily Coding Challenge
+### linty.io - The Daily Coding Challenge
 
 Ever played Wordle? Now imagine that, but for debugging code. Every day, linty.io throws you a new code snippet with a sneaky bug hiding in it. Your mission? Find it, fix it, and get the right output - all in a limited number of tries.
 
