@@ -21,7 +21,7 @@ export default function StatusBar({
     typeof attemptsLeft === "number" && attemptsLeft === 0;
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1">
       {/* Streak Counter */}
       {streak !== undefined && (
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-card shadow-sm">

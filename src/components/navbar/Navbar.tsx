@@ -54,7 +54,6 @@ export default function Navbar({
         </Item>
       </div>
       <div className="flex-1 flex gap-2 md:gap-4 justify-end items-center h-full">
-        <div className="flex flex-1 gap-2 justify-end items-center h-full"></div>
         <StatusBar
           streak={streak ?? 5}
           attemptsLeft={attemptsLeft}

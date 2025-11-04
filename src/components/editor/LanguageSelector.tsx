@@ -42,7 +42,7 @@ export const LanguageSelector = ({
                 key={lang}
                 value={lang}
               >
-                <span className="text-foreground/60 text-sm font-semibold font-mono">
+                <span className="text-foreground/90 text-sm font-semibold font-mono">
                   {languageName}
                 </span>
               </SelectItem>

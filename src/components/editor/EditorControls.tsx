@@ -32,19 +32,10 @@ export const EditorControls = ({
       <div className="flex flex-row items-center gap-4">
         <ButtonGroup
           orientation="horizontal"
-          className="gap-0 border border-border rounded-lg"
+          className="gap-0 border border-border rounded-lg shadow-sm"
         >
           <RunButton onRun={onRun} isLoading={isLoading} />
           <ResetButton onReset={onReset} disabled={isLoading} />
-        </ButtonGroup>
-        <div className="h-6 hidden sm:block">
-          <Separator
-            className="hidden sm:block md:block"
-            orientation="vertical"
-            decorative
-          />
-        </div>
-        <ButtonGroup orientation="horizontal" className="gap-0">
           <SubmitButton
             onSubmit={onSubmit}
             isLoading={isLoading}

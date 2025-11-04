@@ -14,7 +14,7 @@ export const RunButton = ({
 }: RunButtonProps) => {
   return (
     <EditorButton
-      size="lg"
+      size="default"
       onClick={onRun}
       icon={PlayIcon}
       label="Run"

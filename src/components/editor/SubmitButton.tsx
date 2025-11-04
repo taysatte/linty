@@ -23,20 +23,18 @@ export const SubmitButton = ({
 
   return (
     <Button
-      size="lg"
+      size="default"
       onClick={onSubmit}
       disabled={disabled || isLoading || isOutOfAttempts}
       variant="default"
       className={cn(
-        "cursor-pointer font-semibold shadow-sm",
-        "bg-chart-2/30 text-foreground hover:bg-chart-2/40",
-        "border-2 border-chart-2/10",
+        "cursor-pointer font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/90 shadow-sm",
         // Disabled state when out of attempts
         isOutOfAttempts && "opacity-50 cursor-not-allowed"
       )}
     >
-      <SendIcon className="size-4 stroke-3 text-chart-2/80" />
-      <span className="hidden md:inline">Submit</span>
+      <SendIcon className="size-4 stroke-3 text-primary/90" />
+      <span className="hidden sm:hidden md:inline">Submit</span>
     </Button>
   );
 };

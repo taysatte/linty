@@ -134,7 +134,6 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
 
         {/* Mobile Layout - Visible on mobile only */}
         <div className="md:hidden flex flex-col h-full gap-2">
-          <PuzzleDescClient puzzle={puzzle} />
           <CodeEditor
             onRunCode={handleRunCode}
             isLoading={isLoading}
@@ -142,6 +141,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
             attemptsLeft={attemptsLeft ?? undefined}
             maxAttempts={maxAttempts}
           />
+          <PuzzleDescClient puzzle={puzzle} />
           <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
             <Card className="shadow-lg p-0">
               <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">

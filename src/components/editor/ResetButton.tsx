@@ -12,7 +12,7 @@ export const ResetButton = ({
 }: ResetButtonProps) => {
   return (
     <EditorButton
-      size="lg"
+      size="default"
       onClick={onReset}
       icon={RotateCcwIcon}
       label="Reset"
