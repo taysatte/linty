@@ -36,7 +36,7 @@ export const SubmitButton = ({
       )}
     >
       <SendIcon className="size-4 stroke-3 text-chart-2/80" />
-      <span>Submit</span>
+      <span className="hidden md:inline">Submit</span>
     </Button>
   );
 };

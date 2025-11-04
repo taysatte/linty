@@ -99,7 +99,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         {/* Desktop Layout - Hidden on mobile */}
         <div className="hidden md:block h-full">
           <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel defaultSize={60}>
+            <ResizablePanel defaultSize={65}>
               <ResizablePanelGroup direction="vertical">
                 <ResizablePanel defaultSize={70} className="pl-0 p-2">
                   <CodeEditor
@@ -126,7 +126,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               </ResizablePanelGroup>
             </ResizablePanel>
             <ResizableHandle />
-            <ResizablePanel defaultSize={40} className="pr-0 p-2">
+            <ResizablePanel defaultSize={35} className="pr-0 p-2">
               <PuzzleDescClient puzzle={puzzle} />
             </ResizablePanel>
           </ResizablePanelGroup>
@@ -134,21 +134,14 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
 
         {/* Mobile Layout - Visible on mobile only */}
         <div className="md:hidden flex flex-col h-full gap-2">
-          {/* Puzzle Description - Collapsible */}
           <PuzzleDescClient puzzle={puzzle} />
-
-          {/* Code Editor */}
-          <Card className="shadow-lg flex-1 py-4 overflow-hidden">
-            <CodeEditor
-              onRunCode={handleRunCode}
-              isLoading={isLoading}
-              initialCode={puzzle.starterCode}
-              attemptsLeft={attemptsLeft ?? undefined}
-              maxAttempts={maxAttempts}
-            />
-          </Card>
-
-          {/* Output - Collapsible */}
+          <CodeEditor
+            onRunCode={handleRunCode}
+            isLoading={isLoading}
+            initialCode={puzzle.starterCode}
+            attemptsLeft={attemptsLeft ?? undefined}
+            maxAttempts={maxAttempts}
+          />
           <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
             <Card className="shadow-lg p-0">
               <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
@@ -156,9 +149,9 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   output
                 </p>
                 {isOutputOpen ? (
-                  <ChevronUp className="text-primary/60 h-4 w-4" />
+                  <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
                 ) : (
-                  <ChevronDown className="text-primary/60 h-4 w-4" />
+                  <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
                 )}
               </CollapsibleTrigger>
               <CollapsibleContent>

@@ -39,7 +39,7 @@ export const EditorControls = ({
         </ButtonGroup>
         <div className="h-6 hidden sm:block">
           <Separator
-            className="hidden sm:hidden md:block"
+            className="hidden sm:block md:block"
             orientation="vertical"
             decorative
           />

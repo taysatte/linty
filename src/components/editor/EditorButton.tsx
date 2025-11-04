@@ -41,7 +41,7 @@ export const EditorButton = ({
       )}
     >
       <Icon className="size-4 stroke-3 text-primary/90" />
-      {label}
+      <span className="hidden md:inline">{label}</span>
     </Button>
   );
 };
