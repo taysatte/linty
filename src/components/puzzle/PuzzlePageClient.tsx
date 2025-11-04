@@ -40,6 +40,10 @@ export interface PuzzlePageClientProps {
 }
 
 const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
+  const EDITOR_OUTPUT_GROUP_DEFAULT_SIZE = 65;
+  const PUZZLE_DESC_GROUP_DEFAULT_SIZE = 35;
+  const EDITOR_HORIZ_DEFAULT_SIZE = 95;
+  const OUTPUT_HORIZ_DEFAULT_SIZE = 5;
   const [isOutputOpen, setIsOutputOpen] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -99,9 +103,12 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         {/* Desktop Layout - Hidden on mobile */}
         <div className="hidden md:block h-full">
           <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel defaultSize={65}>
+            <ResizablePanel defaultSize={EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
               <ResizablePanelGroup direction="vertical">
-                <ResizablePanel defaultSize={70} className="pl-0 p-2">
+                <ResizablePanel
+                  defaultSize={EDITOR_HORIZ_DEFAULT_SIZE}
+                  className="pl-0 p-2"
+                >
                   <CodeEditor
                     onRunCode={handleRunCode}
                     isLoading={isLoading}
@@ -114,7 +121,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                 <ResizablePanel
                   collapsible
                   collapsedSize={0}
-                  defaultSize={30}
+                  defaultSize={OUTPUT_HORIZ_DEFAULT_SIZE}
                   className="pl-0 p-2"
                 >
                   <Output
@@ -126,7 +133,10 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               </ResizablePanelGroup>
             </ResizablePanel>
             <ResizableHandle />
-            <ResizablePanel defaultSize={35} className="pr-0 p-2">
+            <ResizablePanel
+              defaultSize={PUZZLE_DESC_GROUP_DEFAULT_SIZE}
+              className="pr-0 p-2"
+            >
               <PuzzleDescClient puzzle={puzzle} />
             </ResizablePanel>
           </ResizablePanelGroup>
