@@ -46,6 +46,7 @@ model Puzzle {
   hints       String?  @db.Text 
   language    String? 
   testCases   TestCase[]
+  tags        String[]
   submissions Submission[]
   dailyPuzzles DailyPuzzle[]
   createdAt   DateTime @default(now())

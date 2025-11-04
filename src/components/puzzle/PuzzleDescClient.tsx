@@ -10,6 +10,7 @@ import {
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { PuzzlePageClientProps } from "./PuzzlePageClient";
 import { Item, ItemContent } from "@/components/ui/item";
+import { Separator } from "../ui/separator";
 
 const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
@@ -59,26 +60,33 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
           </div>
           {puzzle.testCases && puzzle.testCases.length > 0 && (
             <div className="text-sm">
-              <div className="cursor-pointer font-semibold">Test Cases</div>
+              <div className="font-semibold">Test Cases</div>
+              <div className="w-full bg-border">
+                <Separator
+                  decorative
+                  orientation="horizontal"
+                  className="my-2"
+                />
+              </div>
               <div className="mt-2 space-y-2">
                 {puzzle.testCases.map((testCase, index) => (
                   <div
                     key={testCase.id}
-                    className="p-2 rounded bg-muted/30 border border-border"
+                    className="p-2 rounded-lg bg-muted/10 border border-border"
                   >
                     <div className="font-medium text-xs text-muted-foreground mb-1">
                       Test Case {index + 1}
                     </div>
-                    <div className="text-xs space-y-1">
+                    <div className="text-xs space-y-1.5">
                       <div>
                         <span className="font-semibold">Input:</span>{" "}
-                        <code className="px-1 py-0.5 rounded bg-background text-xs">
+                        <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-xs">
                           {testCase.input}
                         </code>
                       </div>
                       <div>
                         <span className="font-semibold">Expected:</span>{" "}
-                        <code className="px-1 py-0.5 rounded bg-background text-xs">
+                        <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-xs">
                           {testCase.expectedOutput}
                         </code>
                       </div>
@@ -122,25 +130,32 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             {puzzle.testCases && puzzle.testCases.length > 0 && (
               <div className="mt-2 text-sm">
                 <div className="cursor-pointer font-semibold">Test Cases</div>
+                <div className="w-full bg-border">
+                  <Separator
+                    decorative
+                    orientation="horizontal"
+                    className="my-2"
+                  />
+                </div>
                 <div className="mt-2 space-y-2">
                   {puzzle.testCases.map((testCase, index) => (
                     <div
                       key={testCase.id}
-                      className="p-2 rounded bg-muted/30 border border-border"
+                      className="p-2 rounded-lg bg-muted/10 border border-border"
                     >
                       <div className="font-medium text-xs text-muted-foreground mb-1">
                         Test Case {index + 1}
                       </div>
-                      <div className="text-xs space-y-1">
+                      <div className="text-xs space-y-1.5">
                         <div>
                           <span className="font-semibold">Input:</span>{" "}
-                          <code className="px-1 py-0.5 rounded bg-background text-xs">
+                          <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-xs">
                             {testCase.input}
                           </code>
                         </div>
                         <div>
                           <span className="font-semibold">Expected:</span>{" "}
-                          <code className="px-1 py-0.5 rounded bg-background text-xs">
+                          <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-xs">
                             {testCase.expectedOutput}
                           </code>
                         </div>

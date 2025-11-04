@@ -124,11 +124,13 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   defaultSize={OUTPUT_HORIZ_DEFAULT_SIZE}
                   className="pl-0 p-2"
                 >
-                  <Output
-                    output={output}
-                    isLoading={isLoading}
-                    testsPassed={testsPassed}
-                  />
+                  <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
+                    <Output
+                      output={output}
+                      isLoading={isLoading}
+                      testsPassed={testsPassed}
+                    />
+                  </Card>
                 </ResizablePanel>
               </ResizablePanelGroup>
             </ResizablePanel>
@@ -165,13 +167,15 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                 )}
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="px-3 pb-3 max-h-[200px] overflow-auto">
-                  <Output
-                    output={output}
-                    isLoading={isLoading}
-                    testsPassed={testsPassed}
-                  />
-                </div>
+                <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
+                  <div className="px-3 pb-3 max-h-[200px] overflow-auto">
+                    <Output
+                      output={output}
+                      isLoading={isLoading}
+                      testsPassed={testsPassed}
+                    />
+                  </div>
+                </Card>
               </CollapsibleContent>
             </Card>
           </Collapsible>
