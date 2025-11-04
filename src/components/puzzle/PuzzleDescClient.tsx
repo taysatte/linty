@@ -74,11 +74,13 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     <Collapsible open={isPuzzleOpen} onOpenChange={setIsPuzzleOpen}>
       <Card className="shadow-lg p-0">
         <CollapsibleTrigger className="w-full p-3 flex items-center justify-between transition-all duration-100 hover:bg-primary/5">
-          <p className="text-lg font-bold text-primary">{puzzle.title}</p>
+          <div className="text-lg bg-primary/5 px-3 py-1.5 rounded-lg font-black text-primary">
+            {puzzle.title.toLowerCase().replaceAll(" ", "-")}
+          </div>
           {isPuzzleOpen ? (
-            <ChevronUp className="text-primary/60 h-4 w-4" />
+            <ChevronUp className="text-muted-foreground/80 h-5 w-5" />
           ) : (
-            <ChevronDown className="text-primary/60 h-4 w-4" />
+            <ChevronDown className="text-muted-foreground/80 h-5 w-5" />
           )}
         </CollapsibleTrigger>
         <CollapsibleContent>
