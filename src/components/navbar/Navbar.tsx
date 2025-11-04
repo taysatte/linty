@@ -6,9 +6,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Item, ItemContent, ItemMedia } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import Timer from "@/components/navbar/Timer";
-import Streak from "@/components/navbar/Streak";
+import StatusBar from "@/components/navbar/StatusBar";
 
-export default function Navbar() {
+interface NavbarProps {
+  streak?: number;
+  attemptsLeft?: number | null;
+  maxAttempts?: number;
+}
+
+export default function Navbar({
+  streak,
+  attemptsLeft,
+  maxAttempts,
+}: NavbarProps = {}) {
   return (
     <nav className="px-2 md:px-4 md:pt-2 flex flex-row items-center h-[64px] w-full">
       <div className="flex-1 flex justify-start h-full">
@@ -45,7 +55,11 @@ export default function Navbar() {
       </div>
       <div className="flex-1 flex gap-2 md:gap-4 justify-end items-center h-full">
         <div className="flex flex-1 gap-2 justify-end items-center h-full"></div>
-        <Streak streak={5} />
+        <StatusBar
+          streak={streak ?? 5}
+          attemptsLeft={attemptsLeft}
+          maxAttempts={maxAttempts}
+        />
         {/* TODO: Implement user settings */}
         <div className="h-6 hidden sm:block">
           <Separator

@@ -44,6 +44,9 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
+  // TODO: Track submission attempts - fetch from API or manage in state
+  const [attemptsLeft, setAttemptsLeft] = useState<number | null>(3);
+  const maxAttempts = 3;
 
   const handleRunCode = async ({ code, language }: RunCodeProps) => {
     setIsLoading(true);
@@ -86,7 +89,11 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        streak={5}
+        attemptsLeft={attemptsLeft}
+        maxAttempts={maxAttempts}
+      />
       {/* Main content area */}
       <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
         {/* Desktop Layout - Hidden on mobile */}
@@ -99,9 +106,11 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     onRunCode={handleRunCode}
                     isLoading={isLoading}
                     initialCode={puzzle.starterCode}
+                    attemptsLeft={attemptsLeft ?? undefined}
+                    maxAttempts={maxAttempts}
                   />
+                  <ResizableHandle />
                 </ResizablePanel>
-                <ResizableHandle />
                 <ResizablePanel
                   collapsible
                   collapsedSize={0}
@@ -134,6 +143,8 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               onRunCode={handleRunCode}
               isLoading={isLoading}
               initialCode={puzzle.starterCode}
+              attemptsLeft={attemptsLeft ?? undefined}
+              maxAttempts={maxAttempts}
             />
           </Card>
 

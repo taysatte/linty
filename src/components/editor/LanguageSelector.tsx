@@ -35,14 +35,14 @@ export const LanguageSelector = ({
         <SelectGroup>
           <SelectLabel>Languages</SelectLabel>
           {Object.entries(languageVersions).map(([lang, version]) => {
-            const languageName = lang === "javascript" ? "js" : lang;
+            const languageName = lang.toLowerCase();
             return (
               <SelectItem
                 className="cursor-pointer flex items-center justify-between gap-2"
                 key={lang}
                 value={lang}
               >
-                <span className="text-muted-foreground/80 font-semibold font-mono">
+                <span className="text-foreground/60 text-sm font-semibold font-mono">
                   {languageName}
                 </span>
               </SelectItem>

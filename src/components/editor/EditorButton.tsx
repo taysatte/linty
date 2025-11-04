@@ -36,7 +36,7 @@ export const EditorButton = ({
       onClick={onClick}
       disabled={disabled || isLoading}
       className={cn(
-        "cursor-pointer font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/90 shadow-sm rounded-lg",
+        "cursor-pointer font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/90 shadow-sm",
         className
       )}
     >

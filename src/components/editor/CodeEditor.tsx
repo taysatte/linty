@@ -4,7 +4,6 @@ import React, { useRef, useState, useMemo, useEffect } from "react";
 import RosePine from "@/themes/rose-pine.json";
 import { Editor, Monaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
-import { puzzle } from "@/components/editor/puzzle";
 import { options } from "@/components/editor/options";
 import { EditorControls } from "@/components/editor/EditorControls";
 import { useIsMobile } from "@/lib/useMediaQuery";
@@ -12,17 +11,21 @@ import { CodeEditorProps } from "@/components/editor/types";
 import { type Language, isSupportedLanguage } from "@/lib/languageVersions";
 import { Card } from "../ui/card";
 
-const CodeEditor = ({ onRunCode, isLoading, initialCode }: CodeEditorProps) => {
-  const [value, setValue] = useState<string>(initialCode || puzzle);
+const CodeEditor = ({
+  onRunCode,
+  isLoading,
+  initialCode,
+  attemptsLeft,
+  maxAttempts,
+}: CodeEditorProps) => {
+  const [value, setValue] = useState<string>(initialCode ?? "");
 
-  // Update editor content when initialCode prop changes (e.g., new puzzle)
   useEffect(() => {
     if (initialCode) {
       setValue(initialCode);
     }
   }, [initialCode]);
   const [language, setLanguage] = useState<Language>("javascript");
-  const [version, setVersion] = useState<string>("18.15.0");
   const [theme, setTheme] = useState<string>("RosePine");
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const isMobile = useIsMobile();
@@ -64,6 +67,10 @@ const CodeEditor = ({ onRunCode, isLoading, initialCode }: CodeEditorProps) => {
     // TODO: Implement submit logic
   };
 
+  const handleReset = () => {
+    setValue(initialCode ?? "");
+  };
+
   return (
     <Card className="shadow-lg h-full w-full pt-4 pb-4">
       <div className="flex flex-col h-full">
@@ -73,6 +80,9 @@ const CodeEditor = ({ onRunCode, isLoading, initialCode }: CodeEditorProps) => {
           isLoading={isLoading}
           onRun={handleRun}
           onSubmit={handleSubmit}
+          onReset={handleReset}
+          attemptsLeft={attemptsLeft}
+          maxAttempts={maxAttempts}
         />
         <div className="flex-1 min-h-0">
           <Editor
