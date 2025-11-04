@@ -30,7 +30,10 @@ export const EditorControls = ({
   return (
     <div className="px-2 pb-4 lg:px-4 md:px-4 sm:px-2 sm:pb-4 flex sm:flex-row justify-between items-center sm:items-center gap-2 border-b border-border">
       <div className="flex flex-row items-center gap-4">
-        <ButtonGroup orientation="horizontal" className="gap-0">
+        <ButtonGroup
+          orientation="horizontal"
+          className="gap-0 border border-border rounded-lg"
+        >
           <RunButton onRun={onRun} isLoading={isLoading} />
           <ResetButton onReset={onReset} disabled={isLoading} />
         </ButtonGroup>

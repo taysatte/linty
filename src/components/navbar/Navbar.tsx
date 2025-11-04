@@ -36,7 +36,7 @@ export default function Navbar({
       <div className="flex-1 flex items-center justify-center h-full">
         <Item
           variant="default"
-          className="px-4 sm:px-4 sm:py-1.5 md:px-4 py-1.5 md:py-1.5 gap-3 rounded-2xl border border-border bg-card shadow-sm"
+          className="px-4 sm:px-4 sm:py-1.5 md:px-4 py-1.5 md:py-1.5 gap-3 rounded-xl border border-border bg-card shadow-sm"
         >
           <ItemMedia className="hidden sm:block">
             <TimerIcon className="text-primary stroke-3" size={18} />

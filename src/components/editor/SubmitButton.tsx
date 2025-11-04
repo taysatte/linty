@@ -30,12 +30,12 @@ export const SubmitButton = ({
       className={cn(
         "cursor-pointer font-semibold shadow-sm",
         "bg-chart-2/30 text-foreground hover:bg-chart-2/40",
-        "border-2 border-chart-2/20",
+        "border-2 border-chart-2/10",
         // Disabled state when out of attempts
         isOutOfAttempts && "opacity-50 cursor-not-allowed"
       )}
     >
-      <SendIcon className="size-4 stroke-3 text-chart-1/80" />
+      <SendIcon className="size-4 stroke-3 text-chart-2/80" />
       <span>Submit</span>
     </Button>
   );
