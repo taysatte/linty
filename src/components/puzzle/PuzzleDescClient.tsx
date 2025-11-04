@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { PuzzlePageClientProps } from "./PuzzlePageClient";
-import { Item, ItemContent } from "../ui/item";
+import { Item, ItemContent } from "@/components/ui/item";
 
 const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
@@ -18,46 +18,42 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     const normalizedDifficulty = (difficulty || "easy").toLowerCase();
     if (normalizedDifficulty === "easy") {
       return "text-[var(--easy-puzzle)]";
-    } else if (
-      normalizedDifficulty === "medium" ||
-      normalizedDifficulty === "intermediate"
-    ) {
+    } else if (normalizedDifficulty === "medium") {
       return "text-[var(--medium-puzzle)]";
-    } else if (
-      normalizedDifficulty === "hard" ||
-      normalizedDifficulty === "expert"
-    ) {
+    } else if (normalizedDifficulty === "hard") {
       return "text-[var(--hard-puzzle)]";
     }
     return "text-muted-foreground";
   };
 
   const DesktopVersion = () => {
-    const difficulty = puzzle.difficulty || "Easy";
+    const difficulty = puzzle.difficulty || "easy";
     const difficultyColor = getDifficultyColor(puzzle.difficulty);
 
     return (
       <Card className="shadow-lg h-full w-full p-0 gap-0">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0">
           <CardTitle className="font-black text-primary">
-            <div className="flex items-center justify-between">
-              <div className="text-2xl bg-primary/5 px-3 py-1.5 rounded-lg font-black text-primary">
+            <div className="flex flex-col items-start gap-2 justify-start">
+              <div className="text-xl bg-primary/5 px-3 py-1.5 rounded-lg font-black text-primary">
                 {puzzle.title.toLowerCase().replaceAll(" ", "-")}
               </div>
-              <Item
-                variant="default"
-                className="bg-muted/15 py-1 px-3 rounded-lgj"
-              >
-                <ItemContent
-                  className={`text-lg font-semibold ${difficultyColor}`}
-                >
-                  {difficulty}
-                </ItemContent>
-              </Item>
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-4 bg-background/70 h-full rounded-b-xl border-t border-border">
+        <CardContent className="flex flex-col p-4 gap-4 bg-background/70 h-full rounded-b-xl border-t border-border">
+          <div className="flex items-center justify-start">
+            <Item
+              variant="default"
+              className="bg-accent/5 py-1 px-3 rounded-full"
+            >
+              <ItemContent
+                className={`text-md font-semibold ${difficultyColor}`}
+              >
+                {difficulty}
+              </ItemContent>
+            </Item>
+          </div>
           <div className="text-sm text-muted-foreground whitespace-pre-wrap">
             {puzzle.description}
           </div>
