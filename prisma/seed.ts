@@ -26,12 +26,7 @@ The function is supposed to sum all numbers in an array, but there's a bug in th
   }
 
   return total;
-}
-
-// Test your solution
-console.log(sumArray([1, 2, 3])); // Expected: 6
-console.log(sumArray([10, 5])); // Expected: 15
-console.log(sumArray([-1, 0, 1])); // Expected: 0`,
+}`,
       solutionCode: `function sumArray(numbers) {
   let total = 0;
 
@@ -56,7 +51,11 @@ console.log(sumArray([-1, 0, 1])); // Expected: 0`,
         { input: "[]", expectedOutput: "0", isPublic: false },
         { input: "[5]", expectedOutput: "5", isPublic: false },
         { input: "[-10, -5, -3]", expectedOutput: "-18", isPublic: false },
-        { input: "[100, 200, 300, 400, 500]", expectedOutput: "1500", isPublic: false },
+        {
+          input: "[100, 200, 300, 400, 500]",
+          expectedOutput: "1500",
+          isPublic: false,
+        },
       ],
     },
     {
@@ -80,12 +79,7 @@ The function should return the maximum value in an array, but it's not working c
   }
 
   return max;
-}
-
-// Test your solution
-console.log(findMax([1, 5, 3])); // Expected: 5
-console.log(findMax([-1, -5, -3])); // Expected: -1
-console.log(findMax([10, 2, 8])); // Expected: 10`,
+}`,
       solutionCode: `function findMax(numbers) {
   if (numbers.length === 0) return undefined;
   
@@ -134,12 +128,7 @@ The function should reverse a string, but there's an issue with how it's buildin
   }
 
   return reversed;
-}
-
-// Test your solution
-console.log(reverseString("hello")); // Expected: "olleh"
-console.log(reverseString("world")); // Expected: "dlrow"
-console.log(reverseString("abc")); // Expected: "cba"`,
+}`,
       solutionCode: `function reverseString(str) {
   let reversed = "";
 
@@ -187,12 +176,7 @@ The function should count the number of vowels in a string, but it's not countin
   }
 
   return count;
-}
-
-// Test your solution
-console.log(countVowels("hello")); // Expected: 2
-console.log(countVowels("WORLD")); // Expected: 1
-console.log(countVowels("aeiou")); // Expected: 5`,
+}`,
       solutionCode: `function countVowels(str) {
   let count = 0;
   const vowels = "aeiouAEIOU"; // Fixed: Include both lowercase and uppercase
@@ -237,12 +221,7 @@ The function should check if a string is a palindrome (reads the same forwards a
 
   // What's wrong here?
   return lowerStr === reversed;
-}
-
-// Test your solution
-console.log(isPalindrome("racecar")); // Expected: true
-console.log(isPalindrome("hello")); // Expected: false
-console.log(isPalindrome("A")); // Expected: true`,
+}`,
       solutionCode: `function isPalindrome(str) {
   const lowerStr = str.toLowerCase();
   // Fixed: Need to remove non-alphanumeric characters
@@ -263,8 +242,16 @@ console.log(isPalindrome("A")); // Expected: true`,
         { input: '"hello"', expectedOutput: "false", isPublic: true },
         { input: '"A"', expectedOutput: "true", isPublic: true },
         { input: '"race car"', expectedOutput: "true", isPublic: false },
-        { input: '"A man a plan a canal Panama"', expectedOutput: "true", isPublic: false },
-        { input: '"not a palindrome"', expectedOutput: "false", isPublic: false },
+        {
+          input: '"A man a plan a canal Panama"',
+          expectedOutput: "true",
+          isPublic: false,
+        },
+        {
+          input: '"not a palindrome"',
+          expectedOutput: "false",
+          isPublic: false,
+        },
       ],
     },
   ];
@@ -337,7 +324,9 @@ console.log(isPalindrome("A")); // Expected: true`,
   }
 
   console.log(
-    `✅ Scheduled ${scheduledCount} daily puzzles starting from ${todayDate.toISOString().split("T")[0]}`
+    `✅ Scheduled ${scheduledCount} daily puzzles starting from ${
+      todayDate.toISOString().split("T")[0]
+    }`
   );
   console.log("🎉 Seeding completed!");
 }

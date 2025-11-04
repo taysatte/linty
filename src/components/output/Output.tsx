@@ -7,8 +7,8 @@ const Output = ({ output, isLoading, testsPassed }: OutputProps) => {
   }
   return (
     <>
-      <Card className="shadow-lg font-mono h-full w-full p-4 pt-2">
-        <div className="text-md font-medium text-muted-foreground">
+      <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
+        <div className="text-sm font-medium text-muted-foreground">
           {"linty@sh ~>"}
         </div>
         {output.map((line, index) => (

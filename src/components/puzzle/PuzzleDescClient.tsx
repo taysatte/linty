@@ -57,6 +57,37 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
           <div className="text-sm text-muted-foreground whitespace-pre-wrap">
             {puzzle.description}
           </div>
+          {puzzle.testCases && puzzle.testCases.length > 0 && (
+            <div className="text-sm">
+              <div className="cursor-pointer font-semibold">Test Cases</div>
+              <div className="mt-2 space-y-2">
+                {puzzle.testCases.map((testCase, index) => (
+                  <div
+                    key={testCase.id}
+                    className="p-2 rounded bg-muted/30 border border-border"
+                  >
+                    <div className="font-medium text-xs text-muted-foreground mb-1">
+                      Test Case {index + 1}
+                    </div>
+                    <div className="text-xs space-y-1">
+                      <div>
+                        <span className="font-semibold">Input:</span>{" "}
+                        <code className="px-1 py-0.5 rounded bg-background text-xs">
+                          {testCase.input}
+                        </code>
+                      </div>
+                      <div>
+                        <span className="font-semibold">Expected:</span>{" "}
+                        <code className="px-1 py-0.5 rounded bg-background text-xs">
+                          {testCase.expectedOutput}
+                        </code>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {puzzle.hints && (
             <details className="text-sm">
               <summary className="cursor-pointer font-semibold">Hints</summary>
@@ -88,6 +119,37 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             <p className="text-sm text-muted-foreground whitespace-pre-wrap">
               {puzzle.description}
             </p>
+            {puzzle.testCases && puzzle.testCases.length > 0 && (
+              <div className="mt-2 text-sm">
+                <div className="cursor-pointer font-semibold">Test Cases</div>
+                <div className="mt-2 space-y-2">
+                  {puzzle.testCases.map((testCase, index) => (
+                    <div
+                      key={testCase.id}
+                      className="p-2 rounded bg-muted/30 border border-border"
+                    >
+                      <div className="font-medium text-xs text-muted-foreground mb-1">
+                        Test Case {index + 1}
+                      </div>
+                      <div className="text-xs space-y-1">
+                        <div>
+                          <span className="font-semibold">Input:</span>{" "}
+                          <code className="px-1 py-0.5 rounded bg-background text-xs">
+                            {testCase.input}
+                          </code>
+                        </div>
+                        <div>
+                          <span className="font-semibold">Expected:</span>{" "}
+                          <code className="px-1 py-0.5 rounded bg-background text-xs">
+                            {testCase.expectedOutput}
+                          </code>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             {puzzle.hints && (
               <details className="mt-2 text-sm">
                 <summary className="cursor-pointer font-semibold">
