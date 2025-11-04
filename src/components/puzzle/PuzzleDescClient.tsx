@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Collapsible,
   CollapsibleContent,
@@ -9,35 +9,70 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { PuzzlePageClientProps } from "./PuzzlePageClient";
+import { Item, ItemContent } from "../ui/item";
 
 const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
 
-  const DesktopVersion = () => (
-    <Card className="shadow-lg h-full w-full p-4">
-      <div className="space-y-4">
-        <div>
-          <h2 className="text-xl font-bold">{puzzle.title}</h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            {puzzle.difficulty && (
-              <span className="capitalize">{puzzle.difficulty}</span>
-            )}
-          </p>
-        </div>
-        <div className="text-sm text-muted-foreground whitespace-pre-wrap">
-          {puzzle.description}
-        </div>
-        {puzzle.hints && (
-          <details className="text-sm">
-            <summary className="cursor-pointer font-semibold">Hints</summary>
-            <div className="mt-2 text-muted-foreground whitespace-pre-wrap">
-              {puzzle.hints}
+  const getDifficultyColor = (difficulty: string | null) => {
+    const normalizedDifficulty = (difficulty || "easy").toLowerCase();
+    if (normalizedDifficulty === "easy") {
+      return "text-[var(--easy-puzzle)]";
+    } else if (
+      normalizedDifficulty === "medium" ||
+      normalizedDifficulty === "intermediate"
+    ) {
+      return "text-[var(--medium-puzzle)]";
+    } else if (
+      normalizedDifficulty === "hard" ||
+      normalizedDifficulty === "expert"
+    ) {
+      return "text-[var(--hard-puzzle)]";
+    }
+    return "text-muted-foreground";
+  };
+
+  const DesktopVersion = () => {
+    const difficulty = puzzle.difficulty || "Easy";
+    const difficultyColor = getDifficultyColor(puzzle.difficulty);
+
+    return (
+      <Card className="shadow-lg h-full w-full p-0 gap-0">
+        <CardHeader className="p-4 gap-0 rounded-t-xl m-0">
+          <CardTitle className="font-black text-primary">
+            <div className="flex items-center justify-between">
+              <div className="text-2xl bg-primary/5 px-3 py-1.5 rounded-lg font-black text-primary">
+                {puzzle.title.toLowerCase().replaceAll(" ", "-")}
+              </div>
+              <Item
+                variant="default"
+                className="bg-muted/15 py-1 px-3 rounded-lgj"
+              >
+                <ItemContent
+                  className={`text-lg font-semibold ${difficultyColor}`}
+                >
+                  {difficulty}
+                </ItemContent>
+              </Item>
             </div>
-          </details>
-        )}
-      </div>
-    </Card>
-  );
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 bg-background/70 h-full rounded-b-xl border-t border-border">
+          <div className="text-sm text-muted-foreground whitespace-pre-wrap">
+            {puzzle.description}
+          </div>
+          {puzzle.hints && (
+            <details className="text-sm">
+              <summary className="cursor-pointer font-semibold">Hints</summary>
+              <div className="mt-2 text-muted-foreground whitespace-pre-wrap">
+                {puzzle.hints}
+              </div>
+            </details>
+          )}
+        </CardContent>
+      </Card>
+    );
+  };
 
   const MobileVersion = () => (
     <Collapsible open={isPuzzleOpen} onOpenChange={setIsPuzzleOpen}>

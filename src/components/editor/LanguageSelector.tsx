@@ -28,21 +28,21 @@ export const LanguageSelector = ({
 
   return (
     <Select value={language} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="cursor-pointer shadow-md rounded-lg px-4">
+      <SelectTrigger className="cursor-pointer shadow-sm rounded-lg px-4">
         <SelectValue />
       </SelectTrigger>
       <SelectContent className="rounded-lg">
         <SelectGroup>
           <SelectLabel>Languages</SelectLabel>
           {Object.entries(languageVersions).map(([lang, version]) => {
-            const languageName = lang.toLowerCase();
+            const languageName = lang === "javascript" ? "JavaScript" : lang;
             return (
               <SelectItem
                 className="cursor-pointer flex items-center justify-between gap-2"
                 key={lang}
                 value={lang}
               >
-                <span className="text-foreground/70 font-semibold font-mono">
+                <span className="text-foreground/80 font-medium font-mono">
                   {languageName}
                 </span>
               </SelectItem>
