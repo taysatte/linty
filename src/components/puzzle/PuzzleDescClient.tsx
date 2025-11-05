@@ -55,11 +55,11 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
       <Card className="shadow-lg h-full w-full p-0 gap-0">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0">
           <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between">
-            <div className="py-1 shadow-sm font-semibold font-mono text-lg bg-accent/5 px-4 rounded-lg text-muted-foreground">
-              {puzzle.id.toString().padStart(3, "0")}
-            </div>
             <div className="text-2xl bg-accent/5 px-4 rounded-lg py-1 shadow-sm font-black text-primary">
               {puzzle.title.toLowerCase().trim().replaceAll(" ", "-")}
+            </div>
+            <div className="py-1 shadow-sm font-semibold font-mono text-lg bg-accent/5 px-4 rounded-lg text-muted-foreground">
+              #{puzzle.id.toString().padStart(3, "0")}
             </div>
           </CardTitle>
         </CardHeader>
