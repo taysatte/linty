@@ -117,8 +117,8 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     attemptsLeft={attemptsLeft ?? undefined}
                     maxAttempts={maxAttempts}
                   />
-                  <ResizableHandle />
                 </ResizablePanel>
+                <ResizableHandle />
                 <ResizablePanel
                   collapsible
                   collapsedSize={0}
