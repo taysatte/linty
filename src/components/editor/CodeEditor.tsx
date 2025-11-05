@@ -72,7 +72,7 @@ const CodeEditor = ({
   };
 
   return (
-    <Card className="shadow-lg h-full w-full pt-4 pb-4">
+    <Card className="shadow-lg h-full w-full gap-2 pt-2">
       <div className="flex flex-col h-full">
         <EditorControls
           language={language}

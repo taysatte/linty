@@ -8,7 +8,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { PuzzlePageClientProps } from "./PuzzlePageClient";
+import { PuzzlePageClientProps } from "../puzzle/PuzzlePageClient";
 import { Item, ItemContent } from "@/components/ui/item";
 import { Separator } from "../ui/separator";
 
@@ -133,6 +133,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               </div>
             </div>
           )}
+          <div className="w-full">
+            <Separator decorative orientation="horizontal" />
+          </div>
           {puzzle.hints && (
             <details className="text-sm">
               <summary className="cursor-pointer font-semibold">Hints</summary>

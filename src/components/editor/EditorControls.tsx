@@ -27,7 +27,7 @@ export const EditorControls = ({
   maxAttempts,
 }: EditorControlsProps) => {
   return (
-    <div className="px-2 pb-4 lg:px-4 md:px-4 sm:px-2 sm:pb-4 flex sm:flex-row justify-between items-center sm:items-center gap-2 border-b border-border">
+    <div className="px-2 pb-2 flex sm:flex-row justify-between items-center sm:items-center gap-2 border-b border-border">
       <ButtonGroup
         orientation="horizontal"
         className="gap-0 border border-border rounded-lg shadow-sm"

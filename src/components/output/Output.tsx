@@ -8,9 +8,7 @@ const Output = ({ output, isLoading, testsPassed }: OutputProps) => {
   }
   return (
     <>
-      <div className="text-sm font-medium text-muted-foreground">
-        {"linty@sh ~>"}
-      </div>
+      <div className="text-sm font-medium text-primary">{"linty@sh ~>"}</div>
       <div className="w-full bg-border">
         <Separator decorative orientation="horizontal" />
       </div>

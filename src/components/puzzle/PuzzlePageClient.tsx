@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { RunCodeProps } from "@/app/types";
-import PuzzleDescClient from "@/components/puzzle/PuzzleDescClient";
+import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
 
 export interface PuzzlePageClientProps {
   puzzle: {
@@ -43,8 +43,8 @@ export interface PuzzlePageClientProps {
 const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const EDITOR_OUTPUT_GROUP_DEFAULT_SIZE = 65;
   const PUZZLE_DESC_GROUP_DEFAULT_SIZE = 35;
-  const EDITOR_HORIZ_DEFAULT_SIZE = 95;
-  const OUTPUT_HORIZ_DEFAULT_SIZE = 5;
+  const EDITOR_HORIZ_DEFAULT_SIZE = 80;
+  const OUTPUT_HORIZ_DEFAULT_SIZE = 20;
   const [isOutputOpen, setIsOutputOpen] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -125,7 +125,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   defaultSize={OUTPUT_HORIZ_DEFAULT_SIZE}
                   className="pl-0 p-2"
                 >
-                  <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
+                  <Card className="shadow-lg font-mono h-full w-full p-4">
                     <Output
                       output={output}
                       isLoading={isLoading}
