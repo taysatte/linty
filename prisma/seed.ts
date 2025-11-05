@@ -8,6 +8,7 @@ async function main() {
   // Puzzle templates to create variety
   const puzzleTemplates = [
     {
+      tags: ["array", "loop", "math"],
       title: "Sum Array",
       description: `Fix the off-by-one error in the sumArray function.
 
@@ -59,6 +60,7 @@ The function is supposed to sum all numbers in an array, but there's a bug in th
       ],
     },
     {
+      tags: ["array", "loop", "math"],
       title: "Find Maximum",
       description: `Fix the bug in the findMax function.
 
@@ -110,6 +112,7 @@ The function should return the maximum value in an array, but it's not working c
       ],
     },
     {
+      tags: ["string", "loop", "math"],
       title: "Reverse String",
       description: `Fix the bug in the reverseString function.
 
@@ -156,6 +159,7 @@ The function should reverse a string, but there's an issue with how it's buildin
       ],
     },
     {
+      tags: ["string", "loop", "math"],
       title: "Count Vowels",
       description: `Fix the bug in the countVowels function.
 
@@ -206,6 +210,7 @@ The function should count the number of vowels in a string, but it's not countin
       ],
     },
     {
+      tags: ["string", "loop", "math"],
       title: "Check Palindrome",
       description: `Fix the bug in the isPalindrome function.
 
@@ -261,6 +266,7 @@ The function should check if a string is a palindrome (reads the same forwards a
   for (const template of puzzleTemplates) {
     const puzzle = await prisma.puzzle.create({
       data: {
+        tags: template.tags,
         title: template.title,
         description: template.description,
         starterCode: template.starterCode,

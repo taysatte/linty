@@ -69,7 +69,7 @@ export default function Navbar({
         </div>
         <Avatar className="ml-0 w-8 h-8">
           <AvatarImage src="https://avatar.iran.liara.run/public" />
-          <AvatarFallback>LY</AvatarFallback>
+          <AvatarFallback className="font-mono bg-muted/20">LY</AvatarFallback>
         </Avatar>
       </div>
     </nav>

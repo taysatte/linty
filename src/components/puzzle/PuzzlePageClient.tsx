@@ -30,6 +30,7 @@ export interface PuzzlePageClientProps {
     difficulty: string | null;
     language: string | null;
     hints: string | null;
+    tags: string[];
     testCases: Array<{
       id: number;
       input: string;

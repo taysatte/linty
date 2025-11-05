@@ -15,12 +15,14 @@ const PuzzlePage = async () => {
 
   const puzzleData = {
     id: dailyPuzzle.puzzle.id,
+    tags: dailyPuzzle.puzzle.tags,
     dailyPuzzleId: dailyPuzzle.id,
     date: dailyPuzzle.date.toISOString(),
     title: dailyPuzzle.puzzle.title,
     description: dailyPuzzle.puzzle.description,
     starterCode: dailyPuzzle.puzzle.starterCode,
-    difficulty: dailyPuzzle.puzzle.difficulty,
+    difficulty: "hard",
+    // difficulty: dailyPuzzle.puzzle.difficulty,
     language: dailyPuzzle.puzzle.language,
     hints: dailyPuzzle.puzzle.hints,
     testCases: dailyPuzzle.puzzle.testCases,

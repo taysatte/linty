@@ -27,6 +27,26 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     return "text-muted-foreground";
   };
 
+  const getDifficultyBgColor = (difficulty: string | null) => {
+    const normalizedDifficulty = (difficulty || "easy").toLowerCase();
+    if (normalizedDifficulty === "easy") {
+      return "bg-[var(--easy-puzzle)]/5";
+    } else if (normalizedDifficulty === "medium") {
+      return "bg-[var(--medium-puzzle)]/5";
+    } else if (normalizedDifficulty === "hard") {
+      return "bg-[var(--hard-puzzle)]/5";
+    }
+    return "bg-primary/5";
+  };
+
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
   const DesktopVersion = () => {
     const difficulty = puzzle.difficulty || "easy";
     const difficultyColor = getDifficultyColor(puzzle.difficulty);
@@ -34,19 +54,22 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     return (
       <Card className="shadow-lg h-full w-full p-0 gap-0">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0">
-          <CardTitle className="font-black text-primary">
-            <div className="flex flex-col items-start gap-2 justify-start">
-              <div className="text-xl bg-primary/5 px-3 py-1.5 rounded-lg font-black text-primary">
-                {puzzle.title.toLowerCase().replaceAll(" ", "-")}
-              </div>
+          <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between">
+            <div className="py-1 shadow-sm font-semibold font-mono text-lg bg-accent/5 px-4 rounded-lg text-muted-foreground">
+              {puzzle.id.toString().padStart(3, "0")}
+            </div>
+            <div className="text-2xl bg-accent/5 px-4 rounded-lg py-1 shadow-sm font-black text-primary">
+              {puzzle.title.toLowerCase().trim().replaceAll(" ", "-")}
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col p-4 gap-4 bg-background/70 h-full rounded-b-xl border-t border-border">
-          <div className="flex items-center justify-start">
+          <div className="flex flex-wrap items-center justify-start gap-2">
             <Item
               variant="default"
-              className="bg-accent/5 py-1 px-3 rounded-full"
+              className={`py-1 px-3 rounded-full ${getDifficultyBgColor(
+                difficulty
+              )}`}
             >
               <ItemContent
                 className={`text-md font-semibold ${difficultyColor}`}
@@ -54,6 +77,20 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                 {difficulty}
               </ItemContent>
             </Item>
+            <div className="h-5">
+              <Separator orientation="vertical" className="h-5" />
+            </div>
+            {puzzle.tags.map((tag) => (
+              <Item
+                key={tag}
+                variant="default"
+                className="bg-primary/5 hover:bg-primary/10 font-mono transition-colors duration-100 cursor-default py-1 px-3 rounded-full"
+              >
+                <ItemContent className="text-primary text-md font-semibold">
+                  {tag}
+                </ItemContent>
+              </Item>
+            ))}
           </div>
           <div className="text-sm text-muted-foreground whitespace-pre-wrap">
             {puzzle.description}
@@ -74,19 +111,19 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                     key={testCase.id}
                     className="p-2 rounded-lg bg-muted/10 border border-border"
                   >
-                    <div className="font-medium text-xs text-muted-foreground mb-1">
+                    <div className="font-medium text-sm text-muted-foreground mb-1">
                       Test Case {index + 1}
                     </div>
-                    <div className="text-xs space-y-1.5">
+                    <div className="text-sm space-y-1.5">
                       <div>
                         <span className="font-semibold">Input:</span>{" "}
-                        <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-xs">
+                        <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-sm">
                           {testCase.input}
                         </code>
                       </div>
                       <div>
                         <span className="font-semibold">Expected:</span>{" "}
-                        <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-xs">
+                        <code className="px-1 py-0.5 rounded-sm bg-muted/20 text-sm">
                           {testCase.expectedOutput}
                         </code>
                       </div>
