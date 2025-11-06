@@ -46,14 +46,20 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     const difficulty = puzzle.difficulty || "easy";
     const difficultyColor = getDifficultyColor(puzzle.difficulty);
 
+    const testTitle = "Longest Substring Without Repeating Characters"
+      .toLowerCase()
+      .trim()
+      .replaceAll(" ", "-");
+
     return (
       <Card className="shadow-lg h-full w-full p-0 gap-0 flex flex-col bg-background/70">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0 bg-card">
-          <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between">
-            <div className="text-2xl font-black text-primary bg-primary/5 px-4 rounded-lg py-1 shadow-sm">
-              {puzzle.title.toLowerCase().trim().replaceAll(" ", "-")}
+          <CardTitle className="flex flex-row items-start gap-2 justify-between">
+            <div className="text-xl font-black text-primary">
+              {/* {puzzle.title.toLowerCase().trim().replaceAll(" ", "-")} */}
+              {testTitle}
             </div>
-            <div className="py-1 shadow-sm font-semibold font-mono text-lg bg-accent/5 px-4 rounded-lg text-muted-foreground">
+            <div className="py-1.5 shadow-sm font-semibold font-mono text-md bg-accent/5 px-2 rounded-lg text-accent/80">
               #{puzzle.id.toString().padStart(3, "0")}
             </div>
           </CardTitle>
@@ -66,12 +72,12 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             <div className="flex flex-wrap items-center justify-start gap-2">
               <Item
                 variant="default"
-                className={`py-1 px-3 rounded-full ${getDifficultyBgColor(
+                className={`py-1 px-3 transition-colors duration-100 rounded-full ${getDifficultyBgColor(
                   difficulty
                 )}`}
               >
                 <ItemContent
-                  className={`text-md font-semibold ${difficultyColor}`}
+                  className={`text-md font-mono font-semibold ${difficultyColor}`}
                 >
                   {difficulty}
                 </ItemContent>
@@ -85,7 +91,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                   variant="default"
                   className="bg-accent/5 hover:bg-accent/10 transition-colors duration-100 cursor-default py-1 px-3 rounded-full"
                 >
-                  <ItemContent className="text-accent/80 text-md font-semibold">
+                  <ItemContent className="text-accent/80 font-mono text-md font-semibold">
                     {tag}
                   </ItemContent>
                 </Item>
