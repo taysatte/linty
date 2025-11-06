@@ -46,18 +46,12 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     const difficulty = puzzle.difficulty || "easy";
     const difficultyColor = getDifficultyColor(puzzle.difficulty);
 
-    const testTitle = "Longest Substring Without Repeating Characters"
-      .toLowerCase()
-      .trim()
-      .replaceAll(" ", "-");
-
     return (
       <Card className="shadow-lg h-full w-full p-0 gap-0 flex flex-col bg-background/70">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0 bg-card">
           <CardTitle className="flex flex-row items-start gap-2 justify-between">
             <div className="text-xl font-black text-primary">
-              {/* {puzzle.title.toLowerCase().trim().replaceAll(" ", "-")} */}
-              {testTitle}
+              {puzzle.title.toLowerCase().trim().replaceAll(" ", "-")}
             </div>
             <div className="py-1.5 shadow-sm font-semibold font-mono text-md bg-accent/5 px-2 rounded-lg text-accent/80">
               #{puzzle.id.toString().padStart(3, "0")}
