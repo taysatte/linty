@@ -25,6 +25,7 @@ export async function getTodayPuzzle() {
     include: {
       puzzle: {
         include: {
+          description: true,
           testCases: {
             where: {
               isPublic: true, // Only include public test cases for display
@@ -46,6 +47,7 @@ export async function getPuzzleById(id: number) {
   return await prisma.puzzle.findUnique({
     where: { id },
     include: {
+      description: true,
       testCases: true, // Include all test cases for validation
     },
   });

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Collapsible,
@@ -84,26 +86,44 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               <Item
                 key={tag}
                 variant="default"
-                className="bg-primary/5 hover:bg-primary/10 font-mono transition-colors duration-100 cursor-default py-1 px-3 rounded-full"
+                className="bg-accent/5 hover:bg-accent/10 font-mono transition-colors duration-100 cursor-default py-1 px-3 rounded-full"
               >
-                <ItemContent className="text-primary text-md font-semibold">
+                <ItemContent className="text-accent/80 text-md font-semibold">
                   {tag}
                 </ItemContent>
               </Item>
             ))}
           </div>
-          <div className="text-sm text-muted-foreground whitespace-pre-wrap">
-            {puzzle.description}
+          <div className="font-bold text-lg text-foreground/90">
+            description
           </div>
+          <div className="text-sm text-foreground/80 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {puzzle.description}
+            </ReactMarkdown>
+          </div>
+          {puzzle.instructions && (
+            <>
+              <Separator decorative orientation="horizontal" className="" />
+              <div className="font-bold text-lg text-foreground/90">
+                instructions
+              </div>
+              <div className="p-3 rounded-lg bg-accent/10 border border-accent/20 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {puzzle.instructions}
+                </ReactMarkdown>
+              </div>
+            </>
+          )}
+          <Separator
+            decorative
+            orientation="horizontal"
+            className={puzzle.instructions ? "" : ""}
+          />
           {puzzle.testCases && puzzle.testCases.length > 0 && (
             <div className="text-sm">
-              <div className="font-semibold">Test Cases</div>
-              <div className="w-full bg-border">
-                <Separator
-                  decorative
-                  orientation="horizontal"
-                  className="my-2"
-                />
+              <div className="font-bold text-lg text-foreground/90">
+                test cases
               </div>
               <div className="mt-2 space-y-2">
                 {puzzle.testCases.map((testCase, index) => (
@@ -164,9 +184,28 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <div className="px-3 pb-3">
-            <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-              {puzzle.description}
-            </p>
+            <div className="text-sm text-muted-foreground [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-xs [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {puzzle.description}
+              </ReactMarkdown>
+            </div>
+            {puzzle.instructions && (
+              <>
+                <Separator
+                  decorative
+                  orientation="horizontal"
+                  className="my-3"
+                />
+                <div className="font-semibold text-sm text-foreground/90 mb-2">
+                  instructions
+                </div>
+                <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-xs [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {puzzle.instructions}
+                  </ReactMarkdown>
+                </div>
+              </>
+            )}
             {puzzle.testCases && puzzle.testCases.length > 0 && (
               <div className="mt-2 text-sm">
                 <div className="cursor-pointer font-semibold">Test Cases</div>

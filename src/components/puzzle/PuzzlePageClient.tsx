@@ -18,6 +18,7 @@ import {
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { RunCodeProps } from "@/app/types";
 import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
+import { TestCase } from "@/generated/prisma";
 
 export interface PuzzlePageClientProps {
   puzzle: {
@@ -26,17 +27,13 @@ export interface PuzzlePageClientProps {
     date: string;
     title: string;
     description: string;
+    instructions: string | null;
     starterCode: string;
     difficulty: string | null;
     language: string | null;
     hints: string | null;
     tags: string[];
-    testCases: Array<{
-      id: number;
-      input: string;
-      expectedOutput: string;
-      isPublic: boolean;
-    }>;
+    testCases: TestCase[];
   };
 }
 
