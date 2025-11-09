@@ -84,7 +84,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             <div className="flex flex-wrap items-center justify-start gap-2">
               <Item
                 variant="default"
-                className={`py-1 px-3 transition-colors duration-100 rounded-full ${getDifficultyBgColor(
+                className={`py-1 px-3 cursor-default transition-colors duration-100 rounded-full ${getDifficultyBgColor(
                   difficulty
                 )} ${getDifficultyHoverColor(difficulty)}`}
               >
