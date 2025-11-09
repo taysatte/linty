@@ -23,6 +23,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
+  const [isHintsOpen, setIsHintsOpen] = useState(false);
 
   const getDifficultyColor = (difficulty: string | null) => {
     const normalizedDifficulty = (difficulty || "easy").toLowerCase();
@@ -304,7 +305,11 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                 <Separator decorative orientation="horizontal" />
               </div>
               {puzzle.hints && (
-                <Collapsible className="group">
+                <Collapsible
+                  open={isHintsOpen}
+                  onOpenChange={setIsHintsOpen}
+                  className="group"
+                >
                   <CollapsibleTrigger className="flex items-center justify-between w-full cursor-pointer">
                     <div className="font-bold text-lg text-foreground/90">
                       Hints
