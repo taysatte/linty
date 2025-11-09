@@ -67,6 +67,14 @@ const CodeEditor = ({
     setValue(initialCode ?? "");
   };
 
+  const handleFormat = () => {
+    const editor = editorRef.current;
+    const formatAction = editor?.getAction?.("editor.action.formatDocument");
+    if (formatAction) {
+      formatAction.run();
+    }
+  };
+
   return (
     <Card className="shadow-lg h-full w-full gap-2 pt-2">
       <div className="flex flex-col h-full">
@@ -76,6 +84,7 @@ const CodeEditor = ({
           isLoading={isLoading}
           onRun={handleRun}
           onReset={handleReset}
+          onFormat={handleFormat}
         />
         <div className="flex-1 min-h-0">
           <Editor

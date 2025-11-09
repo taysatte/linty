@@ -23,12 +23,12 @@ export const SubmitButton = ({
 
   return (
     <Button
-      size="default"
+      size="lg"
       onClick={onSubmit}
       disabled={disabled || isLoading || isOutOfAttempts}
       variant="default"
       className={cn(
-        "cursor-pointer border-border rounded-lg border font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/90 shadow-sm",
+        "cursor-pointer border-border rounded-xl border font-semibold bg-card hover:bg-card/90 text-foreground/90 shadow-sm",
         // Disabled state when out of attempts
         isOutOfAttempts && "opacity-50 cursor-not-allowed"
       )}

@@ -7,7 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { languageVersions, type Language } from "@/lib/languageVersions";
+import {
+  languageVersions,
+  languageDisplayNames,
+  type Language,
+} from "@/lib/languageVersions";
 
 export interface LanguageSelectorProps {
   language: Language;
@@ -28,14 +32,17 @@ export const LanguageSelector = ({
 
   return (
     <Select value={language} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="cursor-pointer text-muted-foreground rounded-lg px-4">
+      <SelectTrigger className="cursor-pointer rounded-lg px-2">
         <SelectValue />
       </SelectTrigger>
       <SelectContent className="rounded-lg">
         <SelectGroup>
           <SelectLabel>Languages</SelectLabel>
           {Object.entries(languageVersions).map(([lang, version]) => {
-            const languageName = lang.toLowerCase();
+            const languageName = languageDisplayNames[lang as Language];
+            if (!languageName) {
+              return null;
+            }
             return (
               <SelectItem
                 className="cursor-pointer flex items-center justify-between gap-2"

@@ -10,6 +10,18 @@ export const languageVersions = {
   // php: "8.2.3",
 } as const;
 
+/**
+ * Display names for languages
+ */
+export const languageDisplayNames = {
+  javascript: "JavaScript",
+  // typescript: "TypeScript",
+  // python: "Python",
+  // java: "Java",
+  // csharp: "C#",
+  // php: "PHP",
+} as const;
+
 export type Language = keyof typeof languageVersions;
 
 /**

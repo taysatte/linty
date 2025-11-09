@@ -72,7 +72,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             <div className="text-xl font-black text-primary/80">
               {puzzle.title}
             </div>
-            <div className="p-2 shadow-sm font-semibold font-mono text-md bg-border/50 border border-border rounded-lg text-foreground/80">
+            <div className="p-2 shadow-sm font-semibold font-mono text-md bg-accent/5 border border-border rounded-lg text-muted-foreground">
               #{puzzle.id.toString().padStart(3, "0")}
             </div>
           </CardTitle>
@@ -187,7 +187,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             )}
           </CardContent>
         </ScrollArea>
-        <CardFooter className="p-4 bg-card border-t"></CardFooter>
+        <CardFooter className="p-4 rounded-b-xl bg-card border-t"></CardFooter>
       </Card>
     );
   };
