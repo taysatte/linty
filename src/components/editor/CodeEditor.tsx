@@ -63,26 +63,19 @@ const CodeEditor = ({
     onRunCode({ code: value, language });
   };
 
-  const handleSubmit = () => {
-    // TODO: Implement submit logic
-  };
-
   const handleReset = () => {
     setValue(initialCode ?? "");
   };
 
   return (
-    <Card className="shadow-lg h-full w-full gap-2 pt-4">
+    <Card className="shadow-lg h-full w-full gap-2 pt-2">
       <div className="flex flex-col h-full">
         <EditorControls
           language={language}
           setLanguage={setLanguage}
           isLoading={isLoading}
           onRun={handleRun}
-          onSubmit={handleSubmit}
           onReset={handleReset}
-          attemptsLeft={attemptsLeft}
-          maxAttempts={maxAttempts}
         />
         <div className="flex-1 min-h-0">
           <Editor

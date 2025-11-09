@@ -14,10 +14,11 @@ export const RunButton = ({
 }: RunButtonProps) => {
   return (
     <EditorButton
-      size="default"
+      size="icon"
       onClick={onRun}
       icon={PlayIcon}
-      label="Run"
+      label=""
+      variant="ghost"
       disabled={disabled}
       isLoading={isLoading}
     />

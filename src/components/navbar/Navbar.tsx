@@ -7,17 +7,22 @@ import { Item, ItemContent, ItemMedia } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import Timer from "@/components/navbar/Timer";
 import StatusBar from "@/components/navbar/StatusBar";
+import { SubmitButton } from "@/components/editor/SubmitButton";
 
 interface NavbarProps {
   streak?: number;
   attemptsLeft?: number | null;
   maxAttempts?: number;
+  onSubmit?: () => void;
+  isLoading?: boolean;
 }
 
 export default function Navbar({
   streak,
   attemptsLeft,
   maxAttempts,
+  onSubmit,
+  isLoading = false,
 }: NavbarProps = {}) {
   return (
     <nav className="px-2 md:px-4 md:pt-2 flex flex-row items-center h-[64px] w-full">
@@ -33,7 +38,7 @@ export default function Navbar({
           className="w-[32px] md:w-[36px] h-auto"
         />
       </div>
-      <div className="flex-1 flex items-center justify-center h-full">
+      <div className="flex-1 flex items-center justify-center h-full gap-3">
         <Item
           variant="default"
           className="px-4 sm:px-4 sm:py-1.5 md:px-4 py-1.5 md:py-1.5 gap-3 rounded-xl border border-border bg-card shadow-sm"
@@ -52,6 +57,14 @@ export default function Navbar({
             <Timer />
           </ItemContent>
         </Item>
+        {onSubmit && (
+          <SubmitButton
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+            attemptsLeft={attemptsLeft}
+            maxAttempts={maxAttempts}
+          />
+        )}
       </div>
       <div className="flex-1 flex gap-2 md:gap-4 justify-end items-center h-full">
         <StatusBar

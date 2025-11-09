@@ -89,12 +89,19 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     }
   };
 
+  const handleSubmit = () => {
+    // TODO: Implement submit logic
+    // This will need access to code and language from CodeEditor
+  };
+
   return (
     <>
       <Navbar
         streak={5}
         attemptsLeft={attemptsLeft}
         maxAttempts={maxAttempts}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
       />
       {/* Main content area */}
       <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">

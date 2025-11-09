@@ -35,13 +35,10 @@ export const EditorButton = ({
       size={size}
       onClick={onClick}
       disabled={disabled || isLoading}
-      className={cn(
-        "cursor-pointer font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/80 shadow-sm",
-        className
-      )}
+      className={cn("cursor-pointer", className)}
     >
-      <Icon className="size-4 stroke-3 text-primary/90" />
-      <span className="hidden sm:hidden md:inline">{label}</span>
+      <Icon className="size-4 stroke-3 text-muted-foreground" />
+      {label && <span className="hidden sm:hidden md:inline">{label}</span>}
     </Button>
   );
 };

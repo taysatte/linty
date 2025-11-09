@@ -28,7 +28,7 @@ export const SubmitButton = ({
       disabled={disabled || isLoading || isOutOfAttempts}
       variant="default"
       className={cn(
-        "cursor-pointer font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/90 shadow-sm",
+        "cursor-pointer border-border rounded-lg border font-semibold bg-accent/5 hover:bg-accent/10 text-foreground/90 shadow-sm",
         // Disabled state when out of attempts
         isOutOfAttempts && "opacity-50 cursor-not-allowed"
       )}

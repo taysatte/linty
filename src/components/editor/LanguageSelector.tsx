@@ -28,7 +28,7 @@ export const LanguageSelector = ({
 
   return (
     <Select value={language} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="cursor-pointer rounded-lg px-4">
+      <SelectTrigger className="cursor-pointer text-muted-foreground rounded-lg px-4">
         <SelectValue />
       </SelectTrigger>
       <SelectContent className="rounded-lg">
