@@ -48,6 +48,18 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     return "bg-primary/5";
   };
 
+  const getDifficultyHoverColor = (difficulty: string | null) => {
+    const normalizedDifficulty = (difficulty || "easy").toLowerCase();
+    if (normalizedDifficulty === "easy") {
+      return "hover:bg-[var(--easy-puzzle)]/10";
+    } else if (normalizedDifficulty === "medium") {
+      return "hover:bg-[var(--medium-puzzle)]/10";
+    } else if (normalizedDifficulty === "hard") {
+      return "hover:bg-[var(--hard-puzzle)]/10";
+    }
+    return "hover:bg-primary/10";
+  };
+
   const DesktopVersion = () => {
     const difficulty = puzzle.difficulty || "easy";
     const difficultyColor = getDifficultyColor(puzzle.difficulty);
@@ -74,7 +86,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                 variant="default"
                 className={`py-1 px-3 transition-colors duration-100 rounded-full ${getDifficultyBgColor(
                   difficulty
-                )}`}
+                )} ${getDifficultyHoverColor(difficulty)}`}
               >
                 <ItemContent
                   className={`text-md font-mono font-semibold ${difficultyColor}`}
@@ -208,9 +220,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               <div className="flex flex-wrap items-center justify-start gap-2">
                 <Item
                   variant="default"
-                  className={`py-1 px-3 rounded-full ${getDifficultyBgColor(
+                  className={`py-1 px-3 transition-colors duration-100 rounded-full ${getDifficultyBgColor(
                     difficulty
-                  )}`}
+                  )} ${getDifficultyHoverColor(difficulty)}`}
                 >
                   <ItemContent
                     className={`text-md font-semibold ${difficultyColor}`}
