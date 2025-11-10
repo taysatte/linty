@@ -2,12 +2,15 @@
  * CodeEditor component props
  */
 
-import { RunCodeProps } from "@/app/types";
+import { RunCodeProps } from "@/components/puzzle/types";
+import { type Language } from "@/lib/languageVersions";
 
 export interface CodeEditorProps {
-  isLoading: boolean;
+  value: string; // Controlled value for the editor
+  onChange: (value: string) => void; // Callback when code changes
+  language: Language; // Current language
+  onLanguageChange: (language: Language) => void; // Callback when language changes
   onRunCode: ({ code, language }: RunCodeProps) => void;
-  initialCode?: string; // Optional initial code (e.g., from puzzle starterCode)
-  attemptsLeft?: number; // Number of submission attempts remaining
-  maxAttempts?: number; // Maximum number of attempts allowed (default: 3)
+  onReset: () => void; // Callback to reset code to initial value
+  isLoading: boolean;
 }

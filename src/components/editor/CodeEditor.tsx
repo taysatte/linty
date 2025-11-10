@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useMemo, useEffect } from "react";
+import React, { useRef, useMemo } from "react";
 import RosePine from "@/themes/rose-pine.json";
 import { Editor, Monaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
@@ -8,25 +8,18 @@ import { options } from "@/components/editor/options";
 import { EditorControls } from "@/components/editor/EditorControls";
 import { useIsMobile } from "@/lib/useMediaQuery";
 import { CodeEditorProps } from "@/components/editor/types";
-import { type Language, isSupportedLanguage } from "@/lib/languageVersions";
 import { Card } from "../ui/card";
 
 const CodeEditor = ({
+  value,
+  onChange,
+  language,
+  onLanguageChange,
   onRunCode,
+  onReset,
   isLoading,
-  initialCode,
-  attemptsLeft,
-  maxAttempts,
 }: CodeEditorProps) => {
-  const [value, setValue] = useState<string>(initialCode ?? "");
-
-  useEffect(() => {
-    if (initialCode) {
-      setValue(initialCode);
-    }
-  }, [initialCode]);
-  const [language, setLanguage] = useState<Language>("javascript");
-  const [theme, setTheme] = useState<string>("RosePine");
+  const [theme] = React.useState<string>("RosePine");
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const isMobile = useIsMobile();
 
@@ -55,16 +48,12 @@ const CodeEditor = ({
     editorRef.current = editor;
   };
 
-  const handleEditorValueChange = (value: string | undefined) => {
-    setValue(value ?? "");
+  const handleEditorValueChange = (newValue: string | undefined) => {
+    onChange(newValue ?? "");
   };
 
   const handleRun = () => {
     onRunCode({ code: value, language });
-  };
-
-  const handleReset = () => {
-    setValue(initialCode ?? "");
   };
 
   const handleFormat = () => {
@@ -80,10 +69,10 @@ const CodeEditor = ({
       <div className="flex flex-col h-full">
         <EditorControls
           language={language}
-          setLanguage={setLanguage}
+          setLanguage={onLanguageChange}
           isLoading={isLoading}
           onRun={handleRun}
-          onReset={handleReset}
+          onReset={onReset}
           onFormat={handleFormat}
         />
         <div className="flex-1 min-h-0">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { Card } from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
@@ -16,10 +16,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { RunCodeProps } from "@/app/types";
-import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
+import { RunCodeProps, SubmitPuzzleProps } from "@/components/puzzle/types";
 import { TestCase } from "@/generated/prisma";
-
+import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
+import { type Language } from "@/lib/languageVersions";
+import * as c from "@/components/puzzle/constants";
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -34,21 +35,29 @@ export interface PuzzlePageClientProps {
     hints: string | null;
     tags: string[];
     testCases: TestCase[];
+    attemptsLeft: number; // Number of attempts remaining for the user
   };
 }
 
 const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
-  const EDITOR_OUTPUT_GROUP_DEFAULT_SIZE = 65;
-  const PUZZLE_DESC_GROUP_DEFAULT_SIZE = 35;
-  const EDITOR_HORIZ_DEFAULT_SIZE = 80;
-  const OUTPUT_HORIZ_DEFAULT_SIZE = 20;
+  const [code, setCode] = useState<string>(puzzle.starterCode);
+  const [language, setLanguage] = useState<Language>("javascript");
   const [isOutputOpen, setIsOutputOpen] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
-  // TODO: Track submission attempts - fetch from API or manage in state
-  const [attemptsLeft, setAttemptsLeft] = useState<number | null>(3);
-  const maxAttempts = 3;
+  // attemptsLeft is fetched from the API and passed as a prop
+  const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
+
+  // Time tracking for submission
+  const startTimeRef = useRef<number>(Date.now());
+
+  useEffect(() => {
+    // Reset timer when puzzle changes
+    startTimeRef.current = Date.now();
+    // Update attemptsLeft when puzzle changes
+    setAttemptsLeft(puzzle.attemptsLeft);
+  }, [puzzle.id, puzzle.attemptsLeft]);
 
   const handleRunCode = async ({ code, language }: RunCodeProps) => {
     setIsLoading(true);
@@ -89,17 +98,30 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     }
   };
 
-  const handleSubmit = () => {
-    // TODO: Implement submit logic
-    // This will need access to code and language from CodeEditor
+  const handleSubmit = async () => {
+    const timeTaken = Math.floor((Date.now() - startTimeRef.current) / 1000);
+
+    const submitData: SubmitPuzzleProps = {
+      code,
+      language,
+      puzzleId: puzzle.id,
+      timeTaken,
+    };
+
+    // TODO: Implement submission API call
+    console.log("Submit", submitData);
+  };
+
+  const handleReset = () => {
+    setCode(puzzle.starterCode);
   };
 
   return (
     <>
       <Navbar
-        streak={5}
+        streak={c.TEST_STREAK_LENGTH}
         attemptsLeft={attemptsLeft}
-        maxAttempts={maxAttempts}
+        maxAttempts={c.MAX_ATTEMPTS}
         onSubmit={handleSubmit}
         isLoading={isLoading}
       />
@@ -108,28 +130,30 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         {/* Desktop Layout - Hidden on mobile */}
         <div className="hidden md:block h-full">
           <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel defaultSize={EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
+            <ResizablePanel defaultSize={c.EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
               <ResizablePanelGroup direction="vertical">
                 <ResizablePanel
-                  defaultSize={EDITOR_HORIZ_DEFAULT_SIZE}
+                  defaultSize={c.EDITOR_HORIZ_DEFAULT_SIZE}
                   className="pl-0 p-2"
                 >
                   <CodeEditor
+                    value={code}
+                    onChange={setCode}
+                    language={language}
+                    onLanguageChange={setLanguage}
                     onRunCode={handleRunCode}
+                    onReset={handleReset}
                     isLoading={isLoading}
-                    initialCode={puzzle.starterCode}
-                    attemptsLeft={attemptsLeft ?? undefined}
-                    maxAttempts={maxAttempts}
                   />
                 </ResizablePanel>
                 <ResizableHandle />
                 <ResizablePanel
                   collapsible
                   collapsedSize={0}
-                  defaultSize={OUTPUT_HORIZ_DEFAULT_SIZE}
+                  defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
                   className="pl-0 p-2"
                 >
-                  <Card className="shadow-lg font-mono h-full w-full p-4">
+                  <Card className="shadow-lg font-mono h-full w-full gap-4 p-4">
                     <Output
                       output={output}
                       isLoading={isLoading}
@@ -141,7 +165,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
             </ResizablePanel>
             <ResizableHandle />
             <ResizablePanel
-              defaultSize={PUZZLE_DESC_GROUP_DEFAULT_SIZE}
+              defaultSize={c.PUZZLE_DESC_GROUP_DEFAULT_SIZE}
               className="pr-0 p-2"
             >
               <PuzzleDescClient puzzle={puzzle} />
@@ -152,11 +176,13 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         {/* Mobile Layout - Visible on mobile only */}
         <div className="md:hidden flex flex-col h-full gap-2">
           <CodeEditor
+            value={code}
+            onChange={setCode}
+            language={language}
+            onLanguageChange={setLanguage}
             onRunCode={handleRunCode}
+            onReset={handleReset}
             isLoading={isLoading}
-            initialCode={puzzle.starterCode}
-            attemptsLeft={attemptsLeft ?? undefined}
-            maxAttempts={maxAttempts}
           />
           <PuzzleDescClient puzzle={puzzle} />
           <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTodayPuzzle } from "@/lib/puzzle";
+import { getTodayPuzzle, getAttemptsLeft } from "@/lib/puzzle";
+import { MAX_ATTEMPTS } from "@/components/puzzle/constants";
 
 /**
  * GET /api/puzzle
- * Returns today's active puzzle with public test cases
+ * Returns today's active puzzle with public test cases and user's attempts left
  */
 export async function GET(request: NextRequest) {
   try {
@@ -15,6 +16,16 @@ export async function GET(request: NextRequest) {
         { status: 404 }
       );
     }
+
+    // TODO: Get userId from authentication session
+    // For now, using null as placeholder - will be updated when auth is implemented
+    const userId: string | null = null;
+
+    const attemptsLeft = await getAttemptsLeft(
+      userId,
+      dailyPuzzle.puzzle.id,
+      MAX_ATTEMPTS
+    );
 
     // Return puzzle data (excluding hidden test cases)
     return NextResponse.json({
@@ -29,6 +40,7 @@ export async function GET(request: NextRequest) {
       language: dailyPuzzle.puzzle.language,
       hints: dailyPuzzle.puzzle.hints,
       testCases: dailyPuzzle.puzzle.testCases, // Only public test cases
+      attemptsLeft, // Number of attempts remaining for the user
     });
   } catch (error) {
     console.error("Error fetching puzzle:", error);

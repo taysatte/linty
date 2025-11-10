@@ -49,6 +49,7 @@ export async function getPuzzleById(id: number) {
     include: {
       description: true,
       testCases: true, // Include all test cases for validation
+      submissions: true,
     },
   });
 }
@@ -83,4 +84,50 @@ export async function schedulePuzzle(
  */
 export async function schedulePuzzleForToday(puzzleId: number): Promise<void> {
   await schedulePuzzle(puzzleId);
+}
+
+/**
+ * Get user's submission for a specific puzzle
+ * @param userId - The user ID (optional - if not provided, returns null)
+ * @param puzzleId - The puzzle ID
+ * @returns The submission if it exists, or null
+ */
+export async function getUserSubmission(
+  userId: string | null,
+  puzzleId: number
+) {
+  if (!userId) {
+    return null;
+  }
+
+  return await prisma.submission.findUnique({
+    where: {
+      userId_puzzleId: {
+        userId,
+        puzzleId,
+      },
+    },
+  });
+}
+
+/**
+ * Calculate attempts left for a user on a puzzle
+ * @param userId - The user ID (optional)
+ * @param puzzleId - The puzzle ID
+ * @param maxAttempts - Maximum number of attempts allowed
+ * @returns Number of attempts left, or maxAttempts if no submission exists
+ */
+export async function getAttemptsLeft(
+  userId: string | null,
+  puzzleId: number,
+  maxAttempts: number
+): Promise<number> {
+  const submission = await getUserSubmission(userId, puzzleId);
+
+  if (!submission) {
+    return maxAttempts;
+  }
+
+  const attemptsLeft = maxAttempts - submission.attempts;
+  return Math.max(0, attemptsLeft); // Ensure it's never negative
 }

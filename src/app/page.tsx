@@ -1,6 +1,7 @@
-import { getTodayPuzzle } from "@/lib/puzzle";
+import { getTodayPuzzle, getAttemptsLeft } from "@/lib/puzzle";
 import { notFound } from "next/navigation";
 import PuzzlePageClient from "@/components/puzzle/PuzzlePageClient";
+import { MAX_ATTEMPTS } from "@/components/puzzle/constants";
 
 // Force dynamic rendering - puzzle changes daily
 export const dynamic = "force-dynamic";
@@ -12,6 +13,16 @@ const PuzzlePage = async () => {
   if (!dailyPuzzle) {
     notFound();
   }
+
+  // TODO: Get userId from authentication session
+  // For now, using null as placeholder - will be updated when auth is implemented
+  const userId: string | null = null;
+
+  const attemptsLeft = await getAttemptsLeft(
+    userId,
+    dailyPuzzle.puzzle.id,
+    MAX_ATTEMPTS
+  );
 
   const puzzleData = {
     id: dailyPuzzle.puzzle.id,
@@ -26,6 +37,7 @@ const PuzzlePage = async () => {
     language: dailyPuzzle.puzzle.language,
     hints: dailyPuzzle.puzzle.hints,
     testCases: dailyPuzzle.puzzle.testCases,
+    attemptsLeft, // Number of attempts remaining for the user
   };
 
   return <PuzzlePageClient puzzle={puzzleData} />;

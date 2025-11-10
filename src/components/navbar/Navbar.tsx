@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { TimerIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Item, ItemContent, ItemMedia } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
-import Timer from "@/components/navbar/Timer";
 import StatusBar from "@/components/navbar/StatusBar";
-import { SubmitButton } from "@/components/editor/SubmitButton";
+import TimerSubmitGroup from "@/components/navbar/TimerSubmitGroup";
+import { TEST_STREAK_LENGTH } from "./constants";
+import { MAX_ATTEMPTS } from "../puzzle/constants";
 
 interface NavbarProps {
   streak?: number;
@@ -38,39 +37,19 @@ export default function Navbar({
           className="w-[32px] md:w-[36px] h-auto"
         />
       </div>
-      <div className="flex-1 flex items-center justify-center h-full gap-3">
-        <Item
-          variant="default"
-          className="px-4 sm:px-4 sm:py-1.5 md:px-4 py-1.5 md:py-1.5 gap-3 rounded-xl border border-border bg-card shadow-sm"
-        >
-          <ItemMedia className="hidden sm:block">
-            <TimerIcon className="text-primary stroke-3" size={18} />
-          </ItemMedia>
-          <ItemContent className="flex flex-row justify-center items-center gap-1 sm:gap-3">
-            <div className="h-5">
-              <Separator
-                className="hidden sm:block md:block"
-                orientation="vertical"
-                decorative
-              />
-            </div>
-            <Timer />
-          </ItemContent>
-        </Item>
-        {onSubmit && (
-          <SubmitButton
-            onSubmit={onSubmit}
-            isLoading={isLoading}
-            attemptsLeft={attemptsLeft}
-            maxAttempts={maxAttempts}
-          />
-        )}
+      <div className="flex-1 flex items-center justify-center h-full">
+        <TimerSubmitGroup
+          onSubmit={onSubmit}
+          isLoading={isLoading}
+          attemptsLeft={attemptsLeft}
+          maxAttempts={maxAttempts}
+        />
       </div>
       <div className="flex-1 flex gap-2 md:gap-4 justify-end items-center h-full">
         <StatusBar
-          streak={streak ?? 5}
+          streak={streak ?? TEST_STREAK_LENGTH}
           attemptsLeft={attemptsLeft}
-          maxAttempts={maxAttempts}
+          maxAttempts={maxAttempts ?? MAX_ATTEMPTS}
         />
         {/* TODO: Implement user settings */}
         <div className="h-6 hidden sm:block">
