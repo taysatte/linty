@@ -41,12 +41,12 @@ export default function TimerSubmitGroup({
         />
         <Timer />
       </ButtonGroupText>
-      <ButtonGroupSeparator
-        orientation="vertical"
-        className="h-full bg-border"
-      />
       {onSubmit && (
         <>
+          <ButtonGroupSeparator
+            orientation="vertical"
+            className="h-full bg-border"
+          />
           <Button
             size="lg"
             onClick={onSubmit}
