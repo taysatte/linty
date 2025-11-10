@@ -113,7 +113,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             <div className="font-bold text-lg text-foreground/90">
               Description
             </div>
-            <div className="text-md text-foreground/80 rounded-lg bg-card border border-border p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+            <div className="text-sm text-foreground/80 rounded-lg bg-card border border-border p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {puzzle.description}
               </ReactMarkdown>
@@ -126,7 +126,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                 <div className="font-bold text-lg text-foreground/90">
                   Instructions
                 </div>
-                <div className="p-3 text-md text-foreground/80 rounded-lg bg-secondary/5 border border-secondary/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+                <div className="p-3 text-sm text-foreground/80 rounded-lg bg-secondary/5 border border-secondary/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {puzzle.instructions}
                   </ReactMarkdown>
@@ -143,7 +143,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               <div className="p-4 space-y-4 rounded-lg bg-primary/5 border border-primary/10">
                 {puzzle.testCases.map((testCase, index) => (
                   <div key={testCase.id}>
-                    <div className="text-md space-y-1.5">
+                    <div className="text-sm space-y-1.5">
                       <div>
                         <span className="font-medium text-foreground/90">
                           Input:
@@ -249,7 +249,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               <div className="font-bold text-lg text-foreground/90">
                 Description
               </div>
-              <div className="text-md text-foreground/80 rounded-lg bg-card border border-border p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+              <div className="text-sm text-foreground/80 rounded-lg bg-card border border-border p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {puzzle.description}
                 </ReactMarkdown>
@@ -262,7 +262,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                   <div className="font-bold text-lg text-foreground/90">
                     Instructions
                   </div>
-                  <div className="p-3 text-md text-foreground/80 rounded-lg bg-secondary/5 border border-secondary/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+                  <div className="p-3 text-sm text-foreground/80 rounded-lg bg-secondary/5 border border-secondary/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {puzzle.instructions}
                     </ReactMarkdown>
@@ -279,7 +279,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                 <div className="p-4 space-y-4 rounded-lg bg-primary/5 border border-primary/10">
                   {puzzle.testCases.map((testCase, index) => (
                     <div key={testCase.id}>
-                      <div className="text-md space-y-1.5">
+                      <div className="text-sm space-y-1.5">
                         <div>
                           <span className="font-medium text-foreground/90">
                             Input:
