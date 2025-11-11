@@ -39,7 +39,7 @@ You may assume that each input would have exactly one solution, and you may not 
   
   return [];
 }`,
-      solutionCode: `function twoSum(nums, target) {
+      solutionCode: `const twoSum = (nums, target) => {
   const map = new Map();
   
   for (let i = 0; i < nums.length; i++) {
@@ -63,24 +63,32 @@ You may assume that each input would have exactly one solution, and you may not 
 💡 **Hint 3:** Check if you've already seen the complement number before adding the current number to the map.`,
       testCases: [
         {
-          input: "[2, 7, 11, 15], 9",
+          input: "console.log(twoSum([2, 7, 11, 15], 9))",
           expectedOutput: "[0, 1]",
           isPublic: true,
         },
-        { input: "[3, 2, 4], 6", expectedOutput: "[1, 2]", isPublic: true },
-        { input: "[3, 3], 6", expectedOutput: "[0, 1]", isPublic: true },
         {
-          input: "[-1, -2, -3, -4, -5], -8",
+          input: "console.log(twoSum([3, 2, 4], 6))",
+          expectedOutput: "[1, 2]",
+          isPublic: true,
+        },
+        {
+          input: "console.log(twoSum([3, 3], 6))",
+          expectedOutput: "[0, 1]",
+          isPublic: true,
+        },
+        {
+          input: "console.log(twoSum([-1, -2, -3, -4, -5], -8))",
           expectedOutput: "[2, 4]",
           isPublic: false,
         },
         {
-          input: "[1, 5, 3, 7, 9], 14",
-          expectedOutput: "[3, 4]",
+          input: "console.log(twoSum([1, 5, 3, 7, 9], 14))",
+          expectedOutput: "[1, 4]",
           isPublic: false,
         },
         {
-          input: "[10, 20, 30, 40, 50], 90",
+          input: "console.log(twoSum([10, 20, 30, 40, 50], 90))",
           expectedOutput: "[3, 4]",
           isPublic: false,
         },
@@ -120,7 +128,7 @@ You may assume that each input would have exactly one solution, and you may not 
   
   return maxLength;
 }`,
-      solutionCode: `function lengthOfLongestSubstring(s) {
+      solutionCode: `const lengthOfLongestSubstring = (s) => {
   const charMap = new Map();
   let maxLength = 0;
   let left = 0;
@@ -146,13 +154,34 @@ You may assume that each input would have exactly one solution, and you may not 
 
 💡 **Hint 3:** When you see a duplicate character, move the left pointer to the position after where that character was last seen.`,
       testCases: [
-        { input: '"abcabcbb"', expectedOutput: "3", isPublic: true },
-        { input: '"bbbbb"', expectedOutput: "1", isPublic: true },
-        { input: '"pwwkew"', expectedOutput: "3", isPublic: true },
-        { input: '""', expectedOutput: "0", isPublic: false },
-        { input: '"dvdf"', expectedOutput: "3", isPublic: false },
         {
-          input: '"abcdefghijklmnopqrstuvwxyz"',
+          input: 'console.log(lengthOfLongestSubstring("abcabcbb"))',
+          expectedOutput: "3",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(lengthOfLongestSubstring("bbbbb"))',
+          expectedOutput: "1",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(lengthOfLongestSubstring("pwwkew"))',
+          expectedOutput: "3",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(lengthOfLongestSubstring(""))',
+          expectedOutput: "0",
+          isPublic: false,
+        },
+        {
+          input: 'console.log(lengthOfLongestSubstring("dvdf"))',
+          expectedOutput: "3",
+          isPublic: false,
+        },
+        {
+          input:
+            'console.log(lengthOfLongestSubstring("abcdefghijklmnopqrstuvwxyz"))',
           expectedOutput: "26",
           isPublic: false,
         },
@@ -197,7 +226,7 @@ You may assume that each input would have exactly one solution, and you may not 
   
   return nums1;
 }`,
-      solutionCode: `function merge(nums1, m, nums2, n) {
+      solutionCode: `const merge = (nums1, m, nums2, n) => {
   let i = m - 1;
   let j = n - 1;
   let k = m + n - 1;
@@ -230,23 +259,35 @@ You may assume that each input would have exactly one solution, and you may not 
 💡 **Hint 3:** After merging, if there are remaining elements in nums2, copy them to nums1.`,
       testCases: [
         {
-          input: "[1,2,3,0,0,0], 3, [2,5,6], 3",
+          input: "console.log(merge([1,2,3,0,0,0], 3, [2,5,6], 3))",
           expectedOutput: "[1,2,2,3,5,6]",
           isPublic: true,
         },
-        { input: "[1], 1, [], 0", expectedOutput: "[1]", isPublic: true },
-        { input: "[0], 0, [1], 1", expectedOutput: "[1]", isPublic: true },
         {
-          input: "[4,5,6,0,0,0], 3, [1,2,3], 3",
+          input: "console.log(merge([1], 1, [], 0))",
+          expectedOutput: "[1]",
+          isPublic: true,
+        },
+        {
+          input: "console.log(merge([0], 0, [1], 1))",
+          expectedOutput: "[1]",
+          isPublic: true,
+        },
+        {
+          input: "console.log(merge([4,5,6,0,0,0], 3, [1,2,3], 3))",
           expectedOutput: "[1,2,3,4,5,6]",
           isPublic: false,
         },
         {
-          input: "[1,3,5,0,0], 3, [2,4], 2",
+          input: "console.log(merge([1,3,5,0,0], 3, [2,4], 2))",
           expectedOutput: "[1,2,3,4,5]",
           isPublic: false,
         },
-        { input: "[2,0], 1, [1], 1", expectedOutput: "[1,2]", isPublic: false },
+        {
+          input: "console.log(merge([2,0], 1, [1], 1))",
+          expectedOutput: "[1,2]",
+          isPublic: false,
+        },
       ],
     },
     {
@@ -277,7 +318,7 @@ A subarray is a contiguous part of an array.
   
   return maxSum;
 }`,
-      solutionCode: `function maxSubArray(nums) {
+      solutionCode: `const maxSubArray = (nums) => {
   let maxSum = nums[0];
   let currentSum = nums[0];
   
@@ -297,15 +338,35 @@ A subarray is a contiguous part of an array.
 💡 **Hint 3:** Keep track of both the current maximum sum and the overall maximum sum seen so far.`,
       testCases: [
         {
-          input: "[-2,1,-3,4,-1,2,1,-5,4]",
+          input: "console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))",
           expectedOutput: "6",
           isPublic: true,
         },
-        { input: "[1]", expectedOutput: "1", isPublic: true },
-        { input: "[5,4,-1,7,8]", expectedOutput: "23", isPublic: true },
-        { input: "[-1]", expectedOutput: "-1", isPublic: false },
-        { input: "[-2,-1]", expectedOutput: "-1", isPublic: false },
-        { input: "[1,2,3,4,5]", expectedOutput: "15", isPublic: false },
+        {
+          input: "console.log(maxSubArray([1]))",
+          expectedOutput: "1",
+          isPublic: true,
+        },
+        {
+          input: "console.log(maxSubArray([5,4,-1,7,8]))",
+          expectedOutput: "23",
+          isPublic: true,
+        },
+        {
+          input: "console.log(maxSubArray([-1]))",
+          expectedOutput: "-1",
+          isPublic: false,
+        },
+        {
+          input: "console.log(maxSubArray([-2,-1]))",
+          expectedOutput: "-1",
+          isPublic: false,
+        },
+        {
+          input: "console.log(maxSubArray([1,2,3,4,5]))",
+          expectedOutput: "15",
+          isPublic: false,
+        },
       ],
     },
     {
@@ -352,7 +413,7 @@ An input string is valid if:
   
   return stack.length === 0;
 }`,
-      solutionCode: `function isValid(s) {
+      solutionCode: `const isValid = (s) => {
   const stack = [];
   const pairs = {
     ')': '(',
@@ -380,12 +441,36 @@ An input string is valid if:
 
 💡 **Hint 3:** The string is valid only if the stack is empty at the end.`,
       testCases: [
-        { input: '"()"', expectedOutput: "true", isPublic: true },
-        { input: '"()[]{}"', expectedOutput: "true", isPublic: true },
-        { input: '"(]"', expectedOutput: "false", isPublic: true },
-        { input: '"([)]"', expectedOutput: "false", isPublic: false },
-        { input: '"{[]}"', expectedOutput: "true", isPublic: false },
-        { input: '"(("', expectedOutput: "false", isPublic: false },
+        {
+          input: 'console.log(isValid("()"))',
+          expectedOutput: "true",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(isValid("()[]{}"))',
+          expectedOutput: "true",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(isValid("(]"))',
+          expectedOutput: "false",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(isValid("([)]"))',
+          expectedOutput: "false",
+          isPublic: false,
+        },
+        {
+          input: 'console.log(isValid("{[]}"))',
+          expectedOutput: "true",
+          isPublic: false,
+        },
+        {
+          input: 'console.log(isValid("(("))',
+          expectedOutput: "false",
+          isPublic: false,
+        },
       ],
     },
     {
@@ -437,7 +522,7 @@ Given the array \`nums\` after the rotation and an integer \`target\`, return th
   
   return -1;
 }`,
-      solutionCode: `function search(nums, target) {
+      solutionCode: `const search = (nums, target) => {
   let left = 0;
   let right = nums.length - 1;
   
@@ -475,12 +560,399 @@ Given the array \`nums\` after the rotation and an integer \`target\`, return th
 
 💡 **Hint 3:** If the right half is sorted, check if target is in that range. Otherwise, search the left half.`,
       testCases: [
-        { input: "[4,5,6,7,0,1,2], 0", expectedOutput: "4", isPublic: true },
-        { input: "[4,5,6,7,0,1,2], 3", expectedOutput: "-1", isPublic: true },
-        { input: "[1], 0", expectedOutput: "-1", isPublic: true },
-        { input: "[1,3], 3", expectedOutput: "1", isPublic: false },
-        { input: "[5,1,3], 3", expectedOutput: "2", isPublic: false },
-        { input: "[4,5,6,7,0,1,2], 5", expectedOutput: "1", isPublic: false },
+        {
+          input: "console.log(search([4,5,6,7,0,1,2], 0))",
+          expectedOutput: "4",
+          isPublic: true,
+        },
+        {
+          input: "console.log(search([4,5,6,7,0,1,2], 3))",
+          expectedOutput: "-1",
+          isPublic: true,
+        },
+        {
+          input: "console.log(search([1], 0))",
+          expectedOutput: "-1",
+          isPublic: true,
+        },
+        {
+          input: "console.log(search([1,3], 3))",
+          expectedOutput: "1",
+          isPublic: false,
+        },
+        {
+          input: "console.log(search([5,1,3], 3))",
+          expectedOutput: "2",
+          isPublic: false,
+        },
+        {
+          input: "console.log(search([4,5,6,7,0,1,2], 5))",
+          expectedOutput: "1",
+          isPublic: false,
+        },
+      ],
+    },
+    // Easy difficulty puzzles
+    {
+      tags: ["string", "algorithm", "easy"],
+      title: "Reverse String",
+      description: `Write a function that reverses a string. The input string is given as an array of characters \`s\`.
+
+You must do this by modifying the input array in-place with O(1) extra memory.
+
+**Example:**
+- Input: \`s = ["h","e","l","l","o"]\`
+- Output: \`["o","l","l","e","h"]\``,
+      instructions: `- Modify the input array in-place (don't return a new array)
+- Use two pointers approach for O(1) space complexity
+- Swap characters from both ends moving towards the center`,
+      starterCode: `function reverseString(s) {
+  // Bug: Only reversing half the array
+  for (let i = 0; i < s.length / 2; i++) {
+    const temp = s[i];
+    s[i] = s[s.length - 1 - i];
+    // Bug: Not swapping the other end
+  }
+  return s;
+}`,
+      solutionCode: `const reverseString = (s) => {
+  let left = 0;
+  let right = s.length - 1;
+  
+  while (left < right) {
+    const temp = s[left];
+    s[left] = s[right];
+    s[right] = temp;
+    left++;
+    right--;
+  }
+  
+  return s;
+}`,
+      difficulty: "easy",
+      language: "javascript",
+      hints: `💡 **Hint 1:** Use two pointers - one at the start, one at the end.
+
+💡 **Hint 2:** Swap the characters at both pointers, then move them towards each other.
+
+💡 **Hint 3:** Continue until the pointers meet in the middle.`,
+      testCases: [
+        {
+          input: 'console.log(reverseString(["h","e","l","l","o"]))',
+          expectedOutput: '["o","l","l","e","h"]',
+          isPublic: true,
+        },
+        {
+          input: 'console.log(reverseString(["H","a","n","n","a","h"]))',
+          expectedOutput: '["h","a","n","n","a","H"]',
+          isPublic: true,
+        },
+        {
+          input: 'console.log(reverseString(["a"]))',
+          expectedOutput: '["a"]',
+          isPublic: true,
+        },
+        {
+          input: 'console.log(reverseString(["a","b"]))',
+          expectedOutput: '["b","a"]',
+          isPublic: false,
+        },
+        {
+          input: 'console.log(reverseString(["1","2","3","4"]))',
+          expectedOutput: '["4","3","2","1"]',
+          isPublic: false,
+        },
+      ],
+    },
+    {
+      tags: ["string", "algorithm", "easy"],
+      title: "Valid Palindrome",
+      description: `A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward.
+
+Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherwise.
+
+**Example:**
+- Input: \`s = "A man, a plan, a canal: Panama"\`
+- Output: \`true\` (because "amanaplanacanalpanama" is a palindrome)
+
+- Input: \`s = "race a car"\`
+- Output: \`false\``,
+      instructions: `- Convert to lowercase and remove non-alphanumeric characters
+- Use two pointers to compare from both ends
+- Return true if all characters match, false otherwise`,
+      starterCode: `function isPalindrome(s) {
+  // Remove non-alphanumeric and convert to lowercase
+  const cleaned = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  
+  // Bug: Only checking first half
+  for (let i = 0; i < cleaned.length / 2; i++) {
+    if (cleaned[i] !== cleaned[cleaned.length - 1 - i]) {
+      return false;
+    }
+  }
+  
+  return true;
+}`,
+      solutionCode: `const isPalindrome = (s) => {
+  const cleaned = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  
+  let left = 0;
+  let right = cleaned.length - 1;
+  
+  while (left < right) {
+    if (cleaned[left] !== cleaned[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  
+  return true;
+}`,
+      difficulty: "easy",
+      language: "javascript",
+      hints: `💡 **Hint 1:** First, clean the string by removing non-alphanumeric characters and converting to lowercase.
+
+💡 **Hint 2:** Use two pointers starting from both ends of the cleaned string.
+
+💡 **Hint 3:** Compare characters at both pointers and move them towards the center.`,
+      testCases: [
+        {
+          input: 'console.log(isPalindrome("A man, a plan, a canal: Panama"))',
+          expectedOutput: "true",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(isPalindrome("race a car"))',
+          expectedOutput: "false",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(isPalindrome(" "))',
+          expectedOutput: "true",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(isPalindrome("Madam"))',
+          expectedOutput: "true",
+          isPublic: false,
+        },
+        {
+          input: 'console.log(isPalindrome("No x in Nixon"))',
+          expectedOutput: "true",
+          isPublic: false,
+        },
+      ],
+    },
+    {
+      tags: ["array", "algorithm", "easy"],
+      title: "Find Maximum in Array",
+      description: `Write a function that finds the maximum number in an array of integers.
+
+**Example:**
+- Input: \`nums = [3, 5, 2, 8, 1]\`
+- Output: \`8\`
+
+- Input: \`nums = [-1, -5, -3]\`
+- Output: \`-1\``,
+      instructions: `- Return the maximum value in the array
+- Handle arrays with negative numbers
+- Assume the array has at least one element`,
+      starterCode: `function findMax(nums) {
+  let max = 0; // Bug: Initializing to 0 fails with all negative numbers
+  
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > max) {
+      max = nums[i];
+    }
+  }
+  
+  return max;
+}`,
+      solutionCode: `const findMax = (nums) => {
+  let max = nums[0];
+  
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > max) {
+      max = nums[i];
+    }
+  }
+  
+  return max;
+}`,
+      difficulty: "easy",
+      language: "javascript",
+      hints: `💡 **Hint 1:** Initialize max to the first element of the array, not 0.
+
+💡 **Hint 2:** Iterate through the array and update max whenever you find a larger value.
+
+💡 **Hint 3:** This ensures it works correctly even with all negative numbers.`,
+      testCases: [
+        {
+          input: "console.log(findMax([3, 5, 2, 8, 1]))",
+          expectedOutput: "8",
+          isPublic: true,
+        },
+        {
+          input: "console.log(findMax([-1, -5, -3]))",
+          expectedOutput: "-1",
+          isPublic: true,
+        },
+        {
+          input: "console.log(findMax([42]))",
+          expectedOutput: "42",
+          isPublic: true,
+        },
+        {
+          input: "console.log(findMax([10, 20, 30]))",
+          expectedOutput: "30",
+          isPublic: false,
+        },
+        {
+          input: "console.log(findMax([-10, -20, -30]))",
+          expectedOutput: "-10",
+          isPublic: false,
+        },
+      ],
+    },
+    {
+      tags: ["array", "algorithm", "easy"],
+      title: "Sum of Array",
+      description: `Write a function that calculates the sum of all numbers in an array.
+
+**Example:**
+- Input: \`nums = [1, 2, 3, 4, 5]\`
+- Output: \`15\`
+
+- Input: \`nums = [-1, 0, 1]\`
+- Output: \`0\``,
+      instructions: `- Return the sum of all elements
+- Handle negative numbers correctly
+- Return 0 for empty arrays`,
+      starterCode: `function sumArray(nums) {
+  let sum = 0;
+  
+  // Bug: Starting from index 1 instead of 0
+  for (let i = 1; i < nums.length; i++) {
+    sum += nums[i];
+  }
+  
+  return sum;
+}`,
+      solutionCode: `const sumArray = (nums) => {
+  let sum = 0;
+  
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+  }
+  
+  return sum;
+}`,
+      difficulty: "easy",
+      language: "javascript",
+      hints: `💡 **Hint 1:** Initialize a sum variable to 0.
+
+💡 **Hint 2:** Iterate through all elements starting from index 0.
+
+💡 **Hint 3:** Add each element to the sum.`,
+      testCases: [
+        {
+          input: "console.log(sumArray([1, 2, 3, 4, 5]))",
+          expectedOutput: "15",
+          isPublic: true,
+        },
+        {
+          input: "console.log(sumArray([-1, 0, 1]))",
+          expectedOutput: "0",
+          isPublic: true,
+        },
+        {
+          input: "console.log(sumArray([]))",
+          expectedOutput: "0",
+          isPublic: true,
+        },
+        {
+          input: "console.log(sumArray([10, 20, 30, 40]))",
+          expectedOutput: "100",
+          isPublic: false,
+        },
+        {
+          input: "console.log(sumArray([-5, -10, -15]))",
+          expectedOutput: "-30",
+          isPublic: false,
+        },
+      ],
+    },
+    {
+      tags: ["string", "algorithm", "easy"],
+      title: "Count Characters",
+      description: `Write a function that counts how many times a specific character appears in a string.
+
+**Example:**
+- Input: \`s = "hello"\`, \`char = "l"\`
+- Output: \`2\` (because 'l' appears twice)
+
+- Input: \`s = "programming"\`, \`char = "m"\`
+- Output: \`2\``,
+      instructions: `- Return the count of how many times the character appears
+- The comparison should be case-sensitive
+- Return 0 if the character is not found`,
+      starterCode: `function countChar(s, char) {
+  let count = 0;
+  
+  // Bug: Using == instead of ===, and not checking bounds
+  for (let i = 0; i <= s.length; i++) {
+    if (s[i] == char) {
+      count++;
+    }
+  }
+  
+  return count;
+}`,
+      solutionCode: `const countChar = (s, char) => {
+  let count = 0;
+  
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === char) {
+      count++;
+    }
+  }
+  
+  return count;
+}`,
+      difficulty: "easy",
+      language: "javascript",
+      hints: `💡 **Hint 1:** Initialize a counter to 0.
+
+💡 **Hint 2:** Loop through each character in the string.
+
+💡 **Hint 3:** Use strict equality (===) to compare characters and increment the counter when there's a match.`,
+      testCases: [
+        {
+          input: 'console.log(countChar("hello", "l"))',
+          expectedOutput: "2",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(countChar("programming", "m"))',
+          expectedOutput: "2",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(countChar("test", "x"))',
+          expectedOutput: "0",
+          isPublic: true,
+        },
+        {
+          input: 'console.log(countChar("Mississippi", "s"))',
+          expectedOutput: "4",
+          isPublic: false,
+        },
+        {
+          input: 'console.log(countChar("a", "a"))',
+          expectedOutput: "1",
+          isPublic: false,
+        },
       ],
     },
   ];

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { Card } from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
@@ -16,7 +16,12 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { RunCodeProps, SubmitPuzzleProps } from "@/components/puzzle/types";
+import {
+  RunCodeProps,
+  SubmitPuzzleProps,
+  SubmitPuzzleResponse,
+  ExecuteCodeResponse,
+} from "@/components/puzzle/types";
 import { TestCase } from "@/generated/prisma";
 import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
 import { type Language } from "@/lib/languageVersions";
@@ -49,12 +54,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   // attemptsLeft is fetched from the API and passed as a prop
   const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
 
-  // Time tracking for submission
-  const startTimeRef = useRef<number>(Date.now());
-
   useEffect(() => {
-    // Reset timer when puzzle changes
-    startTimeRef.current = Date.now();
     // Update attemptsLeft when puzzle changes
     setAttemptsLeft(puzzle.attemptsLeft);
   }, [puzzle.id, puzzle.attemptsLeft]);
@@ -70,7 +70,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ code, language }),
+        body: JSON.stringify({ code, language, puzzleId: puzzle.id }),
       });
 
       if (!response.ok) {
@@ -78,28 +78,38 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         throw new Error(errorData.error || "Failed to execute code");
       }
 
-      const data = await response.json();
-      if (data.error) {
+      const data: ExecuteCodeResponse = await response.json();
+
+      // Handle test results if available
+      if (data.testResults) {
+        setTestsPassed(data.allTestsPassed ?? false);
+        setOutput(data.testResults.map((r) => r.output));
+      } else if (data.error) {
         setOutput([data.error]);
+        setTestsPassed(false);
       } else {
         setOutput(data.output || []);
+        setTestsPassed(null);
       }
-
-      // TODO: Update testsPassed based on test results when implemented
-      setTestsPassed(null);
     } catch (error) {
       // Handle errors
       const errorMessage =
         error instanceof Error ? error.message : "Execution failed";
       setOutput([`Error: ${errorMessage}`]);
-      setTestsPassed(null);
+      setTestsPassed(false);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleSubmit = async () => {
-    const timeTaken = Math.floor((Date.now() - startTimeRef.current) / 1000);
+    setIsLoading(true);
+    setTestsPassed(null);
+    setOutput([]);
+
+    // Calculate time taken from the start of the puzzle's day
+    const puzzleStartTime = new Date(puzzle.date).getTime();
+    const timeTaken = Math.floor((Date.now() - puzzleStartTime) / 1000);
 
     const submitData: SubmitPuzzleProps = {
       code,
@@ -108,8 +118,23 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
       timeTaken,
     };
 
-    // TODO: Implement submission API call
-    console.log("Submit", submitData);
+    const response = await fetch("api/submit", {
+      method: "POST",
+      body: JSON.stringify(submitData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      setOutput([errorData.error || "Failed to submit puzzle"]);
+      return;
+    }
+
+    const data: SubmitPuzzleResponse = await response.json();
+    console.log(data);
+    setAttemptsLeft(data.attemptsLeft ?? puzzle.attemptsLeft);
+    setTestsPassed(data.allTestsPassed);
+    setOutput(data.testResults.map((result) => result.output));
+    setIsLoading(false);
   };
 
   const handleReset = () => {

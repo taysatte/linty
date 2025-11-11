@@ -1,18 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  getLanguageVersion,
-  isSupportedLanguage,
-} from "@/lib/languageVersions";
-import { getPistonApiUrl } from "@/lib/pistonApi";
+import { isSupportedLanguage } from "@/lib/languageVersions";
+import { executeCode, runTestCases } from "@/lib/codeExecution";
+import { getPuzzleById } from "@/lib/puzzle";
 
 /**
  * Piston API execution endpoint
  * Handles code execution requests
+ * If puzzleId is provided, runs code against puzzle's public test cases
  */
-export async function POST(request: NextRequest) {
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     const body = await request.json();
-    const { code, language } = body;
+    const { code, language, puzzleId } = body;
 
     // Validate input
     if (!code || !language) {
@@ -22,7 +21,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if language is supported and get version
+    // Check if language is supported
     if (!isSupportedLanguage(language)) {
       return NextResponse.json(
         { error: `Unsupported language: ${language}` },
@@ -30,45 +29,49 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get version for language
-    const version = getLanguageVersion(language);
-    if (!version) {
-      return NextResponse.json(
-        { error: `No version found for language: ${language}` },
-        { status: 500 }
-      );
+    // If puzzleId is provided, run against test cases
+    if (puzzleId) {
+      const puzzle = await getPuzzleById(puzzleId);
+      if (!puzzle) {
+        return NextResponse.json(
+          { error: "Puzzle not found" },
+          { status: 404 }
+        );
+      }
+
+      // Only run public test cases for execute endpoint
+      const publicTestCases = puzzle.testCases.filter((tc) => tc.isPublic);
+
+      if (publicTestCases.length === 0) {
+        // If no public test cases, just execute the code without input
+        const result = await executeCode(code, language);
+        return NextResponse.json({
+          output: result.output.split("\n") || [],
+          error: result.error,
+          exitCode: result.exitCode,
+          testResults: null,
+        });
+      }
+
+      const testResults = await runTestCases(code, language, publicTestCases);
+      const allTestsPassed = testResults.every((result) => result.passed);
+
+      return NextResponse.json({
+        output: testResults.map((r) => r.output),
+        error: testResults.find((r) => r.error)?.error || null,
+        exitCode: testResults.find((r) => r.exitCode !== 0)?.exitCode || 0,
+        testResults,
+        allTestsPassed,
+      });
     }
 
-    // Get Piston API URL from environment variable and endpoint path
-    // Set PISTON_API_URL in .env.local for local development
-    const executeUrl = getPistonApiUrl("EXECUTE");
-
-    const response = await fetch(executeUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        language,
-        version,
-        files: [
-          {
-            content: code,
-          },
-        ],
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Piston API error: ${response.statusText}`);
-    }
-
-    const result = await response.json();
+    // No puzzleId - just execute code without test cases
+    const result = await executeCode(code, language);
 
     return NextResponse.json({
-      output: result.run?.stdout?.split("\n") || [],
-      error: result.run?.stderr || null,
-      exitCode: result.run?.code || 0,
+      output: result.output.split("\n") || [],
+      error: result.error,
+      exitCode: result.exitCode,
     });
   } catch (error) {
     console.error("Execution error:", error);
@@ -79,4 +82,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+};
