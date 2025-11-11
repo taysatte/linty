@@ -40,7 +40,7 @@ export interface PuzzlePageClientProps {
     hints: string | null;
     tags: string[];
     testCases: TestCase[];
-    attemptsLeft: number; // Number of attempts remaining for the user
+    attemptsLeft: number;
   };
 }
 
@@ -51,7 +51,6 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
-  // attemptsLeft is fetched from the API and passed as a prop
   const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
 
   useEffect(() => {

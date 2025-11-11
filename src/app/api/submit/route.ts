@@ -70,37 +70,51 @@ export async function POST(request: NextRequest) {
     const allTestsPassed = testResults.every((result) => result.passed);
 
     // Only create/update submission if user is authenticated
+    // Only increment attempts when tests fail
     let attemptsLeft: number | null = null;
     if (userId) {
       const existingSubmission = await getUserSubmission(userId, puzzleId);
 
-      if (existingSubmission) {
-        // Update existing submission (increment attempts)
-        const newAttempts = existingSubmission.attempts + 1;
-        await prisma.submission.update({
-          where: {
-            userId_puzzleId: {
+      if (!allTestsPassed) {
+        // Only increment attempts when tests fail
+        if (existingSubmission) {
+          // Update existing submission (increment attempts)
+          const newAttempts = existingSubmission.attempts + 1;
+          await prisma.submission.update({
+            where: {
+              userId_puzzleId: {
+                userId,
+                puzzleId,
+              },
+            },
+            data: {
+              attempts: newAttempts,
+              timeTaken: timeTaken, // Update with latest time
+            },
+          });
+          attemptsLeft = Math.max(0, MAX_ATTEMPTS - newAttempts);
+        } else {
+          // Create new submission
+          await prisma.submission.create({
+            data: {
               userId,
               puzzleId,
+              attempts: 1,
+              timeTaken: timeTaken,
             },
-          },
-          data: {
-            attempts: newAttempts,
-            timeTaken: timeTaken, // Update with latest time
-          },
-        });
-        attemptsLeft = Math.max(0, MAX_ATTEMPTS - newAttempts);
+          });
+          attemptsLeft = Math.max(0, MAX_ATTEMPTS - 1);
+        }
       } else {
-        // Create new submission
-        await prisma.submission.create({
-          data: {
-            userId,
-            puzzleId,
-            attempts: 1,
-            timeTaken: timeTaken,
-          },
-        });
-        attemptsLeft = Math.max(0, MAX_ATTEMPTS - 1);
+        // Tests passed - get current attempts without incrementing
+        if (existingSubmission) {
+          attemptsLeft = Math.max(
+            0,
+            MAX_ATTEMPTS - existingSubmission.attempts
+          );
+        } else {
+          attemptsLeft = MAX_ATTEMPTS;
+        }
       }
     }
 
