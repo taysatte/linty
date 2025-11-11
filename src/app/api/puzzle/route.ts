@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTodayPuzzle, getAttemptsLeft } from "@/lib/puzzle";
 import { MAX_ATTEMPTS } from "@/components/puzzle/constants";
+import { getUserId } from "@/lib/supabase/server";
 
 /**
  * GET /api/puzzle
@@ -17,9 +18,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // TODO: Get userId from authentication session
-    // For now, using null as placeholder - will be updated when auth is implemented
-    const userId: string | null = null;
+    // Get userId from authentication session
+    const userId = await getUserId();
 
     const attemptsLeft = await getAttemptsLeft(
       userId,

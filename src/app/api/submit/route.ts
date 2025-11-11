@@ -4,6 +4,7 @@ import { getPuzzleById, getUserSubmission } from "@/lib/puzzle";
 import { isSupportedLanguage } from "@/lib/languageVersions";
 import { runTestCases } from "@/lib/codeExecution";
 import { MAX_ATTEMPTS } from "@/components/puzzle/constants";
+import { getUserId } from "@/lib/supabase/server";
 
 /**
  * POST /api/submit
@@ -30,9 +31,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Get userId from authentication session
-    // For now, using null as placeholder - will be updated when auth is implemented
-    const userId: string | null = null;
+    // Get userId from authentication session
+    const userId = await getUserId();
 
     // Get puzzle with all test cases (public + hidden)
     const puzzle = await getPuzzleById(puzzleId);

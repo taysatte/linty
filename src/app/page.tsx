@@ -2,6 +2,7 @@ import { getTodayPuzzle, getAttemptsLeft } from "@/lib/puzzle";
 import { notFound } from "next/navigation";
 import PuzzlePageClient from "@/components/puzzle/PuzzlePageClient";
 import { MAX_ATTEMPTS } from "@/components/puzzle/constants";
+import { getUserId } from "@/lib/supabase/server";
 
 // Force dynamic rendering - puzzle changes daily
 export const dynamic = "force-dynamic";
@@ -14,9 +15,8 @@ const PuzzlePage = async () => {
     notFound();
   }
 
-  // TODO: Get userId from authentication session
-  // For now, using null as placeholder - will be updated when auth is implemented
-  const userId: string | null = null;
+  // Get userId from authentication session
+  const userId = await getUserId();
 
   const attemptsLeft = await getAttemptsLeft(
     userId,
