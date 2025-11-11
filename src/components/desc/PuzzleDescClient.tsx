@@ -20,46 +20,14 @@ import { PuzzlePageClientProps } from "@/components/puzzle/PuzzlePageClient";
 import { Item, ItemContent } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
+import {
+  getDifficultyColor,
+  getDifficultyBgColor,
+  getDifficultyHoverColor,
+} from "@/lib/puzzleDesc";
 const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
   const [isHintsOpen, setIsHintsOpen] = useState(false);
-
-  const getDifficultyColor = (difficulty: string | null) => {
-    const normalizedDifficulty = (difficulty || "easy").toLowerCase();
-    if (normalizedDifficulty === "easy") {
-      return "text-[var(--easy-puzzle)]";
-    } else if (normalizedDifficulty === "medium") {
-      return "text-[var(--medium-puzzle)]";
-    } else if (normalizedDifficulty === "hard") {
-      return "text-[var(--hard-puzzle)]";
-    }
-    return "text-muted-foreground";
-  };
-
-  const getDifficultyBgColor = (difficulty: string | null) => {
-    const normalizedDifficulty = (difficulty || "easy").toLowerCase();
-    if (normalizedDifficulty === "easy") {
-      return "bg-[var(--easy-puzzle)]/5";
-    } else if (normalizedDifficulty === "medium") {
-      return "bg-[var(--medium-puzzle)]/5";
-    } else if (normalizedDifficulty === "hard") {
-      return "bg-[var(--hard-puzzle)]/5";
-    }
-    return "bg-primary/5";
-  };
-
-  const getDifficultyHoverColor = (difficulty: string | null) => {
-    const normalizedDifficulty = (difficulty || "easy").toLowerCase();
-    if (normalizedDifficulty === "easy") {
-      return "hover:bg-[var(--easy-puzzle)]/10";
-    } else if (normalizedDifficulty === "medium") {
-      return "hover:bg-[var(--medium-puzzle)]/10";
-    } else if (normalizedDifficulty === "hard") {
-      return "hover:bg-[var(--hard-puzzle)]/10";
-    }
-    return "hover:bg-primary/10";
-  };
 
   const DesktopVersion = () => {
     const difficulty = puzzle.difficulty || "easy";
