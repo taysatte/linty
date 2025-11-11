@@ -64,31 +64,37 @@ You may assume that each input would have exactly one solution, and you may not 
       testCases: [
         {
           input: "console.log(twoSum([2, 7, 11, 15], 9))",
+          inputParams: "[2, 7, 11, 15], 9",
           expectedOutput: "[0, 1]",
           isPublic: true,
         },
         {
           input: "console.log(twoSum([3, 2, 4], 6))",
+          inputParams: "[3, 2, 4], 6",
           expectedOutput: "[1, 2]",
           isPublic: true,
         },
         {
           input: "console.log(twoSum([3, 3], 6))",
+          inputParams: "[3, 3], 6",
           expectedOutput: "[0, 1]",
           isPublic: true,
         },
         {
           input: "console.log(twoSum([-1, -2, -3, -4, -5], -8))",
+          inputParams: "[-1, -2, -3, -4, -5], -8",
           expectedOutput: "[2, 4]",
           isPublic: false,
         },
         {
           input: "console.log(twoSum([1, 5, 3, 7, 9], 14))",
+          inputParams: "[1, 5, 3, 7, 9], 14",
           expectedOutput: "[1, 4]",
           isPublic: false,
         },
         {
           input: "console.log(twoSum([10, 20, 30, 40, 50], 90))",
+          inputParams: "[10, 20, 30, 40, 50], 90",
           expectedOutput: "[3, 4]",
           isPublic: false,
         },
@@ -156,32 +162,38 @@ You may assume that each input would have exactly one solution, and you may not 
       testCases: [
         {
           input: 'console.log(lengthOfLongestSubstring("abcabcbb"))',
+          inputParams: '"abcabcbb"',
           expectedOutput: "3",
           isPublic: true,
         },
         {
           input: 'console.log(lengthOfLongestSubstring("bbbbb"))',
+          inputParams: '"bbbbb"',
           expectedOutput: "1",
           isPublic: true,
         },
         {
           input: 'console.log(lengthOfLongestSubstring("pwwkew"))',
+          inputParams: '"pwwkew"',
           expectedOutput: "3",
           isPublic: true,
         },
         {
           input: 'console.log(lengthOfLongestSubstring(""))',
+          inputParams: '""',
           expectedOutput: "0",
           isPublic: false,
         },
         {
           input: 'console.log(lengthOfLongestSubstring("dvdf"))',
+          inputParams: '"dvdf"',
           expectedOutput: "3",
           isPublic: false,
         },
         {
           input:
             'console.log(lengthOfLongestSubstring("abcdefghijklmnopqrstuvwxyz"))',
+          inputParams: '"abcdefghijklmnopqrstuvwxyz"',
           expectedOutput: "26",
           isPublic: false,
         },
@@ -260,31 +272,37 @@ You may assume that each input would have exactly one solution, and you may not 
       testCases: [
         {
           input: "console.log(merge([1,2,3,0,0,0], 3, [2,5,6], 3))",
+          inputParams: "[1,2,3,0,0,0], 3, [2,5,6], 3",
           expectedOutput: "[1,2,2,3,5,6]",
           isPublic: true,
         },
         {
           input: "console.log(merge([1], 1, [], 0))",
+          inputParams: "[1], 1, [], 0",
           expectedOutput: "[1]",
           isPublic: true,
         },
         {
           input: "console.log(merge([0], 0, [1], 1))",
+          inputParams: "[0], 0, [1], 1",
           expectedOutput: "[1]",
           isPublic: true,
         },
         {
           input: "console.log(merge([4,5,6,0,0,0], 3, [1,2,3], 3))",
+          inputParams: "[4,5,6,0,0,0], 3, [1,2,3], 3",
           expectedOutput: "[1,2,3,4,5,6]",
           isPublic: false,
         },
         {
           input: "console.log(merge([1,3,5,0,0], 3, [2,4], 2))",
+          inputParams: "[1,3,5,0,0], 3, [2,4], 2",
           expectedOutput: "[1,2,3,4,5]",
           isPublic: false,
         },
         {
           input: "console.log(merge([2,0], 1, [1], 1))",
+          inputParams: "[2,0], 1, [1], 1",
           expectedOutput: "[1,2]",
           isPublic: false,
         },
@@ -339,31 +357,37 @@ A subarray is a contiguous part of an array.
       testCases: [
         {
           input: "console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))",
+          inputParams: "[-2,1,-3,4,-1,2,1,-5,4]",
           expectedOutput: "6",
           isPublic: true,
         },
         {
           input: "console.log(maxSubArray([1]))",
+          inputParams: "[1]",
           expectedOutput: "1",
           isPublic: true,
         },
         {
           input: "console.log(maxSubArray([5,4,-1,7,8]))",
+          inputParams: "[5,4,-1,7,8]",
           expectedOutput: "23",
           isPublic: true,
         },
         {
           input: "console.log(maxSubArray([-1]))",
+          inputParams: "[-1]",
           expectedOutput: "-1",
           isPublic: false,
         },
         {
           input: "console.log(maxSubArray([-2,-1]))",
+          inputParams: "[-2,-1]",
           expectedOutput: "-1",
           isPublic: false,
         },
         {
           input: "console.log(maxSubArray([1,2,3,4,5]))",
+          inputParams: "[1,2,3,4,5]",
           expectedOutput: "15",
           isPublic: false,
         },
@@ -443,31 +467,37 @@ An input string is valid if:
       testCases: [
         {
           input: 'console.log(isValid("()"))',
+          inputParams: '"()"',
           expectedOutput: "true",
           isPublic: true,
         },
         {
           input: 'console.log(isValid("()[]{}"))',
+          inputParams: '"()[]{}"',
           expectedOutput: "true",
           isPublic: true,
         },
         {
           input: 'console.log(isValid("(]"))',
+          inputParams: '"(]"',
           expectedOutput: "false",
           isPublic: true,
         },
         {
           input: 'console.log(isValid("([)]"))',
+          inputParams: '"([)]"',
           expectedOutput: "false",
           isPublic: false,
         },
         {
           input: 'console.log(isValid("{[]}"))',
+          inputParams: '"{[]}"',
           expectedOutput: "true",
           isPublic: false,
         },
         {
           input: 'console.log(isValid("(("))',
+          inputParams: '"(("',
           expectedOutput: "false",
           isPublic: false,
         },
@@ -562,31 +592,37 @@ Given the array \`nums\` after the rotation and an integer \`target\`, return th
       testCases: [
         {
           input: "console.log(search([4,5,6,7,0,1,2], 0))",
+          inputParams: "[4,5,6,7,0,1,2], 0",
           expectedOutput: "4",
           isPublic: true,
         },
         {
           input: "console.log(search([4,5,6,7,0,1,2], 3))",
+          inputParams: "[4,5,6,7,0,1,2], 3",
           expectedOutput: "-1",
           isPublic: true,
         },
         {
           input: "console.log(search([1], 0))",
+          inputParams: "[1], 0",
           expectedOutput: "-1",
           isPublic: true,
         },
         {
           input: "console.log(search([1,3], 3))",
+          inputParams: "[1,3], 3",
           expectedOutput: "1",
           isPublic: false,
         },
         {
           input: "console.log(search([5,1,3], 3))",
+          inputParams: "[5,1,3], 3",
           expectedOutput: "2",
           isPublic: false,
         },
         {
           input: "console.log(search([4,5,6,7,0,1,2], 5))",
+          inputParams: "[4,5,6,7,0,1,2], 5",
           expectedOutput: "1",
           isPublic: false,
         },
@@ -639,26 +675,31 @@ You must do this by modifying the input array in-place with O(1) extra memory.
       testCases: [
         {
           input: 'console.log(reverseString(["h","e","l","l","o"]))',
+          inputParams: '["h","e","l","l","o"]',
           expectedOutput: '["o","l","l","e","h"]',
           isPublic: true,
         },
         {
           input: 'console.log(reverseString(["H","a","n","n","a","h"]))',
+          inputParams: '["H","a","n","n","a","h"]',
           expectedOutput: '["h","a","n","n","a","H"]',
           isPublic: true,
         },
         {
           input: 'console.log(reverseString(["a"]))',
+          inputParams: '["a"]',
           expectedOutput: '["a"]',
           isPublic: true,
         },
         {
           input: 'console.log(reverseString(["a","b"]))',
+          inputParams: '["a","b"]',
           expectedOutput: '["b","a"]',
           isPublic: false,
         },
         {
           input: 'console.log(reverseString(["1","2","3","4"]))',
+          inputParams: '["1","2","3","4"]',
           expectedOutput: '["4","3","2","1"]',
           isPublic: false,
         },
@@ -719,26 +760,31 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       testCases: [
         {
           input: 'console.log(isPalindrome("A man, a plan, a canal: Panama"))',
+          inputParams: '"A man, a plan, a canal: Panama"',
           expectedOutput: "true",
           isPublic: true,
         },
         {
           input: 'console.log(isPalindrome("race a car"))',
+          inputParams: '"race a car"',
           expectedOutput: "false",
           isPublic: true,
         },
         {
           input: 'console.log(isPalindrome(" "))',
+          inputParams: '" "',
           expectedOutput: "true",
           isPublic: true,
         },
         {
           input: 'console.log(isPalindrome("Madam"))',
+          inputParams: '"Madam"',
           expectedOutput: "true",
           isPublic: false,
         },
         {
           input: 'console.log(isPalindrome("No x in Nixon"))',
+          inputParams: '"No x in Nixon"',
           expectedOutput: "true",
           isPublic: false,
         },
@@ -790,26 +836,31 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       testCases: [
         {
           input: "console.log(findMax([3, 5, 2, 8, 1]))",
+          inputParams: "[3, 5, 2, 8, 1]",
           expectedOutput: "8",
           isPublic: true,
         },
         {
           input: "console.log(findMax([-1, -5, -3]))",
+          inputParams: "[-1, -5, -3]",
           expectedOutput: "-1",
           isPublic: true,
         },
         {
           input: "console.log(findMax([42]))",
+          inputParams: "[42]",
           expectedOutput: "42",
           isPublic: true,
         },
         {
           input: "console.log(findMax([10, 20, 30]))",
+          inputParams: "[10, 20, 30]",
           expectedOutput: "30",
           isPublic: false,
         },
         {
           input: "console.log(findMax([-10, -20, -30]))",
+          inputParams: "[-10, -20, -30]",
           expectedOutput: "-10",
           isPublic: false,
         },
@@ -858,26 +909,31 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       testCases: [
         {
           input: "console.log(sumArray([1, 2, 3, 4, 5]))",
+          inputParams: "[1, 2, 3, 4, 5]",
           expectedOutput: "15",
           isPublic: true,
         },
         {
           input: "console.log(sumArray([-1, 0, 1]))",
+          inputParams: "[-1, 0, 1]",
           expectedOutput: "0",
           isPublic: true,
         },
         {
           input: "console.log(sumArray([]))",
+          inputParams: "[]",
           expectedOutput: "0",
           isPublic: true,
         },
         {
           input: "console.log(sumArray([10, 20, 30, 40]))",
+          inputParams: "[10, 20, 30, 40]",
           expectedOutput: "100",
           isPublic: false,
         },
         {
           input: "console.log(sumArray([-5, -10, -15]))",
+          inputParams: "[-5, -10, -15]",
           expectedOutput: "-30",
           isPublic: false,
         },
@@ -930,26 +986,31 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       testCases: [
         {
           input: 'console.log(countChar("hello", "l"))',
+          inputParams: '"hello", "l"',
           expectedOutput: "2",
           isPublic: true,
         },
         {
           input: 'console.log(countChar("programming", "m"))',
+          inputParams: '"programming", "m"',
           expectedOutput: "2",
           isPublic: true,
         },
         {
           input: 'console.log(countChar("test", "x"))',
+          inputParams: '"test", "x"',
           expectedOutput: "0",
           isPublic: true,
         },
         {
           input: 'console.log(countChar("Mississippi", "s"))',
+          inputParams: '"Mississippi", "s"',
           expectedOutput: "4",
           isPublic: false,
         },
         {
           input: 'console.log(countChar("a", "a"))',
+          inputParams: '"a", "a"',
           expectedOutput: "1",
           isPublic: false,
         },

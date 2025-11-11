@@ -76,6 +76,7 @@ model DailyPuzzle {
 model TestCase {
   id             Int    @id @default(autoincrement())
   input          String @db.Text 
+  inputParams    String? @db.Text // Input parameters for display in description
   expectedOutput String @db.Text 
   isPublic       Boolean @default(true) 
   puzzleId       Int

@@ -117,7 +117,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                           Input:
                         </span>{" "}
                         <code className="px-1 py-0.5 rounded-sm font-normal bg-muted/20 text-sm">
-                          {testCase.input}
+                          {testCase.inputParams}
                         </code>
                       </div>
                       <div>
@@ -253,7 +253,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                             Input:
                           </span>{" "}
                           <code className="px-1 py-0.5 rounded-sm font-normal bg-muted/20 text-sm">
-                            {testCase.input}
+                            {testCase.inputParams}
                           </code>
                         </div>
                         <div>
