@@ -32,16 +32,17 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const DesktopVersion = () => {
     const difficulty = puzzle.difficulty || "easy";
     const difficultyColor = getDifficultyColor(puzzle.difficulty);
+    const puzzleId = puzzle.id.toString().padStart(3, "0");
 
     return (
       <Card className="shadow-lg h-full w-full p-0 gap-0 flex flex-col bg-background/70">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0 bg-card">
           <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between">
-            <div className="text-xl font-black text-primary/80">
+            <div className="text-lg font-black text-foreground/80">
               {puzzle.title}
             </div>
-            <div className="p-2 shadow-sm font-semibold font-mono text-md bg-accent/5 border border-border rounded-lg text-muted-foreground">
-              #{puzzle.id.toString().padStart(3, "0")}
+            <div className="text-lg font-semibold font-mono text-muted-foreground/80">
+              #{puzzleId}
             </div>
           </CardTitle>
         </CardHeader>
