@@ -26,6 +26,10 @@ import { TestCase } from "@/generated/prisma";
 import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
 import { type Language } from "@/lib/languageVersions";
 import * as c from "@/components/puzzle/constants";
+import {
+  getAnonymousAttemptsLeft,
+  incrementAnonymousAttempts,
+} from "@/lib/attempts";
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -51,11 +55,27 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
-  const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
+  // Initialize attemptsLeft: use server value if authenticated, otherwise use localStorage
+  // If puzzle.attemptsLeft is MAX_ATTEMPTS, user might be anonymous, so check localStorage
+  const [attemptsLeft, setAttemptsLeft] = useState<number>(() => {
+    // If attemptsLeft is MAX_ATTEMPTS, check localStorage for anonymous attempts
+    if (puzzle.attemptsLeft === c.MAX_ATTEMPTS) {
+      const anonymousAttempts = getAnonymousAttemptsLeft(puzzle.id);
+      return anonymousAttempts;
+    }
+    return puzzle.attemptsLeft;
+  });
 
   useEffect(() => {
     // Update attemptsLeft when puzzle changes
-    setAttemptsLeft(puzzle.attemptsLeft);
+    // If user is authenticated (attemptsLeft < MAX_ATTEMPTS), use server value
+    // Otherwise, check localStorage for anonymous attempts
+    if (puzzle.attemptsLeft < c.MAX_ATTEMPTS) {
+      setAttemptsLeft(puzzle.attemptsLeft);
+    } else {
+      const anonymousAttempts = getAnonymousAttemptsLeft(puzzle.id);
+      setAttemptsLeft(anonymousAttempts);
+    }
   }, [puzzle.id, puzzle.attemptsLeft]);
 
   const handleRunCode = async ({ code, language }: RunCodeProps) => {
@@ -102,6 +122,13 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   };
 
   const handleSubmit = async () => {
+    // Check if user has attempts left (for anonymous users, check localStorage)
+    const currentAttempts = attemptsLeft;
+    if (currentAttempts <= 0) {
+      setOutput(["No attempts remaining. Please try again tomorrow!"]);
+      return;
+    }
+
     setIsLoading(true);
     setTestsPassed(null);
     setOutput([]);
@@ -129,8 +156,20 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     }
 
     const data: SubmitPuzzleResponse = await response.json();
-    console.log(data);
-    setAttemptsLeft(data.attemptsLeft ?? puzzle.attemptsLeft);
+
+    // Update attempts based on authentication status
+    if (data.attemptsLeft !== null) {
+      // User is authenticated, use server value
+      setAttemptsLeft(data.attemptsLeft);
+    } else {
+      // User is anonymous, track in localStorage
+      const newAttempts = incrementAnonymousAttempts(
+        puzzle.id,
+        data.allTestsPassed
+      );
+      setAttemptsLeft(c.MAX_ATTEMPTS - newAttempts);
+    }
+
     setTestsPassed(data.allTestsPassed);
     setOutput(data.testResults.map((result) => result.output));
     setIsLoading(false);
