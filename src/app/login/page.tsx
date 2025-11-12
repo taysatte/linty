@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,7 +38,7 @@ const loginSchema = z.object({
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") || "/puzzle";
@@ -213,5 +213,36 @@ export default function LoginPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen flex-col items-center justify-center px-4 py-12">
+          <div className="w-full max-w-md space-y-8">
+            <div className="flex justify-center">
+              <Image
+                src="/svgs/linty-logo.svg"
+                alt="Linty Logo"
+                width={48}
+                height={48}
+                priority
+              />
+            </div>
+            <Card>
+              <CardContent className="py-12">
+                <div className="text-center text-muted-foreground">
+                  Loading...
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
