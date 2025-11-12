@@ -55,24 +55,17 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
-  // Initialize attemptsLeft: use server value if authenticated, otherwise use localStorage
-  // If puzzle.attemptsLeft is MAX_ATTEMPTS, user might be anonymous, so check localStorage
-  const [attemptsLeft, setAttemptsLeft] = useState<number>(() => {
-    // If attemptsLeft is MAX_ATTEMPTS, check localStorage for anonymous attempts
-    if (puzzle.attemptsLeft === c.MAX_ATTEMPTS) {
-      const anonymousAttempts = getAnonymousAttemptsLeft(puzzle.id);
-      return anonymousAttempts;
-    }
-    return puzzle.attemptsLeft;
-  });
+  // Initialize with server value to match SSR (prevents hydration mismatch)
+  const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
 
+  // After hydration, update attemptsLeft from localStorage for anonymous users
   useEffect(() => {
-    // Update attemptsLeft when puzzle changes
     // If user is authenticated (attemptsLeft < MAX_ATTEMPTS), use server value
     // Otherwise, check localStorage for anonymous attempts
     if (puzzle.attemptsLeft < c.MAX_ATTEMPTS) {
       setAttemptsLeft(puzzle.attemptsLeft);
     } else {
+      // User is anonymous, check localStorage
       const anonymousAttempts = getAnonymousAttemptsLeft(puzzle.id);
       setAttemptsLeft(anonymousAttempts);
     }
