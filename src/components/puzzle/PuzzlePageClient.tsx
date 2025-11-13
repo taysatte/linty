@@ -184,7 +184,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
       {/* Main content area */}
       <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
         {/* Desktop Layout - Hidden on mobile */}
-        <div className="hidden md:block h-full">
+        <div className="hidden md:block h-full" suppressHydrationWarning>
           <ResizablePanelGroup direction="horizontal">
             <ResizablePanel defaultSize={c.EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
               <ResizablePanelGroup direction="vertical">
@@ -230,7 +230,10 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         </div>
 
         {/* Mobile Layout - Visible on mobile only */}
-        <div className="md:hidden flex flex-col h-full gap-2">
+        <div
+          className="md:hidden flex flex-col h-full gap-2"
+          suppressHydrationWarning
+        >
           <CodeEditor
             value={code}
             onChange={setCode}
