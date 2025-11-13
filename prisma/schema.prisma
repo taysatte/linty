@@ -42,7 +42,6 @@ model Puzzle {
   descriptionId Int      @unique
   description PuzzleDesc @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
   starterCode String   @db.Text 
-  solutionCode String? @db.Text 
   difficulty  String? 
   hints       String?  @db.Text 
   language    String? 

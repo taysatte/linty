@@ -21,7 +21,7 @@ You may assume that each input would have exactly one solution, and you may not 
 - The indices should be in ascending order
 - You can assume a solution always exists
 - The same element cannot be used twice`,
-      starterCode: `function twoSum(nums, target) {
+      starterCode: `const twoSum = (nums, target) => {
   const map = new Map();
   
   for (let i = 0; i < nums.length; i++) {
@@ -35,21 +35,6 @@ You may assume that each input would have exactly one solution, and you may not 
     if (map.has(complement)) {
       return [map.get(complement), i];
     }
-  }
-  
-  return [];
-}`,
-      solutionCode: `const twoSum = (nums, target) => {
-  const map = new Map();
-  
-  for (let i = 0; i < nums.length; i++) {
-    const complement = target - nums[i];
-    
-    if (map.has(complement)) {
-      return [map.get(complement), i];
-    }
-    
-    map.set(nums[i], i);
   }
   
   return [];
@@ -114,7 +99,7 @@ You may assume that each input would have exactly one solution, and you may not 
       instructions: `- Return the length of the longest substring (an integer)
 - The substring must be contiguous
 - No characters should repeat within the substring`,
-      starterCode: `function lengthOfLongestSubstring(s) {
+      starterCode: `const lengthOfLongestSubstring = (s) => {
   const charMap = new Map();
   let maxLength = 0;
   let left = 0;
@@ -125,24 +110,6 @@ You may assume that each input would have exactly one solution, and you may not 
     // Bug: Not checking if the duplicate is within the current window
     // This causes left to move backwards sometimes
     if (charMap.has(char)) {
-      left = charMap.get(char) + 1;
-    }
-    
-    charMap.set(char, right);
-    maxLength = Math.max(maxLength, right - left + 1);
-  }
-  
-  return maxLength;
-}`,
-      solutionCode: `const lengthOfLongestSubstring = (s) => {
-  const charMap = new Map();
-  let maxLength = 0;
-  let left = 0;
-  
-  for (let right = 0; right < s.length; right++) {
-    const char = s[right];
-    
-    if (charMap.has(char) && charMap.get(char) >= left) {
       left = charMap.get(char) + 1;
     }
     
@@ -212,7 +179,7 @@ You may assume that each input would have exactly one solution, and you may not 
       instructions: `- Modify \`nums1\` in-place (don't return a new array)
 - The final sorted array should be stored inside \`nums1\`
 - Work backwards from the end of the arrays for optimal space complexity`,
-      starterCode: `function merge(nums1, m, nums2, n) {
+      starterCode: `const merge = (nums1, m, nums2, n) => {
   let i = 0;
   let j = 0;
   let k = m;
@@ -234,30 +201,6 @@ You may assume that each input would have exactly one solution, and you may not 
     nums1[k] = nums2[j];
     j++;
     k++;
-  }
-  
-  return nums1;
-}`,
-      solutionCode: `const merge = (nums1, m, nums2, n) => {
-  let i = m - 1;
-  let j = n - 1;
-  let k = m + n - 1;
-  
-  while (i >= 0 && j >= 0) {
-    if (nums1[i] > nums2[j]) {
-      nums1[k] = nums1[i];
-      i--;
-    } else {
-      nums1[k] = nums2[j];
-      j--;
-    }
-    k--;
-  }
-  
-  while (j >= 0) {
-    nums1[k] = nums2[j];
-    j--;
-    k--;
   }
   
   return nums1;
@@ -324,23 +267,12 @@ A subarray is a contiguous part of an array.
       instructions: `- Return the maximum sum (a single integer)
 - Use Kadane's algorithm for O(n) time complexity
 - At least one element must be included in the subarray`,
-      starterCode: `function maxSubArray(nums) {
+      starterCode: `const maxSubArray = (nums) => {
   let maxSum = 0;
   let currentSum = 0;
   
   // Bug: Initializing maxSum to 0 fails with all negative numbers
   for (let i = 0; i < nums.length; i++) {
-    currentSum = Math.max(nums[i], currentSum + nums[i]);
-    maxSum = Math.max(maxSum, currentSum);
-  }
-  
-  return maxSum;
-}`,
-      solutionCode: `const maxSubArray = (nums) => {
-  let maxSum = nums[0];
-  let currentSum = nums[0];
-  
-  for (let i = 1; i < nums.length; i++) {
     currentSum = Math.max(nums[i], currentSum + nums[i]);
     maxSum = Math.max(maxSum, currentSum);
   }
@@ -415,7 +347,7 @@ An input string is valid if:
       instructions: `- Return \`true\` if the string is valid, \`false\` otherwise
 - Use a stack to track opening brackets
 - When you see a closing bracket, check if it matches the most recent opening bracket`,
-      starterCode: `function isValid(s) {
+      starterCode: `const isValid = (s) => {
   const stack = [];
   const pairs = {
     ')': '(',
@@ -430,26 +362,6 @@ An input string is valid if:
       // Bug: Not checking if stack is empty before popping
       // This causes issues when there are more closing than opening brackets
       if (stack.pop() !== pairs[char]) {
-        return false;
-      }
-    }
-  }
-  
-  return stack.length === 0;
-}`,
-      solutionCode: `const isValid = (s) => {
-  const stack = [];
-  const pairs = {
-    ')': '(',
-    '}': '{',
-    ']': '['
-  };
-  
-  for (let char of s) {
-    if (char === '(' || char === '{' || char === '[') {
-      stack.push(char);
-    } else {
-      if (stack.length === 0 || stack.pop() !== pairs[char]) {
         return false;
       }
     }
@@ -521,7 +433,7 @@ Given the array \`nums\` after the rotation and an integer \`target\`, return th
       instructions: `- Return the index of target if found, otherwise return -1
 - You must write an algorithm with O(log n) runtime complexity
 - Use a modified binary search to handle the rotation`,
-      starterCode: `function search(nums, target) {
+      starterCode: `const search = (nums, target) => {
   let left = 0;
   let right = nums.length - 1;
   
@@ -543,36 +455,6 @@ Given the array \`nums\` after the rotation and an integer \`target\`, return th
     } else {
       // Bug: Missing check for target in the right half
       if (target > nums[mid]) {
-        left = mid + 1;
-      } else {
-        right = mid - 1;
-      }
-    }
-  }
-  
-  return -1;
-}`,
-      solutionCode: `const search = (nums, target) => {
-  let left = 0;
-  let right = nums.length - 1;
-  
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    
-    if (nums[mid] === target) {
-      return mid;
-    }
-    
-    // Check if left half is sorted
-    if (nums[left] <= nums[mid]) {
-      if (target >= nums[left] && target < nums[mid]) {
-        right = mid - 1;
-      } else {
-        left = mid + 1;
-      }
-    } else {
-      // Right half is sorted
-      if (target > nums[mid] && target <= nums[right]) {
         left = mid + 1;
       } else {
         right = mid - 1;
@@ -642,27 +524,13 @@ You must do this by modifying the input array in-place with O(1) extra memory.
       instructions: `- Modify the input array in-place (don't return a new array)
 - Use two pointers approach for O(1) space complexity
 - Swap characters from both ends moving towards the center`,
-      starterCode: `function reverseString(s) {
+      starterCode: `const reverseString = (s) => {
   // Bug: Only reversing half the array
   for (let i = 0; i < s.length / 2; i++) {
     const temp = s[i];
     s[i] = s[s.length - 1 - i];
     // Bug: Not swapping the other end
   }
-  return s;
-}`,
-      solutionCode: `const reverseString = (s) => {
-  let left = 0;
-  let right = s.length - 1;
-  
-  while (left < right) {
-    const temp = s[left];
-    s[left] = s[right];
-    s[right] = temp;
-    left++;
-    right--;
-  }
-  
   return s;
 }`,
       difficulty: "easy",
@@ -721,7 +589,7 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       instructions: `- Convert to lowercase and remove non-alphanumeric characters
 - Use two pointers to compare from both ends
 - Return true if all characters match, false otherwise`,
-      starterCode: `function isPalindrome(s) {
+      starterCode: `const isPalindrome = (s) => {
   // Remove non-alphanumeric and convert to lowercase
   const cleaned = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
   
@@ -730,22 +598,6 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
     if (cleaned[i] !== cleaned[cleaned.length - 1 - i]) {
       return false;
     }
-  }
-  
-  return true;
-}`,
-      solutionCode: `const isPalindrome = (s) => {
-  const cleaned = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-  
-  let left = 0;
-  let right = cleaned.length - 1;
-  
-  while (left < right) {
-    if (cleaned[left] !== cleaned[right]) {
-      return false;
-    }
-    left++;
-    right--;
   }
   
   return true;
@@ -804,21 +656,10 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       instructions: `- Return the maximum value in the array
 - Handle arrays with negative numbers
 - Assume the array has at least one element`,
-      starterCode: `function findMax(nums) {
+      starterCode: `const findMax = (nums) => {
   let max = 0; // Bug: Initializing to 0 fails with all negative numbers
   
   for (let i = 0; i < nums.length; i++) {
-    if (nums[i] > max) {
-      max = nums[i];
-    }
-  }
-  
-  return max;
-}`,
-      solutionCode: `const findMax = (nums) => {
-  let max = nums[0];
-  
-  for (let i = 1; i < nums.length; i++) {
     if (nums[i] > max) {
       max = nums[i];
     }
@@ -880,20 +721,11 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       instructions: `- Return the sum of all elements
 - Handle negative numbers correctly
 - Return 0 for empty arrays`,
-      starterCode: `function sumArray(nums) {
+      starterCode: `const sumArray = (nums) => {
   let sum = 0;
   
   // Bug: Starting from index 1 instead of 0
   for (let i = 1; i < nums.length; i++) {
-    sum += nums[i];
-  }
-  
-  return sum;
-}`,
-      solutionCode: `const sumArray = (nums) => {
-  let sum = 0;
-  
-  for (let i = 0; i < nums.length; i++) {
     sum += nums[i];
   }
   
@@ -953,23 +785,12 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
       instructions: `- Return the count of how many times the character appears
 - The comparison should be case-sensitive
 - Return 0 if the character is not found`,
-      starterCode: `function countChar(s, char) {
+      starterCode: `const countChar = (s, char) => {
   let count = 0;
   
   // Bug: Using == instead of ===, and not checking bounds
   for (let i = 0; i <= s.length; i++) {
     if (s[i] == char) {
-      count++;
-    }
-  }
-  
-  return count;
-}`,
-      solutionCode: `const countChar = (s, char) => {
-  let count = 0;
-  
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === char) {
       count++;
     }
   }
@@ -1036,7 +857,6 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
         title: template.title,
         descriptionId: puzzleDesc.id,
         starterCode: template.starterCode,
-        solutionCode: template.solutionCode,
         difficulty: template.difficulty,
         language: template.language,
         hints: template.hints,
