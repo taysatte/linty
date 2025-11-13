@@ -28,31 +28,17 @@ Hunt down bugs, compete on the leaderboards, and flex your debugging prowess wit
 - [ ] Code Editor Integration
   - [x] Run Code
   - [ ] Submit Code
+- [ ] Output
+- [ ] Test Case Runner
   - [x] Display Output
   - [x] Reset Code
 - [x] Basic Database schema
 - [x] Connect to Backend
 - [x] Daily Puzzle Generation
 - [ ] User Profiles
-- [ ] User Auth
-  - [ ] Login page
-    - [ ] Email/password form
-    - [ ] Link to signup page
-    - [ ] Error Handling
-    - [ ] Redirect after login
-  - [ ] Signup page
-    - [ ] Email/password form
-    - [ ] Link to login page
-    - [ ] Error Handling
-    - [ ] Redirect after signup
-  - [ ] Auth Callback handler
-    - [ ] Handle OAuth redirects
-    - [ ] Handle email confirmation
-    - [ ] Redirect to intended page
-  - [ ] Logout
-    - [ ] Logout button in navbar
-    - [ ] Logout API route or client-side function
-    - [ ] Clear session data and redirect
-
+- [x] User Auth
+  - [x] Login
+  - [x] Signup
+  - [x] Logout
 - [ ] Leaderboards
 - [ ] Social Sharing
