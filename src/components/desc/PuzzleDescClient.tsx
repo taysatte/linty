@@ -38,9 +38,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
       <Card className="shadow-lg h-full w-full p-0 gap-0 flex flex-col bg-background/70">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0 bg-card">
           <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between">
-            <div className="text-lg font-black text-foreground/80">
+            <h1 className="text-lg font-black text-foreground/90">
               {puzzle.title}
-            </div>
+            </h1>
             <div className="text-lg font-semibold font-mono text-muted-foreground/80">
               #{puzzleId}
             </div>
@@ -79,9 +79,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                 </Item>
               ))}
             </div>
-            <div className="font-bold text-lg text-foreground/90">
+            <h2 className="font-bold text-md text-foreground/90">
               Description
-            </div>
+            </h2>
             <div className="text-sm text-foreground/80 rounded-lg bg-card border border-border p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {puzzle.description}
@@ -92,9 +92,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             </div>
             {puzzle.instructions && (
               <>
-                <div className="font-bold text-lg text-foreground/90">
+                <h2 className="font-bold text-md text-foreground/90">
                   Instructions
-                </div>
+                </h2>
                 <div className="p-3 text-sm text-foreground/80 rounded-lg bg-secondary/5 border border-secondary/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {puzzle.instructions}
@@ -105,9 +105,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             <div className="w-full">
               <Separator decorative orientation="horizontal" />
             </div>
-            <div className="font-bold text-lg text-foreground/90">
-              Test Cases
-            </div>
+            <h2 className="font-bold text-md text-foreground/90">Test Cases</h2>
             {puzzle.testCases && puzzle.testCases.length > 0 && (
               <div className="p-4 space-y-4 rounded-lg bg-primary/5 border border-primary/10">
                 {puzzle.testCases.map((testCase, index) => (
@@ -140,9 +138,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             {puzzle.hints && (
               <Collapsible className="group">
                 <CollapsibleTrigger className="flex items-center justify-between w-full cursor-pointer hover:bg-accent/5 rounded-md px-2 py-1.5 transition-colors">
-                  <div className="font-bold text-lg text-foreground/90">
+                  <h2 className="font-bold text-md text-foreground/90">
                     Hints
-                  </div>
+                  </h2>
                   <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 rounded-xl text-sm">
@@ -156,7 +154,6 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             )}
           </CardContent>
         </ScrollArea>
-        <CardFooter className="p-4 rounded-b-xl bg-card border-t"></CardFooter>
       </Card>
     );
   };
@@ -215,9 +212,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                   </Item>
                 ))}
               </div>
-              <div className="font-bold text-lg text-foreground/90">
+              <h2 className="font-bold text-md text-foreground/90">
                 Description
-              </div>
+              </h2>
               <div className="text-sm text-foreground/80 rounded-lg bg-card border border-border p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {puzzle.description}
@@ -228,9 +225,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                   <div className="w-full">
                     <Separator decorative orientation="horizontal" />
                   </div>
-                  <div className="font-bold text-lg text-foreground/90">
+                  <h2 className="font-bold text-md text-foreground/90">
                     Instructions
-                  </div>
+                  </h2>
                   <div className="p-3 text-sm text-foreground/80 rounded-lg bg-secondary/5 border border-secondary/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded-sm [&_code]:bg-muted/30 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-1.5 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {puzzle.instructions}
@@ -241,9 +238,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               <div className="w-full">
                 <Separator decorative orientation="horizontal" />
               </div>
-              <div className="font-bold text-lg text-foreground/90">
+              <h2 className="font-bold text-md text-foreground/90">
                 Test Cases
-              </div>
+              </h2>
               {puzzle.testCases && puzzle.testCases.length > 0 && (
                 <div className="p-4 space-y-4 rounded-lg bg-primary/5 border border-primary/10">
                   {puzzle.testCases.map((testCase, index) => (
@@ -280,9 +277,9 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
                   className="group"
                 >
                   <CollapsibleTrigger className="flex items-center justify-between w-full cursor-pointer">
-                    <div className="font-bold text-lg text-foreground/90">
+                    <h2 className="font-bold text-md text-foreground/90">
                       Hints
-                    </div>
+                    </h2>
                     <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="mt-2 rounded-xl text-sm">
