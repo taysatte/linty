@@ -58,7 +58,7 @@ export default function TimerSubmitGroup({
             )}
           >
             <SendIcon className="size-4 stroke-3 text-primary/90" />
-            <span className="hidden sm:hidden md:inline pr-1">Submit</span>
+            {/* <span className="hidden sm:hidden md:inline pr-1"></span> */}
           </Button>
         </>
       )}

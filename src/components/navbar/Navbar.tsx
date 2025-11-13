@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import StatusBar from "@/components/navbar/StatusBar";
 import TimerSubmitGroup from "@/components/navbar/TimerSubmitGroup";
+import { UserMenu } from "@/components/navbar/UserMenu";
 import { TEST_STREAK_LENGTH } from "./constants";
 import { MAX_ATTEMPTS } from "../puzzle/constants";
 
@@ -51,7 +51,6 @@ export default function Navbar({
           attemptsLeft={attemptsLeft}
           maxAttempts={maxAttempts ?? MAX_ATTEMPTS}
         />
-        {/* TODO: Implement user settings */}
         <div className="h-6 hidden sm:block">
           <Separator
             className="hidden sm:hidden md:block"
@@ -59,10 +58,7 @@ export default function Navbar({
             decorative
           />
         </div>
-        <Avatar className="ml-0 w-8 h-8">
-          <AvatarImage src="https://avatar.iran.liara.run/public" />
-          <AvatarFallback className="font-mono bg-muted/20">LY</AvatarFallback>
-        </Avatar>
+        <UserMenu />
       </div>
     </nav>
   );
