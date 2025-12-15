@@ -13,11 +13,11 @@ export const getDifficultyColor = (difficulty: string | null) => {
 export const getDifficultyBgColor = (difficulty: string | null) => {
   const normalizedDifficulty = (difficulty || "easy").toLowerCase();
   if (normalizedDifficulty === "easy") {
-    return "bg-[var(--easy-puzzle)]/5";
+    return "bg-[var(--easy-puzzle)]/10";
   } else if (normalizedDifficulty === "medium") {
-    return "bg-[var(--medium-puzzle)]/5";
+    return "bg-[var(--medium-puzzle)]/10";
   } else if (normalizedDifficulty === "hard") {
-    return "bg-[var(--hard-puzzle)]/5";
+    return "bg-[var(--hard-puzzle)]/10";
   }
   return "bg-primary/5";
 };
@@ -25,11 +25,11 @@ export const getDifficultyBgColor = (difficulty: string | null) => {
 export const getDifficultyHoverColor = (difficulty: string | null) => {
   const normalizedDifficulty = (difficulty || "easy").toLowerCase();
   if (normalizedDifficulty === "easy") {
-    return "hover:bg-[var(--easy-puzzle)]/10";
+    return "hover:bg-[var(--easy-puzzle)]/15";
   } else if (normalizedDifficulty === "medium") {
-    return "hover:bg-[var(--medium-puzzle)]/10";
+    return "hover:bg-[var(--medium-puzzle)]/15";
   } else if (normalizedDifficulty === "hard") {
-    return "hover:bg-[var(--hard-puzzle)]/10";
+    return "hover:bg-[var(--hard-puzzle)]/15";
   }
   return "hover:bg-primary/10";
 };

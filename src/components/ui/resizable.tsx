@@ -17,7 +17,6 @@ function ResizablePanelGroup({
         "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
         className
       )}
-      suppressHydrationWarning
       {...props}
     />
   );
