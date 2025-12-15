@@ -69,7 +69,7 @@ export function UserMenu() {
       <>
         <Button
           variant="default"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg border border-border cursor-pointer font-semibold"
+          className="rounded-lg cursor-pointer font-semibold"
           size="default"
           onClick={() => setIsLoginDialogOpen(true)}
         >
@@ -111,23 +111,7 @@ export function UserMenu() {
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard shortcuts
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>GitHub</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
-        <DropdownMenuItem disabled>API</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive" onClick={handleLogout}>
           Log out
