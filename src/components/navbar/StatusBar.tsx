@@ -24,7 +24,7 @@ export default function StatusBar({
     <div className="flex items-center gap-1">
       {/* Streak Counter */}
       {streak !== undefined && (
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-card shadow-sm">
+        <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-border bg-card shadow-sm">
           <FlameIcon
             className="text-destructive stroke-3 fill-destructive"
             size={16}
@@ -43,7 +43,7 @@ export default function StatusBar({
           )}
           <div
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-xl border shadow-sm",
+              "flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border shadow-sm",
               "bg-card",
               // Warning state when low on attempts
               attemptsLeft === 1 && "border-destructive/50 bg-destructive/5",

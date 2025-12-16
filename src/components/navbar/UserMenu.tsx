@@ -70,7 +70,7 @@ export function UserMenu() {
         <Button
           variant="default"
           className="rounded-lg cursor-pointer font-semibold"
-          size="default"
+          size="sm"
           onClick={() => setIsLoginDialogOpen(true)}
         >
           Sign in
