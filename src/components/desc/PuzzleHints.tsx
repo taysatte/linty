@@ -36,12 +36,12 @@ export function PuzzleHints({
         onOpenChange={handleOpenChange}
         className="group"
       >
-        <CollapsibleTrigger className="flex items-center justify-between w-full cursor-pointer hover:bg-accent/5 rounded-md px-2 py-1.5 transition-colors">
+        <CollapsibleTrigger className="flex items-center justify-between w-full cursor-pointer hover:bg-muted/50 rounded-md px-2 py-1.5 transition-colors">
           <h2 className="font-bold text-md text-foreground/90">Hints</h2>
           <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </CollapsibleTrigger>
         <CollapsibleContent className="mt-2 rounded-xl text-sm">
-          <div className="text-muted-foreground rounded-xl bg-accent/5 p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
+          <div className="text-muted-foreground rounded-xl border border-muted bg-muted/50 p-4 [&_code]:px-1 [&_code]:py-0 [&_code]:rounded-sm [&_code]:bg-muted/20 [&_code]:text-sm [&_code]:font-mono [&_p]:mb-2 [&_p:last-child]:mb-0 [&_pre]:bg-muted/10 [&_pre]:p-2 [&_pre]:rounded [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_li]:mb-1">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{hints}</ReactMarkdown>
           </div>
         </CollapsibleContent>

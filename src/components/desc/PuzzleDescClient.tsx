@@ -38,7 +38,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
           scrollHideDelay={100}
           className="flex-1 min-h-0 w-full rounded-b-xl"
         >
-          <CardContent className="flex flex-col p-4 gap-4 h-full rounded-b-xl">
+          <CardContent className="flex flex-col p-4 pt-2 gap-4 h-full">
             <PuzzleMetadata
               difficulty={puzzle.difficulty}
               tags={puzzle.tags}

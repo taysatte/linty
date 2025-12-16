@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import StatusBar from "@/components/navbar/StatusBar";
 import TimerSubmitGroup from "@/components/navbar/TimerSubmitGroup";
 import { UserMenu } from "@/components/navbar/UserMenu";
-import { TEST_STREAK_LENGTH } from "./constants";
+import { TEST_STREAK_LENGTH } from "../puzzle/constants";
 import { MAX_ATTEMPTS } from "../puzzle/constants";
 
 interface NavbarProps {
