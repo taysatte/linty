@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import { TestCase } from "@/generated/prisma";
 
 interface PuzzleTestCasesProps {
@@ -12,9 +11,6 @@ export function PuzzleTestCases({ testCases }: PuzzleTestCasesProps) {
 
   return (
     <>
-      <div className="w-full">
-        <Separator decorative orientation="horizontal" />
-      </div>
       <h2 className="font-bold text-md text-foreground/90">Test Cases</h2>
       <div className="p-4 space-y-4 rounded-lg bg-muted/50 border border-muted">
         {testCases.map((testCase) => (

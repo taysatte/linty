@@ -1,5 +1,4 @@
 import { Item, ItemContent } from "@/components/ui/item";
-import { Separator } from "@/components/ui/separator";
 import {
   getDifficultyColor,
   getDifficultyBgColor,
@@ -23,7 +22,7 @@ export function PuzzleMetadata({
   const isMobile = variant === "mobile";
 
   return (
-    <div className="flex flex-wrap items-center justify-start gap-2">
+    <div className="flex flex-wrap items-center justify-start gap-2 mb-2">
       <Item
         variant="default"
         className={`py-1 px-3 ${
@@ -40,9 +39,6 @@ export function PuzzleMetadata({
           {difficultyValue}
         </ItemContent>
       </Item>
-      <div className="h-5">
-        <Separator orientation="vertical" className="h-5" />
-      </div>
       {tags.map((tag) => (
         <Item
           key={tag}

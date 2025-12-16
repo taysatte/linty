@@ -7,7 +7,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 
 interface PuzzleHintsProps {
   hints: string;
@@ -28,9 +27,6 @@ export function PuzzleHints({
 
   return (
     <>
-      <div className="w-full">
-        <Separator decorative orientation="horizontal" />
-      </div>
       <Collapsible
         open={isOpen}
         onOpenChange={handleOpenChange}
