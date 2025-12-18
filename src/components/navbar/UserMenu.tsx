@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/animate-ui/components/buttons/button";
 import { AuthDialog } from "@/components/auth/AuthDialog";
 import {
   DropdownMenu,
@@ -12,16 +12,11 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { User } from "@supabase/supabase-js";
-import Link from "next/link";
 
 export function UserMenu() {
   const router = useRouter();
@@ -69,8 +64,8 @@ export function UserMenu() {
       <>
         <Button
           variant="default"
-          className="rounded-lg cursor-pointer font-semibold"
-          size="sm"
+          className="rounded-lg bg-card border border-border hover:bg-border/70 text-foreground/90 cursor-pointer font-semibold"
+          size="default"
           onClick={() => setIsLoginDialogOpen(true)}
         >
           Sign in
