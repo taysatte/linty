@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "start:db": "supabase stop && supabase start",
     "build": "pnpm prisma:generate:prod && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
