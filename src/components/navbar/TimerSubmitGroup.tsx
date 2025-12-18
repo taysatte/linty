@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { TimerIcon, SendIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,6 +10,8 @@ import {
 } from "@/components/ui/button-group";
 import { cn } from "@/lib/utils";
 import Timer from "./Timer";
+import { Send } from "@/components/animate-ui/icons/send";
+import { AnimateIcon } from "@/components/animate-ui/icons/icon";
 
 interface TimerSubmitGroupProps {
   onSubmit?: () => void;
@@ -25,8 +28,18 @@ export default function TimerSubmitGroup({
   attemptsLeft = null,
   maxAttempts = 3,
 }: TimerSubmitGroupProps) {
+  const [shouldAnimate, setShouldAnimate] = useState(false);
   const isOutOfAttempts =
     typeof attemptsLeft === "number" && attemptsLeft === 0;
+
+  const handleClick = () => {
+    setShouldAnimate(true);
+    onSubmit?.();
+    // Reset animation state after a delay to allow it to complete
+    setTimeout(() => {
+      setShouldAnimate(false);
+    }, 1000);
+  };
 
   return (
     <ButtonGroup
@@ -49,16 +62,20 @@ export default function TimerSubmitGroup({
           />
           <Button
             size="lg"
-            onClick={onSubmit}
+            onClick={handleClick}
             disabled={disabled || isLoading || isOutOfAttempts}
             variant="ghost"
             className={cn(
-              "cursor-pointer p-0 rounded-lg",
+              "cursor-pointer p-4 rounded-lg",
               isOutOfAttempts && "opacity-50 cursor-not-allowed"
             )}
           >
-            <SendIcon className="size-4 stroke-3 text-primary/90" />
-            {/* <span className="hidden sm:hidden md:inline pr-1"></span> */}
+            <AnimateIcon animate={shouldAnimate} persistOnAnimateEnd>
+              <div className="flex items-center justify-center">
+                <Send className="size-4 stroke-3 text-primary/90" />
+              </div>
+            </AnimateIcon>
+            <div className="hidden sm:block text-sm font-semibold">Submit</div>
           </Button>
         </>
       )}
