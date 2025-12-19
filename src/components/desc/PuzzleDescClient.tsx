@@ -12,7 +12,6 @@ import { PuzzlePageClientProps } from "@/components/puzzle/PuzzlePageClient";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PuzzleDescription } from "./PuzzleDescription";
 import { PuzzleInstructions } from "./PuzzleInstructions";
-import { PuzzleTestCases } from "./PuzzleTestCases";
 import { PuzzleHints } from "./PuzzleHints";
 import { PuzzleMetadata } from "./PuzzleMetadata";
 
@@ -49,7 +48,6 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             {puzzle.instructions && (
               <PuzzleInstructions instructions={puzzle.instructions} />
             )}
-            <PuzzleTestCases testCases={puzzle.testCases} />
             {puzzle.hints && <PuzzleHints hints={puzzle.hints} />}
           </CardContent>
         </ScrollArea>
@@ -89,7 +87,6 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               {puzzle.instructions && (
                 <PuzzleInstructions instructions={puzzle.instructions} />
               )}
-              <PuzzleTestCases testCases={puzzle.testCases} />
               {puzzle.hints && (
                 <PuzzleHints
                   hints={puzzle.hints}
