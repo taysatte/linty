@@ -249,6 +249,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
       <>
         <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
           <div className="flex flex-col h-full gap-2" suppressHydrationWarning>
+            <PuzzleDescClient puzzle={puzzle} />
             <CodeEditor
               value={code}
               onChange={setCode}
@@ -258,7 +259,6 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               onReset={handleReset}
               isLoading={isLoading}
             />
-            <PuzzleDescClient puzzle={puzzle} />
             <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
               <Card className="shadow-lg p-0">
                 <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
