@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
+import { FlaskConicalIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
 import {
@@ -55,6 +56,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
+  const [isTestsOpen, setIsTestsOpen] = useState(false);
   // Initialize with server value to match SSR (prevents hydration mismatch)
   const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
 
@@ -230,8 +232,11 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   >
                     {/* Tests pane will go here */}
                     <Card className="shadow-lg h-full w-full p-4">
-                      <div className="text-sm text-muted-foreground">
-                        Tests pane placeholder
+                      <div className="flex items-center gap-2">
+                        <FlaskConicalIcon className="size-5 stroke-3 text-primary/80" />
+                        <div className="text-xl font-black text-foreground/80">
+                          Test Cases
+                        </div>
                       </div>
                     </Card>
                   </ResizablePanel>
@@ -262,8 +267,8 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
             <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
               <Card className="shadow-lg p-0">
                 <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-muted-foreground">
-                    output
+                  <p className="text-md font-black text-foreground/80">
+                    Output
                   </p>
                   {isOutputOpen ? (
                     <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
@@ -272,16 +277,29 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   )}
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
-                    <div className="px-3 pb-3 max-h-[200px] overflow-auto">
-                      <Output
-                        output={output}
-                        isLoading={isLoading}
-                        testsPassed={testsPassed}
-                      />
-                    </div>
-                  </Card>
+                  <div className="px-3 pb-3 max-h-[200px] overflow-auto">
+                    <Output
+                      output={output}
+                      isLoading={isLoading}
+                      testsPassed={testsPassed}
+                    />
+                  </div>
                 </CollapsibleContent>
+              </Card>
+            </Collapsible>
+            <Collapsible open={isTestsOpen} onOpenChange={setIsTestsOpen}>
+              <Card className="shadow-lg p-0">
+                <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
+                  <p className="text-md font-black text-foreground/80">
+                    Test Cases
+                  </p>
+                  {isTestsOpen ? (
+                    <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
+                  )}
+                </CollapsibleTrigger>
+                <CollapsibleContent></CollapsibleContent>
               </Card>
             </Collapsible>
           </div>

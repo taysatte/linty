@@ -7,6 +7,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { PuzzleIcon } from "lucide-react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { PuzzlePageClientProps } from "@/components/puzzle/PuzzlePageClient";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -25,10 +26,13 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     return (
       <Card className="shadow-lg h-full w-full p-0 gap-0 flex flex-col">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
-          <CardTitle className="flex flex-row items-start gap-2">
-            <h1 className="text-2xl font-black text-foreground/80 flex-1">
-              {puzzle.title}
-            </h1>
+          <CardTitle className="flex flex-row items-start justify-between gap-2">
+            <div className="flex items-center gap-3">
+              <PuzzleIcon className="size-5 stroke-3 text-primary/80" />
+              <h1 className="text-xl font-black text-foreground/80 flex-1">
+                {puzzle.title}
+              </h1>
+            </div>
             <div className="text-lg font-semibold font-mono text-muted-foreground/90 shrink-0">
               #{puzzleId}
             </div>
