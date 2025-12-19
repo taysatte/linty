@@ -222,9 +222,28 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
             <ResizableHandle />
             <ResizablePanel
               defaultSize={c.PUZZLE_DESC_GROUP_DEFAULT_SIZE}
-              className="pr-0 p-2"
+              className="pr-0 p-2 relative"
             >
-              <PuzzleDescClient puzzle={puzzle} />
+              <ResizablePanelGroup direction="vertical">
+                <ResizablePanel
+                  defaultSize={c.PUZZLE_DESC_VERTICAL_DEFAULT_SIZE}
+                  className="pb-2"
+                >
+                  <PuzzleDescClient puzzle={puzzle} />
+                </ResizablePanel>
+                <ResizableHandle />
+                <ResizablePanel
+                  defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
+                  className="pt-2"
+                >
+                  {/* Tests pane will go here */}
+                  <Card className="shadow-lg h-full w-full p-4">
+                    <div className="text-sm text-muted-foreground">
+                      Tests pane placeholder
+                    </div>
+                  </Card>
+                </ResizablePanel>
+              </ResizablePanelGroup>
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>

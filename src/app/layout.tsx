@@ -15,8 +15,17 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "linty.io",
-  description: "The daily coding challenge.",
+  title: "linty.io - The daily coding challenge.",
+  description:
+    "The daily coding challenge. Solve puzzles, earn points, and level up your skills.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "linty.io - The daily coding challenge.",
+    description:
+      "The daily coding challenge. Solve puzzles, earn points, and level up your skills.",
+  },
 };
 
 export const viewport: Viewport = {
