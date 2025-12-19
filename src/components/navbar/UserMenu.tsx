@@ -63,8 +63,8 @@ export function UserMenu() {
     return (
       <>
         <Button
-          variant="default"
-          className="rounded-lg bg-card border border-border hover:bg-border/70 text-foreground/90 cursor-pointer font-semibold"
+          variant="ghost"
+          className="rounded-lg bg-card border border-border text-foreground/90 cursor-pointer font-semibold"
           size="default"
           onClick={() => setIsLoginDialogOpen(true)}
         >
