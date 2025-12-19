@@ -15,11 +15,12 @@ import { PuzzleInstructions } from "./PuzzleInstructions";
 import { PuzzleTestCases } from "./PuzzleTestCases";
 import { PuzzleHints } from "./PuzzleHints";
 import { PuzzleMetadata } from "./PuzzleMetadata";
+
 const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isPuzzleOpen, setIsPuzzleOpen] = useState(false);
   const [isHintsOpen, setIsHintsOpen] = useState(false);
 
-  const DesktopVersion = () => {
+  const DesktopLayout = () => {
     const puzzleId = puzzle.id.toString().padStart(3, "0");
 
     return (
@@ -56,7 +57,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     );
   };
 
-  const MobileVersion = () => {
+  const MobileLayout = () => {
     return (
       <Collapsible open={isPuzzleOpen} onOpenChange={setIsPuzzleOpen}>
         <Card className="shadow-lg p-0 gap-0 flex flex-col bg-background/70">
@@ -106,13 +107,11 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
 
   return (
     <>
-      {/* Desktop Version - Hidden on mobile */}
       <div className="hidden md:block h-full">
-        <DesktopVersion />
+        <DesktopLayout />
       </div>
-      {/* Mobile Version - Visible on mobile only */}
       <div className="md:hidden">
-        <MobileVersion />
+        <MobileLayout />
       </div>
     </>
   );

@@ -172,124 +172,146 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     setCode(puzzle.starterCode);
   };
 
-  return (
-    <>
-      <Navbar
-        streak={c.TEST_STREAK_LENGTH}
-        attemptsLeft={attemptsLeft}
-        maxAttempts={c.MAX_ATTEMPTS}
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
-      />
-      {/* Main content area */}
-      <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
-        {/* Desktop Layout - Hidden on mobile */}
-        <div className="hidden md:block h-full" suppressHydrationWarning>
-          <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel defaultSize={c.EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
-              <ResizablePanelGroup direction="vertical">
-                <ResizablePanel
-                  defaultSize={c.EDITOR_HORIZ_DEFAULT_SIZE}
-                  className="pl-0 p-2"
-                >
-                  <CodeEditor
-                    value={code}
-                    onChange={setCode}
-                    language={language}
-                    onLanguageChange={setLanguage}
-                    onRunCode={handleRunCode}
-                    onReset={handleReset}
-                    isLoading={isLoading}
-                  />
-                </ResizablePanel>
-                <ResizableHandle />
-                <ResizablePanel
-                  collapsible
-                  collapsedSize={0}
-                  defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
-                  className="pl-0 p-2"
-                >
-                  <Card className="shadow-lg font-mono h-full w-full gap-4 p-4">
-                    <Output
-                      output={output}
+  const DesktopLayout = () => {
+    return (
+      <>
+        <Navbar
+          streak={c.TEST_STREAK_LENGTH}
+          attemptsLeft={attemptsLeft}
+          maxAttempts={c.MAX_ATTEMPTS}
+          onSubmit={handleSubmit}
+          isLoading={isLoading}
+        />
+        <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
+          <div className="h-full" suppressHydrationWarning>
+            <ResizablePanelGroup direction="horizontal">
+              <ResizablePanel defaultSize={c.EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
+                <ResizablePanelGroup direction="vertical">
+                  <ResizablePanel
+                    defaultSize={c.EDITOR_HORIZ_DEFAULT_SIZE}
+                    className="pl-0 p-2"
+                  >
+                    <CodeEditor
+                      value={code}
+                      onChange={setCode}
+                      language={language}
+                      onLanguageChange={setLanguage}
+                      onRunCode={handleRunCode}
+                      onReset={handleReset}
                       isLoading={isLoading}
-                      testsPassed={testsPassed}
                     />
-                  </Card>
-                </ResizablePanel>
-              </ResizablePanelGroup>
-            </ResizablePanel>
-            <ResizableHandle />
-            <ResizablePanel
-              defaultSize={c.PUZZLE_DESC_GROUP_DEFAULT_SIZE}
-              className="pr-0 p-2 relative"
-            >
-              <ResizablePanelGroup direction="vertical">
-                <ResizablePanel
-                  defaultSize={c.PUZZLE_DESC_VERTICAL_DEFAULT_SIZE}
-                  className="pb-2"
-                >
-                  <PuzzleDescClient puzzle={puzzle} />
-                </ResizablePanel>
-                <ResizableHandle />
-                <ResizablePanel
-                  defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
-                  className="pt-2"
-                >
-                  {/* Tests pane will go here */}
-                  <Card className="shadow-lg h-full w-full p-4">
-                    <div className="text-sm text-muted-foreground">
-                      Tests pane placeholder
+                  </ResizablePanel>
+                  <ResizableHandle />
+                  <ResizablePanel
+                    collapsible
+                    collapsedSize={0}
+                    defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
+                    className="pl-0 p-2"
+                  >
+                    <Card className="shadow-lg font-mono h-full w-full gap-4 p-4">
+                      <Output
+                        output={output}
+                        isLoading={isLoading}
+                        testsPassed={testsPassed}
+                      />
+                    </Card>
+                  </ResizablePanel>
+                </ResizablePanelGroup>
+              </ResizablePanel>
+              <ResizableHandle />
+              <ResizablePanel
+                defaultSize={c.PUZZLE_DESC_GROUP_DEFAULT_SIZE}
+                className="pr-0 p-2 relative"
+              >
+                <ResizablePanelGroup direction="vertical">
+                  <ResizablePanel
+                    defaultSize={c.PUZZLE_DESC_VERTICAL_DEFAULT_SIZE}
+                    className="pb-2"
+                  >
+                    <PuzzleDescClient puzzle={puzzle} />
+                  </ResizablePanel>
+                  <ResizableHandle />
+                  <ResizablePanel
+                    defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
+                    className="pt-2"
+                  >
+                    {/* Tests pane will go here */}
+                    <Card className="shadow-lg h-full w-full p-4">
+                      <div className="text-sm text-muted-foreground">
+                        Tests pane placeholder
+                      </div>
+                    </Card>
+                  </ResizablePanel>
+                </ResizablePanelGroup>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </div>
+        </main>
+      </>
+    );
+  };
+
+  const MobileLayout = () => {
+    return (
+      <>
+        <Navbar
+          streak={c.TEST_STREAK_LENGTH}
+          attemptsLeft={attemptsLeft}
+          maxAttempts={c.MAX_ATTEMPTS}
+          onSubmit={handleSubmit}
+          isLoading={isLoading}
+        />
+        <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
+          <div className="flex flex-col h-full gap-2" suppressHydrationWarning>
+            <CodeEditor
+              value={code}
+              onChange={setCode}
+              language={language}
+              onLanguageChange={setLanguage}
+              onRunCode={handleRunCode}
+              onReset={handleReset}
+              isLoading={isLoading}
+            />
+            <PuzzleDescClient puzzle={puzzle} />
+            <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
+              <Card className="shadow-lg p-0">
+                <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
+                  <p className="text-sm font-semibold text-muted-foreground">
+                    output
+                  </p>
+                  {isOutputOpen ? (
+                    <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
+                  )}
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
+                    <div className="px-3 pb-3 max-h-[200px] overflow-auto">
+                      <Output
+                        output={output}
+                        isLoading={isLoading}
+                        testsPassed={testsPassed}
+                      />
                     </div>
                   </Card>
-                </ResizablePanel>
-              </ResizablePanelGroup>
-            </ResizablePanel>
-          </ResizablePanelGroup>
-        </div>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
+          </div>
+        </main>
+      </>
+    );
+  };
 
-        {/* Mobile Layout - Visible on mobile only */}
-        <div
-          className="md:hidden flex flex-col h-full gap-2"
-          suppressHydrationWarning
-        >
-          <CodeEditor
-            value={code}
-            onChange={setCode}
-            language={language}
-            onLanguageChange={setLanguage}
-            onRunCode={handleRunCode}
-            onReset={handleReset}
-            isLoading={isLoading}
-          />
-          <PuzzleDescClient puzzle={puzzle} />
-          <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
-            <Card className="shadow-lg p-0">
-              <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
-                <p className="text-sm font-semibold text-muted-foreground">
-                  output
-                </p>
-                {isOutputOpen ? (
-                  <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
-                ) : (
-                  <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
-                )}
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <Card className="shadow-lg font-mono h-full w-full p-4 pt-3">
-                  <div className="px-3 pb-3 max-h-[200px] overflow-auto">
-                    <Output
-                      output={output}
-                      isLoading={isLoading}
-                      testsPassed={testsPassed}
-                    />
-                  </div>
-                </Card>
-              </CollapsibleContent>
-            </Card>
-          </Collapsible>
-        </div>
-      </main>
+  return (
+    <>
+      <div className="hidden md:block h-full">
+        <DesktopLayout />
+      </div>
+      <div className="md:hidden">
+        <MobileLayout />
+      </div>
     </>
   );
 };
