@@ -175,13 +175,6 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const DesktopLayout = () => {
     return (
       <>
-        <Navbar
-          streak={c.TEST_STREAK_LENGTH}
-          attemptsLeft={attemptsLeft}
-          maxAttempts={c.MAX_ATTEMPTS}
-          onSubmit={handleSubmit}
-          isLoading={isLoading}
-        />
         <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
           <div className="h-full" suppressHydrationWarning>
             <ResizablePanelGroup direction="horizontal">
@@ -254,13 +247,6 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const MobileLayout = () => {
     return (
       <>
-        <Navbar
-          streak={c.TEST_STREAK_LENGTH}
-          attemptsLeft={attemptsLeft}
-          maxAttempts={c.MAX_ATTEMPTS}
-          onSubmit={handleSubmit}
-          isLoading={isLoading}
-        />
         <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
           <div className="flex flex-col h-full gap-2" suppressHydrationWarning>
             <CodeEditor
@@ -306,6 +292,13 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
 
   return (
     <>
+      <Navbar
+        streak={c.TEST_STREAK_LENGTH}
+        attemptsLeft={attemptsLeft}
+        maxAttempts={c.MAX_ATTEMPTS}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
       <div className="hidden md:block h-full">
         <DesktopLayout />
       </div>

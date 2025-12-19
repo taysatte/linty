@@ -58,14 +58,14 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const MobileLayout = () => {
     return (
       <Collapsible open={isPuzzleOpen} onOpenChange={setIsPuzzleOpen}>
-        <Card className="shadow-lg p-0 gap-0 flex flex-col bg-background/70">
-          <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0 bg-card">
-            <CollapsibleTrigger className="cursor-pointer w-full flex items-center justify-between transition-all duration-100 hover:bg-primary/5 rounded-md px-2 py-1 -my-1">
+        <Card className="shadow-lg p-0 gap-0 flex flex-col">
+          <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
+            <CollapsibleTrigger className="cursor-pointer w-full flex items-center justify-between transition-all duration-100 rounded-md px-2 py-1 -my-1">
               <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between w-full">
-                <div className="text-lg font-black text-primary/80">
+                <div className="text-xl font-black text-foreground/80">
                   {puzzle.title}
                 </div>
-                <div className="p-2 shadow-sm font-semibold font-mono text-md bg-border/50 border border-border rounded-lg text-foreground/80">
+                <div className="text-lg font-semibold font-mono text-muted-foreground/90 shrink-0">
                   #{puzzle.id.toString().padStart(3, "0")}
                 </div>
               </CardTitle>
@@ -77,7 +77,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             </CollapsibleTrigger>
           </CardHeader>
           <CollapsibleContent>
-            <CardContent className="flex flex-col p-4 gap-4 bg-background/70 rounded-b-xl border-t border-border">
+            <CardContent className="flex flex-col p-4 pt-2 gap-4 rounded-b-xl">
               <PuzzleMetadata
                 difficulty={puzzle.difficulty}
                 tags={puzzle.tags}

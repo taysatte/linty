@@ -52,7 +52,7 @@ export function PuzzleMetadata({
           <ItemContent
             className={`${
               isMobile
-                ? "text-accent/80 text-md font-semibold"
+                ? "text-muted-foreground font-mono text-md font-semibold"
                 : "text-muted-foreground font-mono text-md font-semibold"
             }`}
           >
