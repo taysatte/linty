@@ -49,7 +49,7 @@
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
-  --card: oklch(1 0 0);
+  --card: oklch(94.326% 0.00791 178.092);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.028 261.692);
@@ -82,7 +82,7 @@
   --font-inter: "Inter", sans-serif;
   --font-fira-code: "Fira Code", monospace;
   --easy-puzzle: oklch(83.454% 0.07013 168.009);
-  --medium-puzzle: oklch(86.644% 0.05971 70.178);
+  --medium-puzzle: oklch(76.957% 0.09189 70.052);
   --hard-puzzle: oklch(76.862% 0.05695 21.152);
 }
 

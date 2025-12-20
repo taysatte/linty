@@ -7,6 +7,7 @@ import TimerSubmitGroup from "@/components/navbar/TimerSubmitGroup";
 import { UserMenu } from "@/components/navbar/UserMenu";
 import { TEST_STREAK_LENGTH } from "../puzzle/constants";
 import { MAX_ATTEMPTS } from "../puzzle/constants";
+import { ThemeTogglerButton } from "@/components/animate-ui/components/buttons/theme-toggler";
 
 interface NavbarProps {
   streak?: number;
@@ -58,6 +59,13 @@ export default function Navbar({
             decorative
           />
         </div>
+        <ThemeTogglerButton
+          className="text-foreground"
+          variant="ghost"
+          size="default"
+          direction="ttb"
+          modes={["light", "dark"]}
+        />
         <UserMenu />
       </div>
     </nav>
