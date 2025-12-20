@@ -37,7 +37,7 @@ export const EditorButton = ({
       disabled={disabled || isLoading}
       className={cn("cursor-pointer", className)}
     >
-      <Icon className="size-4 stroke-2 text-muted-foreground" />
+      <Icon className="size-4 stroke-3 text-muted-foreground/80" />
       {label && <span className="hidden sm:hidden md:inline">{label}</span>}
     </Button>
   );

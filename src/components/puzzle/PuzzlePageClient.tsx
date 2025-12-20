@@ -203,7 +203,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
                     className="pl-0 p-2"
                   >
-                    <Card className="shadow-lg font-mono h-full w-full gap-4 p-4">
+                    <Card className="font-mono h-full w-full gap-4 p-4">
                       <Output
                         output={output}
                         isLoading={isLoading}
@@ -231,7 +231,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     className="pt-2"
                   >
                     {/* Tests pane will go here */}
-                    <Card className="shadow-lg h-full w-full p-4">
+                    <Card className="h-full w-full p-4">
                       <div className="flex items-center gap-2">
                         <FlaskConicalIcon className="size-5 stroke-3 text-primary/80" />
                         <div className="text-xl font-black text-foreground/80">
@@ -265,7 +265,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               isLoading={isLoading}
             />
             <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
-              <Card className="shadow-lg p-0">
+              <Card className="p-0">
                 <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
                   <p className="text-md font-black text-foreground/80">
                     Output
@@ -288,7 +288,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               </Card>
             </Collapsible>
             <Collapsible open={isTestsOpen} onOpenChange={setIsTestsOpen}>
-              <Card className="shadow-lg p-0">
+              <Card className="p-0">
                 <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
                   <p className="text-md font-black text-foreground/80">
                     Test Cases

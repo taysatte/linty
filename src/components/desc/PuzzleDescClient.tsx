@@ -24,7 +24,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     const puzzleId = puzzle.id.toString().padStart(3, "0");
 
     return (
-      <Card className="shadow-lg h-full w-full p-0 gap-0 flex flex-col">
+      <Card className="h-full w-full p-0 gap-0 flex flex-col">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
           <CardTitle className="flex flex-row items-start justify-between gap-2">
             <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
   const MobileLayout = () => {
     return (
       <Collapsible open={isPuzzleOpen} onOpenChange={setIsPuzzleOpen}>
-        <Card className="shadow-lg p-0 gap-0 flex flex-col">
+        <Card className="p-0 gap-0 flex flex-col">
           <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
             <CollapsibleTrigger className="cursor-pointer w-full flex items-center justify-between transition-all duration-100 rounded-md px-2 py-1 -my-1">
               <CardTitle className="flex flex-row flex-wrap items-center gap-2 justify-between w-full">
