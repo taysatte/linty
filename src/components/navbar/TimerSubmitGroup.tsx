@@ -75,7 +75,6 @@ export default function TimerSubmitGroup({
                 <Send className="size-4 stroke-3 text-primary/90" />
               </div>
             </AnimateIcon>
-            <div className="hidden sm:block text-sm font-semibold">Submit</div>
           </Button>
         </>
       )}

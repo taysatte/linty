@@ -60,7 +60,7 @@ export default function Navbar({
           />
         </div>
         <ThemeTogglerButton
-          className="text-foreground"
+          className="text-foreground cursor-pointer"
           variant="ghost"
           size="default"
           direction="ttb"

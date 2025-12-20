@@ -55,7 +55,7 @@ export default function Timer() {
   }, []);
 
   return (
-    <span className="text-lg text-foreground/80 font-semibold font-mono">
+    <span className="text-lg text-foreground/80 font-black font-mono">
       {timeLeft}
     </span>
   );
