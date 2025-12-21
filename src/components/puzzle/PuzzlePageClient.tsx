@@ -3,7 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { FlaskConicalIcon } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
 import {
   ResizablePanelGroup,
@@ -31,6 +37,7 @@ import {
   getAnonymousAttemptsLeft,
   incrementAnonymousAttempts,
 } from "@/lib/attempts";
+import { PuzzleTestCases } from "../desc/PuzzleTestCases";
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -203,13 +210,11 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
                     className="pl-0 p-2"
                   >
-                    <Card className="font-mono h-full w-full gap-4 p-4">
-                      <Output
-                        output={output}
-                        isLoading={isLoading}
-                        testsPassed={testsPassed}
-                      />
-                    </Card>
+                    <Output
+                      output={output}
+                      isLoading={isLoading}
+                      testsPassed={testsPassed}
+                    />
                   </ResizablePanel>
                 </ResizablePanelGroup>
               </ResizablePanel>
@@ -230,15 +235,33 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
                     className="pt-2"
                   >
-                    {/* Tests pane will go here */}
-                    <Card className="h-full w-full p-4">
-                      <div className="flex items-center gap-2">
-                        <FlaskConicalIcon className="size-5 stroke-3 text-primary/80" />
-                        <div className="text-xl font-black text-foreground/80">
-                          Test Cases
+                    {/* Tests pane */}
+                    <Card className="h-full w-full p-0 gap-0 flex flex-col">
+                      <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
+                        <CardTitle className="flex flex-row items-start justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <FlaskConicalIcon className="size-5 stroke-3 text-primary/80" />
+                            <h2 className="text-xl font-black text-foreground/80">
+                              Test Cases
+                            </h2>
+                          </div>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex flex-col p-4 pt-2 gap-4 h-full">
+                        <div className="flex flex-col gap-4">
+                          <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
+                            Test Case 1
+                          </div>
+                          <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
+                            Test Case 2
+                          </div>
+                          <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
+                            Test Case 3
+                          </div>
                         </div>
-                      </div>
+                      </CardContent>
                     </Card>
+                    {/* Tests pane */}
                   </ResizablePanel>
                 </ResizablePanelGroup>
               </ResizablePanel>

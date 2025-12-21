@@ -44,7 +44,7 @@ export default function TimerSubmitGroup({
   return (
     <ButtonGroup
       orientation="horizontal"
-      className=" rounded-xl flex items-center border border-border bg-card shadow-sm"
+      className=" rounded-lg flex items-center border border-border bg-card shadow-sm"
     >
       {/* Timer Section */}
       <ButtonGroupText className="gap-2.5 flex items-center bg-transparent px-3 sm:px-4 border-0 p-1.5">
