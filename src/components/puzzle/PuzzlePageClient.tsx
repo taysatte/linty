@@ -3,13 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { FlaskConicalIcon } from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
 import {
   ResizablePanelGroup,
@@ -37,7 +31,6 @@ import {
   getAnonymousAttemptsLeft,
   incrementAnonymousAttempts,
 } from "@/lib/attempts";
-import { PuzzleTestCases } from "../desc/PuzzleTestCases";
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -64,9 +57,9 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
   const [isTestsOpen, setIsTestsOpen] = useState(false);
-  // Initialize with server value to match SSR (prevents hydration mismatch)
   const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
 
+  // TODO: Find better solution for this
   // After hydration, update attemptsLeft from localStorage for anonymous users
   useEffect(() => {
     // If user is authenticated (attemptsLeft < MAX_ATTEMPTS), use server value
