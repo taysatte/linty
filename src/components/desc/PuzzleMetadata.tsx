@@ -1,4 +1,5 @@
 import { Item, ItemContent } from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
 import {
   getDifficultyColor,
   getDifficultyBgColor,
@@ -39,6 +40,13 @@ export function PuzzleMetadata({
           {difficultyValue}
         </ItemContent>
       </Item>
+      <div className="h-6 hidden sm:block">
+        <Separator
+          className="hidden sm:hidden md:block mx-2"
+          orientation="vertical"
+          decorative
+        />
+      </div>
       {tags.map((tag) => (
         <Item
           key={tag}

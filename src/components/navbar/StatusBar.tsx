@@ -21,13 +21,13 @@ export default function StatusBar({
     typeof attemptsLeft === "number" && attemptsLeft === 0;
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center justify-center gap-2">
       {/* Streak Counter */}
       {streak !== undefined && (
-        <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-border bg-card shadow-sm">
+        <div className="flex items-start justify-center gap-1.5">
           <FlameIcon
             className="text-destructive stroke-3 fill-destructive"
-            size={16}
+            size={18}
           />
           <span className="text-sm font-semibold font-mono text-foreground">
             {streak}
@@ -43,8 +43,7 @@ export default function StatusBar({
           )}
           <div
             className={cn(
-              "flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border shadow-sm",
-              "bg-card",
+              "flex items-center justify-center gap-1.5",
               // Warning state when low on attempts
               attemptsLeft === 1 && "border-destructive/50 bg-destructive/5",
               // Out of attempts state
@@ -61,7 +60,7 @@ export default function StatusBar({
                 isOutOfAttempts && "text-muted-foreground",
                 !isOutOfAttempts && attemptsLeft !== 1 && "text-primary"
               )}
-              size={16}
+              size={18}
             />
             <span
               className={cn(

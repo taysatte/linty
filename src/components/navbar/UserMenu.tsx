@@ -64,7 +64,7 @@ export function UserMenu() {
       <>
         <Button
           variant="ghost"
-          className="rounded-lg bg-card border border-border text-foreground/90 cursor-pointer font-semibold"
+          className="rounded-lg border border-border text-foreground/90 cursor-pointer font-semibold"
           size="default"
           onClick={() => setIsLoginDialogOpen(true)}
         >
