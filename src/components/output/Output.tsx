@@ -1,6 +1,4 @@
-import { Card } from "../ui/card";
 import { OutputProps } from "./types";
-import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
 import { TerminalIcon } from "lucide-react";
 
@@ -10,10 +8,7 @@ const Output = ({ output, isLoading, testsPassed }: OutputProps) => {
   }
   return (
     <>
-      <TerminalIcon className="size-4 text-muted-foreground" />
-      <div className="w-full">
-        <Separator decorative orientation="horizontal" />
-      </div>
+      <TerminalIcon className="size-5 stroke-3 text-primary/80" />
       <ScrollArea className="flex-1 min-h-0 w-full rounded-b-xl">
         <div className="flex flex-col gap-1">
           {output.map((line, index) => (
