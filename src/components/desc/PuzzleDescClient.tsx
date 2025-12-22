@@ -24,16 +24,16 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
     const puzzleId = puzzle.id.toString().padStart(3, "0");
 
     return (
-      <Card className="h-full w-full p-0 gap-0 flex flex-col">
+      <Card className="h-full w-full p-0 pt-1 gap-0 flex flex-col">
         <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
           <CardTitle className="flex flex-row items-start justify-between gap-2">
-            <div className="flex items-center gap-3">
-              <BugIcon className="size-5 stroke-3 text-primary" />
-              <h1 className="text-2xl font-black text-foreground/80 flex-1">
+            <div className="flex items-start gap-3">
+              <BugIcon className="size-4.5 stroke-3 text-primary shrink-0" />
+              <div className="text-xl font-black text-foreground/80 flex-1 m-0 p-0 leading-5 -mt-0.5">
                 {puzzle.title}
-              </h1>
+              </div>
             </div>
-            <div className="text-lg font-semibold font-mono text-muted-foreground/90 shrink-0">
+            <div className="text-xl font-semibold font-mono text-muted-foreground/90 p-0 m-0 leading-5 shrink-0 -mt-0.5">
               #{puzzleId}
             </div>
           </CardTitle>
