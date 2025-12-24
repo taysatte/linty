@@ -12,9 +12,5 @@ export default defineConfig({
       process.env.NODE_ENV === "development"
         ? process.env.DATABASE_URL
         : process.env.DATABASE_URL_PROD,
-    shadowDatabaseUrl:
-      process.env.NODE_ENV === "development"
-        ? process.env.SHADOW_DATABASE_URL
-        : process.env.SHADOW_DATABASE_URL_PROD || undefined,
   },
 });
