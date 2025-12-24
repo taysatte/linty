@@ -23,7 +23,7 @@ import {
   SubmitPuzzleResponse,
   ExecuteCodeResponse,
 } from "@/components/puzzle/types";
-import { TestCase } from "@/generated/prisma";
+import { TestCase } from "../../generated/prisma/client";
 import PuzzleDescClient from "@/components/desc/PuzzleDescClient";
 import { type Language } from "@/lib/languageVersions";
 import * as c from "@/components/puzzle/constants";

@@ -1,7 +1,6 @@
 import { getPistonApiUrl } from "@/lib/pistonApi";
 import { getLanguageVersion, type Language } from "@/lib/languageVersions";
-import { TestCase } from "@/generated/prisma";
-import { ExecuteCodeResponse } from "@/components/puzzle/types";
+import { TestCase } from "../generated/prisma/client";
 
 /**
  * Result of executing code against a single test case

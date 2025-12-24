@@ -1,14 +1,6 @@
-import { TestCase } from "@/generated/prisma";
+import { TestCase } from "../../generated/prisma/client";
 
-interface PuzzleTestCasesProps {
-  testCases: TestCase[];
-}
-
-export function PuzzleTestCases({ testCases }: PuzzleTestCasesProps) {
-  if (!testCases || testCases.length === 0) {
-    return null;
-  }
-
+export function PuzzleTestCases({ testCases }: { testCases: TestCase[] }) {
   return (
     <>
       <h2 className="font-bold text-md text-foreground/90">Test Cases</h2>
