@@ -16,6 +16,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Progress } from "../animate-ui/components/radix/progress";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   RunCodeProps,
@@ -241,17 +242,24 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="flex flex-col p-4 pt-2 gap-4 h-full">
-                        <div className="flex flex-col gap-4">
-                          <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
-                            Test Case 1
-                          </div>
-                          <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
-                            Test Case 2
-                          </div>
-                          <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
-                            Test Case 3
-                          </div>
-                        </div>
+                        <Collapsible className="flex w-full flex-col gap-2">
+                          <CollapsibleTrigger className="w-full">
+                            <div className="cursor-pointer bg-secondary flex flex-row items-center justify-between rounded-lg border gap-2 border-secondary-foreground/10 p-4">
+                              <div className="flex flex-col items-start gap-2 flex-1">
+                                <div className="text-sm font-medium text-foreground/90">
+                                  Test Case 1
+                                </div>
+                                <Progress value={0} />
+                              </div>
+                              <ChevronDown className="text-muted-foreground/80 h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180 shrink-0" />
+                            </div>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent className="w-full">
+                            <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
+                              Test Case Content
+                            </div>
+                          </CollapsibleContent>
+                        </Collapsible>
                       </CardContent>
                     </Card>
                     {/* Tests pane */}

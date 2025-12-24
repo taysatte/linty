@@ -14,7 +14,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/animate-ui/components/radix/dialog";
+} from "@/components/ui/dialog";
 import {
   Field,
   FieldError,
