@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { getPuzzleById, getUserSubmission } from "@/lib/puzzle";
 import { isSupportedLanguage } from "@/lib/languageVersions";
