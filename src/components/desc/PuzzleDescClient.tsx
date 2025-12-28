@@ -52,7 +52,7 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
             {puzzle.instructions && (
               <PuzzleInstructions instructions={puzzle.instructions} />
             )}
-            {puzzle.hints && <PuzzleHints hints={puzzle.hints} />}
+            {/* {puzzle.hints && <PuzzleHints hints={puzzle.hints} />} */}
           </CardContent>
         </ScrollArea>
       </Card>
@@ -91,14 +91,14 @@ const PuzzleDescClient = ({ puzzle }: PuzzlePageClientProps) => {
               {puzzle.instructions && (
                 <PuzzleInstructions instructions={puzzle.instructions} />
               )}
-              {puzzle.hints && (
+              {/* {puzzle.hints && (
                 <PuzzleHints
                   hints={puzzle.hints}
                   isControlled={true}
                   isOpen={isHintsOpen}
                   onOpenChange={setIsHintsOpen}
                 />
-              )}
+              )} */}
             </CardContent>
           </CollapsibleContent>
         </Card>

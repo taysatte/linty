@@ -159,4 +159,9 @@
     max-width: 100vw;
     overflow-x: hidden;
   }
+
+  /* Global styles for code tags in description components */
+  code {
+    @apply px-1 py-0 rounded-sm text-sm font-mono;
+  }
 }

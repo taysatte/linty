@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { FlaskConicalIcon } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
 import {
   ResizablePanelGroup,
@@ -16,7 +16,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Progress } from "../animate-ui/components/radix/progress";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   RunCodeProps,
@@ -32,6 +31,7 @@ import {
   getAnonymousAttemptsLeft,
   incrementAnonymousAttempts,
 } from "@/lib/attempts";
+import PuzzleTestCases from "../testCases/PuzzleTestCases";
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -229,40 +229,10 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
                     className="pt-2"
                   >
-                    {/* Tests pane */}
-                    <Card className="h-full w-full p-0 gap-0 flex flex-col">
-                      <CardHeader className="p-4 gap-0 rounded-t-xl m-0 shrink-0">
-                        <CardTitle className="flex flex-row items-start justify-between gap-2">
-                          <div className="flex flex-wrap items-center gap-2 shrink-0">
-                            <FlaskConicalIcon className="size-4.5 stroke-3 text-primary/80" />
-                            <h2 className="text-xl font-black text-foreground/80">
-                              Test Cases
-                            </h2>
-                          </div>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="flex flex-col p-4 pt-2 gap-4 h-full">
-                        <Collapsible className="flex w-full flex-col gap-2">
-                          <CollapsibleTrigger className="w-full">
-                            <div className="cursor-pointer bg-secondary flex flex-row items-center justify-between rounded-lg border gap-2 border-secondary-foreground/10 p-4">
-                              <div className="flex flex-col items-start gap-2 flex-1">
-                                <div className="text-sm font-medium text-foreground/90">
-                                  Test Case 1
-                                </div>
-                                <Progress value={0} />
-                              </div>
-                              <ChevronDown className="text-muted-foreground/80 h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180 shrink-0" />
-                            </div>
-                          </CollapsibleTrigger>
-                          <CollapsibleContent className="w-full">
-                            <div className="w-full bg-secondary rounded-lg border border-secondary-foreground/10 p-4">
-                              Test Case Content
-                            </div>
-                          </CollapsibleContent>
-                        </Collapsible>
-                      </CardContent>
-                    </Card>
-                    {/* Tests pane */}
+                    <PuzzleTestCases
+                      testCases={puzzle.testCases}
+                      isLoading={isLoading}
+                    />
                   </ResizablePanel>
                 </ResizablePanelGroup>
               </ResizablePanel>
@@ -323,7 +293,12 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                     <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
                   )}
                 </CollapsibleTrigger>
-                <CollapsibleContent></CollapsibleContent>
+                <CollapsibleContent>
+                  <PuzzleTestCases
+                    testCases={puzzle.testCases}
+                    isLoading={isLoading}
+                  />
+                </CollapsibleContent>
               </Card>
             </Collapsible>
           </div>
