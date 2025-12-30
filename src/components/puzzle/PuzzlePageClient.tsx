@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { FlaskConicalIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -10,7 +10,8 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
-import Output from "@/components/output/Output";
+import * as ResizablePrimitive from "react-resizable-panels";
+import OutputPane from "@/components/output/OutputPane";
 import {
   Collapsible,
   CollapsibleContent,
@@ -53,7 +54,6 @@ export interface PuzzlePageClientProps {
 const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [code, setCode] = useState<string>(puzzle.starterCode);
   const [language, setLanguage] = useState<Language>("javascript");
-  const [isOutputOpen, setIsOutputOpen] = useState(false);
   const [output, setOutput] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [testsPassed, setTestsPassed] = useState<boolean | null>(null);
@@ -176,6 +176,21 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   };
 
   const DesktopLayout = () => {
+    const outputPanelRef =
+      useRef<ResizablePrimitive.ImperativePanelHandle>(null);
+    const [isOutputCollapsed, setIsOutputCollapsed] = useState(false);
+
+    const handleToggleOutput = () => {
+      if (outputPanelRef.current) {
+        if (outputPanelRef.current.isCollapsed()) {
+          outputPanelRef.current.expand();
+          setIsOutputCollapsed(false);
+        } else {
+          outputPanelRef.current.collapse();
+          setIsOutputCollapsed(true);
+        }
+      }
+    };
     return (
       <>
         <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
@@ -199,15 +214,22 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
                   </ResizablePanel>
                   <ResizableHandle />
                   <ResizablePanel
+                    ref={outputPanelRef}
                     collapsible
-                    collapsedSize={0}
+                    collapsedSize={c.OUTPUT_COLLAPSED_SIZE}
+                    minSize={c.OUTPUT_MIN_SIZE}
                     defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
                     className="pl-0 p-2"
+                    onCollapse={() => setIsOutputCollapsed(true)}
+                    onExpand={() => setIsOutputCollapsed(false)}
                   >
-                    <Output
+                    <OutputPane
+                      variant="desktop"
                       output={output}
                       isLoading={isLoading}
                       testsPassed={testsPassed}
+                      onToggleCollapse={handleToggleOutput}
+                      isCollapsed={isOutputCollapsed}
                     />
                   </ResizablePanel>
                 </ResizablePanelGroup>
@@ -258,29 +280,12 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
               onReset={handleReset}
               isLoading={isLoading}
             />
-            <Collapsible open={isOutputOpen} onOpenChange={setIsOutputOpen}>
-              <Card className="p-0">
-                <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
-                  <p className="text-md font-black text-foreground/80">
-                    Output
-                  </p>
-                  {isOutputOpen ? (
-                    <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
-                  ) : (
-                    <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
-                  )}
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="px-3 pb-3 max-h-[200px] overflow-auto">
-                    <Output
-                      output={output}
-                      isLoading={isLoading}
-                      testsPassed={testsPassed}
-                    />
-                  </div>
-                </CollapsibleContent>
-              </Card>
-            </Collapsible>
+            <OutputPane
+              variant="mobile"
+              output={output}
+              isLoading={isLoading}
+              testsPassed={testsPassed}
+            />
             <Collapsible open={isTestsOpen} onOpenChange={setIsTestsOpen}>
               <Card className="p-0">
                 <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
