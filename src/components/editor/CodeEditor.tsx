@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useCallback, useEffect } from "react";
 import RosePine from "@/themes/rose-pine.json";
 import { Editor, Monaco } from "@monaco-editor/react";
 import { editor } from "monaco-editor";
@@ -34,35 +34,86 @@ const CodeEditor = ({
     } as editor.IStandaloneEditorConstructionOptions;
   }, [isMobile]);
 
-  const handleBeforeMount = (monaco: Monaco) => {
-    const { rules, colors } = RosePine;
-    monaco.editor.defineTheme(theme, {
-      base: "vs-dark",
-      inherit: true,
-      rules: rules,
-      colors: colors,
-    });
-  };
+  const handleBeforeMount = useCallback(
+    (monaco: Monaco) => {
+      const { rules, colors } = RosePine;
+      monaco.editor.defineTheme(theme, {
+        base: "vs-dark",
+        inherit: true,
+        rules: rules,
+        colors: colors,
+      });
+    },
+    [theme]
+  );
 
-  const handleOnMount = (editor: editor.IStandaloneCodeEditor) => {
-    editorRef.current = editor;
-  };
+  const handleOnMount = useCallback(
+    (editorInstance: editor.IStandaloneCodeEditor) => {
+      editorRef.current = editorInstance;
+    },
+    []
+  );
 
-  const handleEditorValueChange = (newValue: string | undefined) => {
-    onChange(newValue ?? "");
-  };
+  const handleEditorValueChange = useCallback(
+    (newValue: string | undefined) => {
+      onChange(newValue ?? "");
+    },
+    [onChange]
+  );
 
-  const handleRun = () => {
+  const handleRun = useCallback(() => {
     onRunCode({ code: value, language });
-  };
+  }, [onRunCode, value, language]);
 
-  const handleFormat = () => {
-    const editor = editorRef.current;
-    const formatAction = editor?.getAction?.("editor.action.formatDocument");
+  const handleFormat = useCallback(() => {
+    const editorInstance = editorRef.current;
+    const formatAction = editorInstance?.getAction?.(
+      "editor.action.formatDocument"
+    );
     if (formatAction) {
-      formatAction.run();
+      formatAction.run().catch(() => {
+        // Silently handle cancellation errors from Monaco Editor
+      });
     }
-  };
+  }, []);
+
+  // Suppress Monaco Editor cancellation errors
+  useEffect(() => {
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      // Suppress cancellation errors from Monaco Editor
+      if (
+        event.reason &&
+        (event.reason?.message === "Canceled" ||
+          event.reason?.name === "Canceled" ||
+          (typeof event.reason === "string" && event.reason === "Canceled"))
+      ) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+
+    return () => {
+      window.removeEventListener(
+        "unhandledrejection",
+        handleUnhandledRejection
+      );
+    };
+  }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (editorRef.current) {
+        try {
+          editorRef.current.dispose();
+        } catch (error) {
+          // Silently handle disposal errors
+        }
+        editorRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <Card className="h-full w-full gap-2 pt-2">

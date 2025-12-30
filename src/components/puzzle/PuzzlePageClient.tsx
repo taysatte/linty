@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import { FlaskConicalIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -33,6 +33,196 @@ import {
   incrementAnonymousAttempts,
 } from "@/lib/attempts";
 import PuzzleTestCases from "../testCases/PuzzleTestCases";
+
+interface DesktopLayoutProps {
+  code: string;
+  language: Language;
+  output: string[];
+  isLoading: boolean;
+  testsPassed: boolean | null;
+  puzzle: PuzzlePageClientProps["puzzle"];
+  setCode: React.Dispatch<React.SetStateAction<string>>;
+  setLanguage: React.Dispatch<React.SetStateAction<Language>>;
+  handleRunCode: (props: RunCodeProps) => Promise<void>;
+  handleReset: () => void;
+}
+
+const DesktopLayout = ({
+  code,
+  language,
+  output,
+  isLoading,
+  testsPassed,
+  puzzle,
+  setCode,
+  setLanguage,
+  handleRunCode,
+  handleReset,
+}: DesktopLayoutProps) => {
+  const outputPanelRef = useRef<ResizablePrimitive.ImperativePanelHandle>(null);
+  const [isOutputCollapsed, setIsOutputCollapsed] = useState(false);
+
+  const handleToggleOutput = () => {
+    if (outputPanelRef.current) {
+      if (outputPanelRef.current.isCollapsed()) {
+        outputPanelRef.current.expand();
+        setIsOutputCollapsed(false);
+      } else {
+        outputPanelRef.current.collapse();
+        setIsOutputCollapsed(true);
+      }
+    }
+  };
+
+  return (
+    <>
+      <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
+        <div className="h-full" suppressHydrationWarning>
+          <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel defaultSize={c.EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
+              <ResizablePanelGroup direction="vertical">
+                <ResizablePanel
+                  defaultSize={c.EDITOR_HORIZ_DEFAULT_SIZE}
+                  className="pl-0 p-2"
+                >
+                  <CodeEditor
+                    value={code}
+                    onChange={setCode}
+                    language={language}
+                    onLanguageChange={setLanguage}
+                    onRunCode={handleRunCode}
+                    onReset={handleReset}
+                    isLoading={isLoading}
+                  />
+                </ResizablePanel>
+                <ResizableHandle />
+                <ResizablePanel
+                  ref={outputPanelRef}
+                  collapsible
+                  collapsedSize={c.OUTPUT_COLLAPSED_SIZE}
+                  minSize={c.OUTPUT_MIN_SIZE}
+                  defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
+                  className="pl-0 p-2"
+                  onCollapse={() => setIsOutputCollapsed(true)}
+                  onExpand={() => setIsOutputCollapsed(false)}
+                >
+                  <OutputPane
+                    variant="desktop"
+                    output={output}
+                    isLoading={isLoading}
+                    testsPassed={testsPassed}
+                    onToggleCollapse={handleToggleOutput}
+                    isCollapsed={isOutputCollapsed}
+                  />
+                </ResizablePanel>
+              </ResizablePanelGroup>
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel
+              defaultSize={c.PUZZLE_DESC_GROUP_DEFAULT_SIZE}
+              className="pr-0 p-2 relative"
+            >
+              <ResizablePanelGroup direction="vertical">
+                <ResizablePanel
+                  defaultSize={c.PUZZLE_DESC_VERTICAL_DEFAULT_SIZE}
+                  className="pb-2"
+                >
+                  <PuzzleDescClient puzzle={puzzle} />
+                </ResizablePanel>
+                <ResizableHandle />
+                <ResizablePanel
+                  defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
+                  className="pt-2"
+                >
+                  <PuzzleTestCases
+                    testCases={puzzle.testCases}
+                    isLoading={isLoading}
+                  />
+                </ResizablePanel>
+              </ResizablePanelGroup>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </div>
+      </main>
+    </>
+  );
+};
+
+interface MobileLayoutProps {
+  code: string;
+  language: Language;
+  output: string[];
+  isLoading: boolean;
+  testsPassed: boolean | null;
+  puzzle: PuzzlePageClientProps["puzzle"];
+  isTestsOpen: boolean;
+  setCode: React.Dispatch<React.SetStateAction<string>>;
+  setLanguage: React.Dispatch<React.SetStateAction<Language>>;
+  setIsTestsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleRunCode: (props: RunCodeProps) => Promise<void>;
+  handleReset: () => void;
+}
+
+const MobileLayout = ({
+  code,
+  language,
+  output,
+  isLoading,
+  testsPassed,
+  puzzle,
+  isTestsOpen,
+  setCode,
+  setLanguage,
+  setIsTestsOpen,
+  handleRunCode,
+  handleReset,
+}: MobileLayoutProps) => {
+  return (
+    <>
+      <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
+        <div className="flex flex-col h-full gap-2" suppressHydrationWarning>
+          <PuzzleDescClient puzzle={puzzle} />
+          <CodeEditor
+            value={code}
+            onChange={setCode}
+            language={language}
+            onLanguageChange={setLanguage}
+            onRunCode={handleRunCode}
+            onReset={handleReset}
+            isLoading={isLoading}
+          />
+          <OutputPane
+            variant="mobile"
+            output={output}
+            isLoading={isLoading}
+            testsPassed={testsPassed}
+          />
+          <Collapsible open={isTestsOpen} onOpenChange={setIsTestsOpen}>
+            <Card className="p-0">
+              <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
+                <p className="text-md font-black text-foreground/80">
+                  Test Cases
+                </p>
+                {isTestsOpen ? (
+                  <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
+                ) : (
+                  <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
+                )}
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <PuzzleTestCases
+                  testCases={puzzle.testCases}
+                  isLoading={isLoading}
+                />
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
+        </div>
+      </main>
+    </>
+  );
+};
+
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -74,48 +264,51 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     }
   }, [puzzle.id, puzzle.attemptsLeft]);
 
-  const handleRunCode = async ({ code, language }: RunCodeProps) => {
-    setIsLoading(true);
-    setTestsPassed(null);
-    setOutput([]);
+  const handleRunCode = useCallback(
+    async ({ code, language }: RunCodeProps) => {
+      setIsLoading(true);
+      setTestsPassed(null);
+      setOutput([]);
 
-    try {
-      const response = await fetch("/api/execute", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code, language, puzzleId: puzzle.id }),
-      });
+      try {
+        const response = await fetch("/api/execute", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ code, language, puzzleId: puzzle.id }),
+        });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to execute code");
-      }
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to execute code");
+        }
 
-      const data: ExecuteCodeResponse = await response.json();
+        const data: ExecuteCodeResponse = await response.json();
 
-      // Handle test results if available
-      if (data.testResults) {
-        setTestsPassed(data.allTestsPassed ?? false);
-        setOutput(data.testResults.map((r) => r.output));
-      } else if (data.error) {
-        setOutput([data.error]);
+        // Handle test results if available
+        if (data.testResults) {
+          setTestsPassed(data.allTestsPassed ?? false);
+          setOutput(data.testResults.map((r) => r.output));
+        } else if (data.error) {
+          setOutput([data.error]);
+          setTestsPassed(false);
+        } else {
+          setOutput(data.output || []);
+          setTestsPassed(null);
+        }
+      } catch (error) {
+        // Handle errors
+        const errorMessage =
+          error instanceof Error ? error.message : "Execution failed";
+        setOutput([`Error: ${errorMessage}`]);
         setTestsPassed(false);
-      } else {
-        setOutput(data.output || []);
-        setTestsPassed(null);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      // Handle errors
-      const errorMessage =
-        error instanceof Error ? error.message : "Execution failed";
-      setOutput([`Error: ${errorMessage}`]);
-      setTestsPassed(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    [puzzle.id]
+  );
 
   const handleSubmit = async () => {
     // Check if user has attempts left (for anonymous users, check localStorage)
@@ -171,146 +364,9 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     setIsLoading(false);
   };
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setCode(puzzle.starterCode);
-  };
-
-  const DesktopLayout = () => {
-    const outputPanelRef =
-      useRef<ResizablePrimitive.ImperativePanelHandle>(null);
-    const [isOutputCollapsed, setIsOutputCollapsed] = useState(false);
-
-    const handleToggleOutput = () => {
-      if (outputPanelRef.current) {
-        if (outputPanelRef.current.isCollapsed()) {
-          outputPanelRef.current.expand();
-          setIsOutputCollapsed(false);
-        } else {
-          outputPanelRef.current.collapse();
-          setIsOutputCollapsed(true);
-        }
-      }
-    };
-    return (
-      <>
-        <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
-          <div className="h-full" suppressHydrationWarning>
-            <ResizablePanelGroup direction="horizontal">
-              <ResizablePanel defaultSize={c.EDITOR_OUTPUT_GROUP_DEFAULT_SIZE}>
-                <ResizablePanelGroup direction="vertical">
-                  <ResizablePanel
-                    defaultSize={c.EDITOR_HORIZ_DEFAULT_SIZE}
-                    className="pl-0 p-2"
-                  >
-                    <CodeEditor
-                      value={code}
-                      onChange={setCode}
-                      language={language}
-                      onLanguageChange={setLanguage}
-                      onRunCode={handleRunCode}
-                      onReset={handleReset}
-                      isLoading={isLoading}
-                    />
-                  </ResizablePanel>
-                  <ResizableHandle />
-                  <ResizablePanel
-                    ref={outputPanelRef}
-                    collapsible
-                    collapsedSize={c.OUTPUT_COLLAPSED_SIZE}
-                    minSize={c.OUTPUT_MIN_SIZE}
-                    defaultSize={c.OUTPUT_HORIZ_DEFAULT_SIZE}
-                    className="pl-0 p-2"
-                    onCollapse={() => setIsOutputCollapsed(true)}
-                    onExpand={() => setIsOutputCollapsed(false)}
-                  >
-                    <OutputPane
-                      variant="desktop"
-                      output={output}
-                      isLoading={isLoading}
-                      testsPassed={testsPassed}
-                      onToggleCollapse={handleToggleOutput}
-                      isCollapsed={isOutputCollapsed}
-                    />
-                  </ResizablePanel>
-                </ResizablePanelGroup>
-              </ResizablePanel>
-              <ResizableHandle />
-              <ResizablePanel
-                defaultSize={c.PUZZLE_DESC_GROUP_DEFAULT_SIZE}
-                className="pr-0 p-2 relative"
-              >
-                <ResizablePanelGroup direction="vertical">
-                  <ResizablePanel
-                    defaultSize={c.PUZZLE_DESC_VERTICAL_DEFAULT_SIZE}
-                    className="pb-2"
-                  >
-                    <PuzzleDescClient puzzle={puzzle} />
-                  </ResizablePanel>
-                  <ResizableHandle />
-                  <ResizablePanel
-                    defaultSize={c.TESTS_PANE_VERTICAL_DEFAULT_SIZE}
-                    className="pt-2"
-                  >
-                    <PuzzleTestCases
-                      testCases={puzzle.testCases}
-                      isLoading={isLoading}
-                    />
-                  </ResizablePanel>
-                </ResizablePanelGroup>
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </div>
-        </main>
-      </>
-    );
-  };
-
-  const MobileLayout = () => {
-    return (
-      <>
-        <main className="h-[calc(100vh-64px)] px-2 md:px-4 pb-2">
-          <div className="flex flex-col h-full gap-2" suppressHydrationWarning>
-            <PuzzleDescClient puzzle={puzzle} />
-            <CodeEditor
-              value={code}
-              onChange={setCode}
-              language={language}
-              onLanguageChange={setLanguage}
-              onRunCode={handleRunCode}
-              onReset={handleReset}
-              isLoading={isLoading}
-            />
-            <OutputPane
-              variant="mobile"
-              output={output}
-              isLoading={isLoading}
-              testsPassed={testsPassed}
-            />
-            <Collapsible open={isTestsOpen} onOpenChange={setIsTestsOpen}>
-              <Card className="p-0">
-                <CollapsibleTrigger className="w-full p-3 flex items-center justify-between">
-                  <p className="text-md font-black text-foreground/80">
-                    Test Cases
-                  </p>
-                  {isTestsOpen ? (
-                    <ChevronUp className="text-muted-foreground/80 h-4 w-4" />
-                  ) : (
-                    <ChevronDown className="text-muted-foreground/80 h-4 w-4" />
-                  )}
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <PuzzleTestCases
-                    testCases={puzzle.testCases}
-                    isLoading={isLoading}
-                  />
-                </CollapsibleContent>
-              </Card>
-            </Collapsible>
-          </div>
-        </main>
-      </>
-    );
-  };
+  }, [puzzle.starterCode]);
 
   return (
     <>
@@ -322,10 +378,34 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
         isLoading={isLoading}
       />
       <div className="hidden md:block h-full">
-        <DesktopLayout />
+        <DesktopLayout
+          code={code}
+          language={language}
+          output={output}
+          isLoading={isLoading}
+          testsPassed={testsPassed}
+          puzzle={puzzle}
+          setCode={setCode}
+          setLanguage={setLanguage}
+          handleRunCode={handleRunCode}
+          handleReset={handleReset}
+        />
       </div>
       <div className="md:hidden">
-        <MobileLayout />
+        <MobileLayout
+          code={code}
+          language={language}
+          output={output}
+          isLoading={isLoading}
+          testsPassed={testsPassed}
+          puzzle={puzzle}
+          isTestsOpen={isTestsOpen}
+          setCode={setCode}
+          setLanguage={setLanguage}
+          setIsTestsOpen={setIsTestsOpen}
+          handleRunCode={handleRunCode}
+          handleReset={handleReset}
+        />
       </div>
     </>
   );
