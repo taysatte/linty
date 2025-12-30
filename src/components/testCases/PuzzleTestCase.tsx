@@ -20,7 +20,7 @@ const PuzzleTestCase = ({
         variant="outline"
         hoverScale={1.02}
         tapScale={0.98}
-        className="cursor-pointer w-full h-auto p-3 justify-start items-center gap-3"
+        className="cursor-pointer w-full rounded-lg h-auto p-3 justify-start items-center gap-3"
       >
         {isLoading ? (
           <Spinner className="size-6 text-muted-foreground/80 animate-spin shrink-0" />
