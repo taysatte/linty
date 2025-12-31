@@ -9,5 +9,5 @@ export const PUZZLE_DESC_VERTICAL_DEFAULT_SIZE = 60; // Description panel size i
 export const TESTS_PANE_VERTICAL_DEFAULT_SIZE = 40; // Tests pane size in vertical group
 export const MAX_ATTEMPTS = 3;
 export const TEST_STREAK_LENGTH = 5;
-export const OUTPUT_COLLAPSED_SIZE = 6.2;
-export const OUTPUT_MIN_SIZE = 6.2;
+export const OUTPUT_COLLAPSED_SIZE = 6.8;
+export const OUTPUT_MIN_SIZE = 6.8;
