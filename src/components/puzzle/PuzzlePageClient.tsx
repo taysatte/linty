@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Navbar from "@/components/navbar/Navbar";
-import { FlaskConicalIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import CodeEditor from "@/components/editor/CodeEditor";
 import {
