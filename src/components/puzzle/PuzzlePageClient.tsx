@@ -47,7 +47,7 @@ interface DesktopLayoutProps {
   handleRunCode: (props: RunCodeProps) => Promise<void>;
   handleRunTests: (props: RunCodeProps) => Promise<void>;
   handleReset: () => void;
-  testCasesRef: React.RefObject<PuzzleTestCasesRef>;
+  testCasesRef: React.RefObject<PuzzleTestCasesRef | null>;
 }
 
 const DesktopLayout = ({
@@ -172,7 +172,7 @@ interface MobileLayoutProps {
   handleRunCode: (props: RunCodeProps) => Promise<void>;
   handleRunTests: (props: RunCodeProps) => Promise<void>;
   handleReset: () => void;
-  testCasesRef: React.RefObject<PuzzleTestCasesRef>;
+  testCasesRef: React.RefObject<PuzzleTestCasesRef | null>;
 }
 
 const MobileLayout = ({
