@@ -31,7 +31,9 @@ import {
   getAnonymousAttemptsLeft,
   incrementAnonymousAttempts,
 } from "@/lib/attempts";
-import PuzzleTestCases from "../testCases/PuzzleTestCases";
+import PuzzleTestCases, {
+  PuzzleTestCasesRef,
+} from "../testCases/PuzzleTestCases";
 
 interface DesktopLayoutProps {
   code: string;
@@ -45,6 +47,7 @@ interface DesktopLayoutProps {
   handleRunCode: (props: RunCodeProps) => Promise<void>;
   handleRunTests: (props: RunCodeProps) => Promise<void>;
   handleReset: () => void;
+  testCasesRef: React.RefObject<PuzzleTestCasesRef>;
 }
 
 const DesktopLayout = ({
@@ -59,6 +62,7 @@ const DesktopLayout = ({
   handleRunCode,
   handleRunTests,
   handleReset,
+  testCasesRef,
 }: DesktopLayoutProps) => {
   const outputPanelRef = useRef<ResizablePrimitive.ImperativePanelHandle>(null);
   const [isOutputCollapsed, setIsOutputCollapsed] = useState(false);
@@ -137,6 +141,7 @@ const DesktopLayout = ({
                   className="pt-2"
                 >
                   <PuzzleTestCases
+                    ref={testCasesRef}
                     testCases={puzzle.testCases}
                     isLoading={isLoading}
                     code={code}
@@ -167,6 +172,7 @@ interface MobileLayoutProps {
   handleRunCode: (props: RunCodeProps) => Promise<void>;
   handleRunTests: (props: RunCodeProps) => Promise<void>;
   handleReset: () => void;
+  testCasesRef: React.RefObject<PuzzleTestCasesRef>;
 }
 
 const MobileLayout = ({
@@ -183,6 +189,7 @@ const MobileLayout = ({
   handleRunCode,
   handleRunTests,
   handleReset,
+  testCasesRef,
 }: MobileLayoutProps) => {
   return (
     <>
@@ -219,6 +226,7 @@ const MobileLayout = ({
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <PuzzleTestCases
+                  ref={testCasesRef}
                   testCases={puzzle.testCases}
                   isLoading={isLoading}
                   code={code}
@@ -317,50 +325,17 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     []
   );
 
+  const testCasesRef = useRef<PuzzleTestCasesRef>(null);
+
   const handleRunTests = useCallback(
     async ({ code, language }: RunCodeProps) => {
-      setIsLoading(true);
-      setTestsPassed(null);
-      setOutput([]);
-
-      try {
-        const response = await fetch("/api/execute", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ code, language, puzzleId: puzzle.id }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to execute tests");
-        }
-
-        const data: ExecuteCodeResponse = await response.json();
-
-        // Handle test results if available
-        if (data.testResults) {
-          setTestsPassed(data.allTestsPassed ?? false);
-          setOutput(data.testResults.map((r) => r.output));
-        } else if (data.error) {
-          setOutput([data.error]);
-          setTestsPassed(false);
-        } else {
-          setOutput(data.output || []);
-          setTestsPassed(null);
-        }
-      } catch (error) {
-        // Handle errors
-        const errorMessage =
-          error instanceof Error ? error.message : "Execution failed";
-        setOutput([`Error: ${errorMessage}`]);
-        setTestsPassed(false);
-      } finally {
-        setIsLoading(false);
+      // Just trigger running all tests in the test cases component
+      // Don't update output window or loading state
+      if (testCasesRef.current) {
+        await testCasesRef.current.runAllTests();
       }
     },
-    [puzzle.id]
+    []
   );
 
   const handleSubmit = async () => {
@@ -443,6 +418,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
           handleRunCode={handleRunCode}
           handleRunTests={handleRunTests}
           handleReset={handleReset}
+          testCasesRef={testCasesRef}
         />
       </div>
       <div className="md:hidden">
@@ -460,6 +436,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
           handleRunCode={handleRunCode}
           handleRunTests={handleRunTests}
           handleReset={handleReset}
+          testCasesRef={testCasesRef}
         />
       </div>
     </>

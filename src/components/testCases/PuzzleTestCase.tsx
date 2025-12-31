@@ -31,9 +31,11 @@ const PuzzleTestCase = ({
     }
     if (testResult) {
       if (testResult.passed) {
-        return <CheckCircle2Icon className="size-6 text-green-500 shrink-0" />;
+        return (
+          <CheckCircle2Icon className="size-6 text-easy-puzzle shrink-0" />
+        );
       } else {
-        return <XCircleIcon className="size-6 text-red-500 shrink-0" />;
+        return <XCircleIcon className="size-6 text-hard-puzzle shrink-0" />;
       }
     }
     return (
@@ -44,9 +46,9 @@ const PuzzleTestCase = ({
   const getStatusColor = () => {
     if (testResult) {
       if (testResult.passed) {
-        return "border-green-500/30 bg-green-500/5";
+        return "border-easy-puzzle/30 bg-easy-puzzle/5";
       } else {
-        return "border-red-500/30 bg-red-500/5";
+        return "border-hard-puzzle/30 bg-hard-puzzle/5";
       }
     }
     return "";
@@ -83,17 +85,17 @@ const PuzzleTestCase = ({
                 <code
                   className={`break-all text-left ${
                     testResult.passed
-                      ? "bg-green-500/10 text-green-600 dark:text-green-400"
-                      : "bg-red-500/10 text-red-600 dark:text-red-400"
+                      ? "bg-easy-puzzle/10 text-easy-puzzle dark:text-easy-puzzle"
+                      : "bg-hard-puzzle/10 text-hard-puzzle dark:text-hard-puzzle"
                   }`}
                 >
                   {testResult.output || "(no output)"}
                 </code>
               </div>
               {testResult.error && (
-                <div className="text-sm font-mono font-medium text-red-600 dark:text-red-400 w-full text-left">
+                <div className="text-sm font-mono font-medium text-hard-puzzle dark:text-hard-puzzle w-full text-left">
                   Error:{" "}
-                  <code className="bg-red-500/10 break-all text-left">
+                  <code className="bg-hard-puzzle/10 break-all text-left">
                     {testResult.error}
                   </code>
                 </div>
