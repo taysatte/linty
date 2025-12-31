@@ -35,7 +35,7 @@ export default function Navbar({
           alt="Linty Logo"
           width={0}
           height={0}
-          className="w-[32px] md:w-[36px] h-auto"
+          className="w-[32px] md:w-[38px] h-auto"
         />
       </div>
       <div className="flex-1 flex items-center justify-center h-full">
