@@ -43,6 +43,7 @@ interface DesktopLayoutProps {
   setCode: React.Dispatch<React.SetStateAction<string>>;
   setLanguage: React.Dispatch<React.SetStateAction<Language>>;
   handleRunCode: (props: RunCodeProps) => Promise<void>;
+  handleRunTests: (props: RunCodeProps) => Promise<void>;
   handleReset: () => void;
 }
 
@@ -56,6 +57,7 @@ const DesktopLayout = ({
   setCode,
   setLanguage,
   handleRunCode,
+  handleRunTests,
   handleReset,
 }: DesktopLayoutProps) => {
   const outputPanelRef = useRef<ResizablePrimitive.ImperativePanelHandle>(null);
@@ -90,6 +92,7 @@ const DesktopLayout = ({
                     language={language}
                     onLanguageChange={setLanguage}
                     onRunCode={handleRunCode}
+                    onRunTests={handleRunTests}
                     onReset={handleReset}
                     isLoading={isLoading}
                   />
@@ -136,6 +139,9 @@ const DesktopLayout = ({
                   <PuzzleTestCases
                     testCases={puzzle.testCases}
                     isLoading={isLoading}
+                    code={code}
+                    language={language}
+                    puzzleId={puzzle.id}
                   />
                 </ResizablePanel>
               </ResizablePanelGroup>
@@ -159,6 +165,7 @@ interface MobileLayoutProps {
   setLanguage: React.Dispatch<React.SetStateAction<Language>>;
   setIsTestsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleRunCode: (props: RunCodeProps) => Promise<void>;
+  handleRunTests: (props: RunCodeProps) => Promise<void>;
   handleReset: () => void;
 }
 
@@ -174,6 +181,7 @@ const MobileLayout = ({
   setLanguage,
   setIsTestsOpen,
   handleRunCode,
+  handleRunTests,
   handleReset,
 }: MobileLayoutProps) => {
   return (
@@ -187,6 +195,7 @@ const MobileLayout = ({
             language={language}
             onLanguageChange={setLanguage}
             onRunCode={handleRunCode}
+            onRunTests={handleRunTests}
             onReset={handleReset}
             isLoading={isLoading}
           />
@@ -212,6 +221,9 @@ const MobileLayout = ({
                 <PuzzleTestCases
                   testCases={puzzle.testCases}
                   isLoading={isLoading}
+                  code={code}
+                  language={language}
+                  puzzleId={puzzle.id}
                 />
               </CollapsibleContent>
             </Card>
@@ -275,12 +287,54 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ code, language, puzzleId: puzzle.id }),
+          body: JSON.stringify({ code, language }), // No puzzleId - just run code
         });
 
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.error || "Failed to execute code");
+        }
+
+        const data: ExecuteCodeResponse = await response.json();
+
+        if (data.error) {
+          setOutput([data.error]);
+          setTestsPassed(false);
+        } else {
+          setOutput(data.output || []);
+          setTestsPassed(null);
+        }
+      } catch (error) {
+        // Handle errors
+        const errorMessage =
+          error instanceof Error ? error.message : "Execution failed";
+        setOutput([`Error: ${errorMessage}`]);
+        setTestsPassed(false);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
+
+  const handleRunTests = useCallback(
+    async ({ code, language }: RunCodeProps) => {
+      setIsLoading(true);
+      setTestsPassed(null);
+      setOutput([]);
+
+      try {
+        const response = await fetch("/api/execute", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ code, language, puzzleId: puzzle.id }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to execute tests");
         }
 
         const data: ExecuteCodeResponse = await response.json();
@@ -387,6 +441,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
           setCode={setCode}
           setLanguage={setLanguage}
           handleRunCode={handleRunCode}
+          handleRunTests={handleRunTests}
           handleReset={handleReset}
         />
       </div>
@@ -403,6 +458,7 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
           setLanguage={setLanguage}
           setIsTestsOpen={setIsTestsOpen}
           handleRunCode={handleRunCode}
+          handleRunTests={handleRunTests}
           handleReset={handleReset}
         />
       </div>

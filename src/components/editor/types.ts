@@ -11,6 +11,7 @@ export interface CodeEditorProps {
   language: Language; // Current language
   onLanguageChange: (language: Language) => void; // Callback when language changes
   onRunCode: ({ code, language }: RunCodeProps) => void;
+  onRunTests?: ({ code, language }: RunCodeProps) => void; // Optional callback to run tests
   onReset: () => void; // Callback to reset code to initial value
   isLoading: boolean;
 }

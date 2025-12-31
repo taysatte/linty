@@ -16,6 +16,7 @@ const CodeEditor = ({
   language,
   onLanguageChange,
   onRunCode,
+  onRunTests,
   onReset,
   isLoading,
 }: CodeEditorProps) => {
@@ -64,6 +65,12 @@ const CodeEditor = ({
   const handleRun = useCallback(() => {
     onRunCode({ code: value, language });
   }, [onRunCode, value, language]);
+
+  const handleRunTests = useCallback(() => {
+    if (onRunTests) {
+      onRunTests({ code: value, language });
+    }
+  }, [onRunTests, value, language]);
 
   const handleFormat = useCallback(() => {
     const editorInstance = editorRef.current;
@@ -123,6 +130,7 @@ const CodeEditor = ({
           setLanguage={onLanguageChange}
           isLoading={isLoading}
           onRun={handleRun}
+          onRunTests={onRunTests ? handleRunTests : undefined}
           onReset={onReset}
           onFormat={handleFormat}
         />

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isSupportedLanguage } from "@/lib/languageVersions";
-import { executeCode, runTestCases } from "@/lib/codeExecution";
+import { executeCode, runTestCases, runTestCase } from "@/lib/codeExecution";
 import { getPuzzleById } from "@/lib/puzzle";
 
 /**
@@ -11,7 +11,7 @@ import { getPuzzleById } from "@/lib/puzzle";
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     const body = await request.json();
-    const { code, language, puzzleId } = body;
+    const { code, language, puzzleId, testCaseId } = body;
 
     // Validate input
     if (!code || !language) {
@@ -29,7 +29,36 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
       );
     }
 
-    // If puzzleId is provided, run against test cases
+    // If testCaseId is provided, run against a single test case
+    if (testCaseId && puzzleId) {
+      const puzzle = await getPuzzleById(puzzleId);
+      if (!puzzle) {
+        return NextResponse.json(
+          { error: "Puzzle not found" },
+          { status: 404 }
+        );
+      }
+
+      const testCase = puzzle.testCases.find((tc) => tc.id === testCaseId);
+      if (!testCase) {
+        return NextResponse.json(
+          { error: "Test case not found" },
+          { status: 404 }
+        );
+      }
+
+      const testResult = await runTestCase(code, language, testCase);
+
+      return NextResponse.json({
+        output: [testResult.output],
+        error: testResult.error,
+        exitCode: testResult.exitCode,
+        testResults: [testResult],
+        allTestsPassed: testResult.passed,
+      });
+    }
+
+    // If puzzleId is provided, run against all public test cases
     if (puzzleId) {
       const puzzle = await getPuzzleById(puzzleId);
       if (!puzzle) {

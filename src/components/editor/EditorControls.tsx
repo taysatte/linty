@@ -1,5 +1,6 @@
 import { LanguageSelector } from "@/components/editor/LanguageSelector";
 import { RunButton } from "@/components/editor/RunButton";
+import { TestButton } from "@/components/editor/TestButton";
 import { ResetButton } from "@/components/editor/ResetButton";
 import { FormatButton } from "@/components/editor/FormatButton";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -9,6 +10,7 @@ export interface EditorControlsProps {
   language: Language;
   setLanguage: (language: Language) => void;
   onRun: () => void;
+  onRunTests?: () => void;
   onReset: () => void;
   onFormat: () => void;
   isLoading?: boolean;
@@ -18,6 +20,7 @@ export const EditorControls = ({
   language,
   setLanguage,
   onRun,
+  onRunTests,
   onReset,
   onFormat,
   isLoading,
@@ -26,6 +29,9 @@ export const EditorControls = ({
     <div className="px-3 pb-2 flex sm:flex-row justify-between items-center sm:items-center gap-2 border-b border-border">
       <div className="flex items-center gap-0">
         <RunButton onRun={onRun} isLoading={isLoading} />
+        {onRunTests && (
+          <TestButton onRunTests={onRunTests} isLoading={isLoading} />
+        )}
         <ResetButton onReset={onReset} disabled={isLoading} />
         <FormatButton onFormat={onFormat} disabled={isLoading} />
       </div>
