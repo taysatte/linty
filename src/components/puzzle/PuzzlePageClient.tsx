@@ -35,6 +35,13 @@ import PuzzleTestCases, {
   PuzzleTestCasesRef,
 } from "../testCases/PuzzleTestCases";
 
+/**
+ * Props for the DesktopLayout component.
+ *
+ * DesktopLayout renders a multi-panel layout optimized for larger screens:
+ * - Left side: Code editor and output panes (vertically stacked)
+ * - Right side: Puzzle description and test cases (vertically stacked)
+ */
 interface DesktopLayoutProps {
   code: string;
   language: Language;
@@ -50,6 +57,21 @@ interface DesktopLayoutProps {
   testCasesRef: React.RefObject<PuzzleTestCasesRef | null>;
 }
 
+/**
+ * DesktopLayout Component
+ *
+ * Renders the puzzle page layout for desktop/tablet screens (md breakpoint and above).
+ * Uses resizable panels to allow users to adjust the size of different sections.
+ *
+ * Layout structure:
+ * - Horizontal panel group containing:
+ *   - Left panel (65% default): Editor/Output vertical group
+ *     - Editor panel (70% default)
+ *     - Output panel (30% default, collapsible)
+ *   - Right panel (35% default): Description/Test cases vertical group
+ *     - Description panel (60% default)
+ *     - Test cases panel (40% default)
+ */
 const DesktopLayout = ({
   code,
   language,
@@ -64,9 +86,14 @@ const DesktopLayout = ({
   handleReset,
   testCasesRef,
 }: DesktopLayoutProps) => {
+  // Ref to control the output panel's collapse/expand state
   const outputPanelRef = useRef<ResizablePrimitive.ImperativePanelHandle>(null);
   const [isOutputCollapsed, setIsOutputCollapsed] = useState(false);
 
+  /**
+   * Toggles the output panel between collapsed and expanded states.
+   * When collapsed, the panel shows only the header button.
+   */
   const handleToggleOutput = () => {
     if (outputPanelRef.current) {
       if (outputPanelRef.current.isCollapsed()) {
@@ -158,6 +185,15 @@ const DesktopLayout = ({
   );
 };
 
+/**
+ * Props for the MobileLayout component.
+ *
+ * MobileLayout renders a vertical stack layout optimized for mobile screens:
+ * - Puzzle description at the top
+ * - Code editor in the middle
+ * - Output pane below the editor
+ * - Collapsible test cases section at the bottom
+ */
 interface MobileLayoutProps {
   code: string;
   language: Language;
@@ -175,6 +211,18 @@ interface MobileLayoutProps {
   testCasesRef: React.RefObject<PuzzleTestCasesRef | null>;
 }
 
+/**
+ * MobileLayout Component
+ *
+ * Renders the puzzle page layout for mobile screens (below md breakpoint).
+ * Uses a vertical flex layout with collapsible sections to maximize screen space.
+ *
+ * Layout structure (top to bottom):
+ * 1. Puzzle description (always visible)
+ * 2. Code editor (always visible)
+ * 3. Output pane (always visible, collapsible content)
+ * 4. Test cases (collapsible section)
+ */
 const MobileLayout = ({
   code,
   language,
@@ -242,6 +290,11 @@ const MobileLayout = ({
   );
 };
 
+/**
+ * Props for the main PuzzlePageClient component.
+ *
+ * @property puzzle - The puzzle data including metadata, starter code, test cases, and attempts remaining
+ */
 export interface PuzzlePageClientProps {
   puzzle: {
     id: number;
@@ -260,6 +313,32 @@ export interface PuzzlePageClientProps {
   };
 }
 
+/**
+ * PuzzlePageClient Component
+ *
+ * Main client component for the puzzle solving page. Handles:
+ * - Code editing and execution
+ * - Test case execution
+ * - Puzzle submission
+ * - Attempt tracking (authenticated and anonymous users)
+ * - Responsive layout (desktop vs mobile)
+ *
+ * State Management:
+ * - Code: Current editor content (initialized with starter code)
+ * - Language: Selected programming language
+ * - Output: Execution output or error messages
+ * - isLoading: Loading state for async operations
+ * - testsPassed: Whether all tests passed (null = not yet tested)
+ * - attemptsLeft: Remaining submission attempts
+ *
+ * Anonymous User Handling:
+ * - Attempts are tracked in localStorage for anonymous users
+ * - Server-provided attempts are used for authenticated users
+ * - Attempts are synced after hydration to avoid SSR/client mismatch
+ *
+ * @param props - Component props containing puzzle data
+ * @returns The rendered puzzle page with appropriate layout for screen size
+ */
 const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [code, setCode] = useState<string>(puzzle.starterCode);
   const [language, setLanguage] = useState<Language>("javascript");
@@ -269,8 +348,17 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
   const [isTestsOpen, setIsTestsOpen] = useState(false);
   const [attemptsLeft, setAttemptsLeft] = useState<number>(puzzle.attemptsLeft);
 
-  // TODO: Find better solution for this
-  // After hydration, update attemptsLeft from localStorage for anonymous users
+  /**
+   * Syncs attemptsLeft after hydration to handle anonymous user tracking.
+   *
+   * This is necessary because:
+   * - Server-side rendering doesn't have access to localStorage
+   * - Anonymous users' attempts are stored in localStorage
+   * - We need to update the state after client-side hydration
+   *
+   * Authenticated users: Use server-provided attemptsLeft value
+   * Anonymous users: Calculate from localStorage (MAX_ATTEMPTS - stored attempts)
+   */
   useEffect(() => {
     // If user is authenticated (attemptsLeft < MAX_ATTEMPTS), use server value
     // Otherwise, check localStorage for anonymous attempts
@@ -283,6 +371,17 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     }
   }, [puzzle.id, puzzle.attemptsLeft]);
 
+  /**
+   * Executes user code without submitting to the puzzle.
+   *
+   * This is a "run" operation that:
+   * - Sends code to /api/execute endpoint
+   * - Displays output or errors in the output pane
+   * - Does NOT count as a submission attempt
+   * - Does NOT run test cases
+   *
+   * @param props - Code and language to execute
+   */
   const handleRunCode = useCallback(
     async ({ code, language }: RunCodeProps) => {
       setIsLoading(true);
@@ -325,8 +424,18 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     []
   );
 
+  // Ref to access test cases component methods (e.g., runAllTests)
   const testCasesRef = useRef<PuzzleTestCasesRef>(null);
 
+  /**
+   * Runs all test cases for the current code without submitting.
+   *
+   * This triggers the test execution in the PuzzleTestCases component
+   * but does not count as a submission attempt. Useful for testing
+   * code before submitting.
+   *
+   * @param props - Code and language to test
+   */
   const handleRunTests = useCallback(
     async ({ code, language }: RunCodeProps) => {
       // Just trigger running all tests in the test cases component
@@ -338,6 +447,22 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     []
   );
 
+  /**
+   * Submits the puzzle solution for evaluation.
+   *
+   * This is the official submission that:
+   * - Validates attempts remaining
+   * - Calculates time taken from puzzle start
+   * - Sends submission to /api/submit endpoint
+   * - Updates attemptsLeft (server for authenticated, localStorage for anonymous)
+   * - Displays test results in the output pane
+   * - Sets testsPassed state based on results
+   *
+   * Attempt tracking:
+   * - Authenticated users: Server manages attempts
+   * - Anonymous users: Attempts tracked in localStorage
+   * - Attempts decrement regardless of pass/fail
+   */
   const handleSubmit = async () => {
     // Check if user has attempts left (for anonymous users, check localStorage)
     const currentAttempts = attemptsLeft;
@@ -392,6 +517,11 @@ const PuzzlePageClient = ({ puzzle }: PuzzlePageClientProps) => {
     setIsLoading(false);
   };
 
+  /**
+   * Resets the code editor to the original starter code.
+   *
+   * Useful for starting over or clearing accidental changes.
+   */
   const handleReset = useCallback(() => {
     setCode(puzzle.starterCode);
   }, [puzzle.starterCode]);
