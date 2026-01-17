@@ -888,6 +888,16 @@ Given a string \`s\`, return \`true\` if it is a palindrome, or \`false\` otherw
     Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
   );
 
+  // Optional: Delete old dailyPuzzle records (uncomment if needed)
+  // const deletedCount = await prisma.dailyPuzzle.deleteMany({
+  //   where: {
+  //     date: {
+  //       lt: todayDate, // Delete all puzzles before today
+  //     },
+  //   },
+  // });
+  // console.log(`🗑️  Deleted ${deletedCount.count} old daily puzzles`);
+
   let scheduledCount = 0;
   for (let i = 0; i < 60; i++) {
     const scheduleDate = new Date(todayDate);
